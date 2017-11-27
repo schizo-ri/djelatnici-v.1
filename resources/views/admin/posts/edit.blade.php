@@ -1,6 +1,8 @@
 @extends('layouts.admin')
 
-@section('title', 'Create New Post')
+@section('title')
+Edit {{ $post->title }}
+@stop
 
 @push('stylesheet')
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
@@ -25,24 +27,25 @@
     <div class="col-md-6 col-md-offset-3">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Create New Post</h3>
+                <h3 class="panel-title">Edit Post - {{ $post->title }}</h3>
             </div>
             <div class="panel-body">
-                <form accept-charset="UTF-8" role="form" method="post" action="{{ route('admin.posts.store') }}">
+                <form accept-charset="UTF-8" role="form" method="post" action="{{ route('admin.posts.update', $post->id) }}">
                 <fieldset>
                     <div class="form-group {{ ($errors->has('title')) ? 'has-error' : '' }}">
-                        <input class="form-control" placeholder="Post title" name="title" type="text" value="{{ old('title') }}" />
+                        <input class="form-control" placeholder="Post title" name="title" type="text" value="{{ $post->title }}" />
                         {!! ($errors->has('title') ? $errors->first('title', '<p class="text-danger">:message</p>') : '') !!}
                     </div>
                     <div class="form-group {{ ($errors->has('content')) ? 'has-error' : '' }}">
-                       <textarea class="form-control" name="content" id="post-content"></textarea>
+                       <textarea class="form-control" name="content" id="post-content">{!! $post->content !!}</textarea>
 						
                         {!! ($errors->has('content') ? $errors->first('content', '<p class="text-danger">:message</p>') : '') !!}
                     </div>
-
- 
+					
+					{{ csrf_field() }}
+					{{ method_field('PUT') }}
                     <input name="_token" value="{{ csrf_token() }}" type="hidden">
-                    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Create">
+                    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Update">
                 </fieldset>
                 </form>
             </div>

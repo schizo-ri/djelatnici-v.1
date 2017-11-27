@@ -6,6 +6,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdatePostRequest;
 use Sentinel;
 
 
@@ -33,8 +34,7 @@ class PostController extends Controller
 			$user_id= sentinel::getUser()->id;
 			$posts = Post::where('user_id', $user_id)->orderBy('created_at','DESC')->paginate(10);
 		}
-				
-		
+
 	return view('admin.posts.index',['posts'=>$posts]);
     }
 
@@ -83,7 +83,7 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::find($id);
-		//dd($post);
+		
 		
 		return view('admin.posts.show', ['post' => $post]);
     }
@@ -96,7 +96,9 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+       $post = Post::find($id);
+		
+		return view('admin.posts.edit', ['post' => $post]);
     }
 
     /**
@@ -106,9 +108,21 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdatePostRequest $request, $id)
     {
-        //
+		$post = Post::find($id);
+		$input = $request->except(['_token']);
+
+		$data = array(
+			'title'    => trim($input['title']),
+			'content'  => $input['content']
+		);
+		
+		$post->updatePost($data);
+		
+		$message = session()->flash('success', 'You have successfully update a post with ID'.$id.'.');
+		
+		return redirect()->route('admin.posts.index')->withFlashMessage($message);
     }
 
     /**

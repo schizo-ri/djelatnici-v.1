@@ -57,3 +57,7 @@ Route::group(['prefix' => 'admin'], function () {
   'destroy'		=> 'admin.posts.destroy'
   ]]);
 });
+
+// Post page
+Route::post('/store', ['as' => 'post.store', 'uses' => 'IndexController@store']);
+Route::get('/{slug}', ['as' => 'post.show', 'uses' => 'IndexController@show']);
