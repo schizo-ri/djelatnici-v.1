@@ -34,12 +34,36 @@
                        <textarea class="form-control" name="content" id="post-content" style="height:200px"></textarea>
                         {!! ($errors->has('content') ? $errors->first('content', '<p class="text-danger">:message</p>') : '') !!}
                     </div>
-			{{ csrf_field() }}
-			<input type="hidden" name="post_id" value="{{$post->id }}"
-			<input class="btn btn-lg btn-primary" type="submit" value="Save">
-			</form>
+				{{ csrf_field() }}
+				<input type="hidden" name="post_id" value="{{$post->id }}">
+				<input class="btn btn-lg btn-primary" type="submit" value="Save">
+				</form>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-10 col-md-offset-1">
+				<h2>Comments</h2>
+
+			</div>	
+		</div>
+		@if(count($post->comments) > 0)
+			@foreach ($post->comments as $comment)
+				<div class="media">
+					<div class="media-left media-middle">
+						<a href="#">
+						  <img class="media-object" src="..." alt="...">
+						</a>
+					</div>
+					<div class="media-body">
+							<h4 class="media-heading">{{ $post->user->email }}</h4>
+					
+							{{ $comment->content}}
+						@endforeach
+					</div>
+				</div>
+		@else
+			{{'No Comments!'}}
+		@endif
 	@else
 		<div class="row">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-10 col-md-offset-1">
@@ -48,5 +72,11 @@
 				</div>
 			</div>
 		</div>
-	@endif
+@endif
+
+  </div>
+</div>
+
+
+
 @stop

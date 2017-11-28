@@ -56,7 +56,7 @@ class Comment extends Model
 	* @return void
 	*/
 	
-	public function saveComment($post=array())
+	public function saveComment($comment=array())
 	{
 		return $this->fill($comment)->save();
 	}

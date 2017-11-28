@@ -22,5 +22,9 @@
 			{!! $post->content !!}
 			</div>			
         </div>
+
     </div>
+	
+	
+
 @stop
