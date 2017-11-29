@@ -7,7 +7,7 @@
 @section('content')
     <div class="page-header">
         <div class='btn-toolbar'>
-            <a class="btn btn-primary btn-lg" href="{{ url()->previous() }}">
+            <a class="btn btn-primary btn-lg" href="{{ url('/') }}">
                 <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                 Go Back
             </a>
@@ -29,7 +29,7 @@
 		<div class="row">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-10 col-md-offset-1">
 				<h2>Leave a comment!</h2>
-				<form accept-charset="UTF-8" role="form" method="post" action="{{ route('post.store', $post->id) }}">
+				<form accept-charset="UTF-8" role="form" method="post" action="{{ route('comment.store', $post->id) }}">
 					<div class="form-group {{ ($errors->has('content')) ? 'has-error' : '' }}">
                        <textarea class="form-control" name="content" id="post-content" style="height:200px"></textarea>
                         {!! ($errors->has('content') ? $errors->first('content', '<p class="text-danger">:message</p>') : '') !!}
@@ -40,30 +40,7 @@
 				</form>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-10 col-md-offset-1">
-				<h2>Comments</h2>
 
-			</div>	
-		</div>
-		@if(count($post->comments) > 0)
-			@foreach ($post->comments as $comment)
-				<div class="media">
-					<div class="media-left media-middle">
-						<a href="#">
-						  <img class="media-object" src="..." alt="...">
-						</a>
-					</div>
-					<div class="media-body">
-							<h4 class="media-heading">{{ $post->user->email }}</h4>
-					
-							{{ $comment->content}}
-						@endforeach
-					</div>
-				</div>
-		@else
-			{{'No Comments!'}}
-		@endif
 	@else
 		<div class="row">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-10 col-md-offset-1">
@@ -72,11 +49,32 @@
 				</div>
 			</div>
 		</div>
-@endif
-
-  </div>
-</div>
-
-
-
+	@endif
+		
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-10 col-md-offset-1">
+			<h2 id="Comments">Comments</h2>
+		@if(count($post->comments()) > 0)
+			@foreach ($post->comments() as $comment)
+				<div class="media">
+					<div class="media-left">
+						<a href="#">
+							<img class="media-object" src="//www.gravatar.com/avatar/{{ md5($comment->user->email) }}?d=mm">
+							</a>
+					</div>
+					<div class="media-body">
+						<h5 class="media-heading">{{ $comment->user->email }} | <small>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($comment->created_at))->diffForHumans() }} </small></h5>
+								
+						{{ $comment->content}}
+					</div>
+				</div>
+				<hr>
+			@endforeach	
+			{!! $post->comments()->links('vendor.pagination.comments') !!}
+		@else		
+			<p>{{'No Comments!'}}</p>	
+		@endif
+		</div>
+	</div>
+		
 @stop

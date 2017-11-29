@@ -68,7 +68,7 @@ class PostController extends Controller
 		$post = new Post();
 		$post->savePost($data);
 		
-		$message = session()->flash('success', 'You have successfully add a new post.');
+		$message = session()->flash('success', 'You have successfully addad a new post.');
 		
 		//return redirect()->back()->withFlashMessage($messange);
 		return redirect()->route('admin.posts.index')->withFlashMessage($message);
