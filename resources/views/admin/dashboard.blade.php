@@ -3,9 +3,9 @@
 @section('title', 'Admin - Dashboard')
 
 @section('content')
-<div class="row">
+<div class="row" style="margin-top:50px">
     @if (Sentinel::check())
-    <div class="jumbotron">
+    <div class="jumbotron" style="margin-top:50px">
         <h1>Hello, {{ Sentinel::getUser()->email }}!</h1>
         <p>You are now logged in.</p>
     </div>

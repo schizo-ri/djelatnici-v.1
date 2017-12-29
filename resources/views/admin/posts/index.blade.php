@@ -3,6 +3,7 @@
 @section('title', 'Posts')
 
 @section('content')
+<div class="container" style="margin-top:50px">
     <div class="page-header">
         <div class='btn-toolbar pull-right'>
             <a class="btn btn-primary btn-lg" href="{{ route('admin.posts.create') }}">
@@ -54,4 +55,5 @@
 			{!! $posts->render() !!}
         </div>
     </div>
+</div>
 @stop

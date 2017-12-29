@@ -3,12 +3,13 @@
 @section('title', 'Posts')
 
 @section('content')
-    <div class="page-header">
+    <div class="container" style="margin-top:80px">
         <div class='btn-toolbar'>
             <a class="btn btn-primary btn-lg" href="{{ url()->previous() }}">
                 <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                 Go Back
             </a>
+			
         </div>
     </div>
     <div class="row">
