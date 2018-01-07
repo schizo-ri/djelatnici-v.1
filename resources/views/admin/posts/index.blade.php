@@ -56,4 +56,11 @@
         </div>
     </div>
 </div>
+
+<button class="btn" data-toggle="collapse" data-target="#demo">Collapsible</button>
+
+<div id="demo" class="collapse">
+Some text..
+</div> 
+
 @stop
