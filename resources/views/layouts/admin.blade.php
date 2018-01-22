@@ -20,23 +20,89 @@
 		
 		@stack('stylesheet')
     </head>
-	
+<style>
+body {
+    font-family: "Arial", sans-serif;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #f48b09;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #f48b09;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+#font_nar {
+    color: #f48b09;
+}
+#stil1 {
+	color: #f48b09;
+	background-color: #111;
+}
+
+</style>	
 
     <body>
-        
 		<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div id="mySidenav" class="sidenav">
+		  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+		  <a href="{{ route('admin.dashboard') }}">Naslovnica</a>
+		  <a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('users.index') }}">Korisnici</a>
+		  <a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('roles.index') }}">Uloge</a>
+		  <a href="{{ route('admin.posts.index') }}">Posts</a>
+		  <a href="{{ route('admin.posts.index') }}">Comments</a>
+		</div>
+		<span style="font-size:30px;cursor:pointer" onclick="openNav()" id="font_nar">&#9776; </span>
+		<ul class="nav navbar-nav navbar-right">
+                        @if (Sentinel::check())
+                          <li>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="user"></span> {{ Sentinel::getUser()->email }} <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                              <li><a href="{{ route('auth.logout') }}">Odjava</a></li>
+                            </ul>
+                          </li>
+                        @else
+                            <li><a href="{{ route('auth.login.form') }}">Login</a></li>
+                            <li><a href="{{ route('auth.register.form') }}">Register</a></li>
+                        @endif
+                    </ul>
 			<div class="container-fluid">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="{{ route('admin.dashboard') }}">Proba</a>
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
+				<!--<div class="navbar-header">
+					<a class="navbar-brand" href="{{ route('admin.dashboard') }}" id="stil1">Duplico</a>
                     
                 </div>
-                <!-- Collect the nav links, forms, and other content for toggling -->
+               
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li class="{{ Request::is('admin') ? 'active' : '' }}"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
@@ -52,7 +118,7 @@
                           <li>
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="user"></span> {{ Sentinel::getUser()->email }} <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                              <li><a href="{{ route('auth.logout') }}">Log Out</a></li>
+                              <li><a href="{{ route('auth.logout') }}">Odjava</a></li>
                             </ul>
                           </li>
                         @else
@@ -60,8 +126,8 @@
                             <li><a href="{{ route('auth.register.form') }}">Register</a></li>
                         @endif
                     </ul>
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
+                </div>--> 
+            </div>
 			
         </nav>
         <div class="container">
@@ -76,5 +142,15 @@
         <!-- Restfulizer.js - A tool for simulating put,patch and delete requests -->
         <script src="{{ asset('js/restfulizer.js') }}"></script>
 		@stack('script')
+		
+		<script>
+			function openNav() {
+				document.getElementById("mySidenav").style.width = "250px";
+			}
+
+			function closeNav() {
+				document.getElementById("mySidenav").style.width = "0";
+			}
+		</script>
     </body>
 </html>

@@ -1,13 +1,13 @@
 @extends('layouts.admin')
 
-@section('title', 'Admin - Dashboard')
+@section('title', 'Naslovnica')
 
 @section('content')
 <div class="row" style="margin-top:50px">
     @if (Sentinel::check())
-    <div class="jumbotron" style="margin-top:50px">
-        <h1>Hello, {{ Sentinel::getUser()->email }}!</h1>
-        <p>You are now logged in.</p>
+    <div class="jumbotron" style="margin-top:80px">
+        <h2>Pozdrav, {{ Sentinel::getUser()->email }}!</h2>
+        <p>Prijavljen/a si!</p>
     </div>
     @else
         <div class="jumbotron">
