@@ -6,7 +6,7 @@
 <div class="row" style="margin-top:80px">
     <div class="col-md-4 col-md-offset-4">
         <div class="panel panel-default">
-            <div class="panel-heading">
+            <div class="panel-heading" id="stil1">
                 <h3 class="panel-title">Edit User</h3>
             </div>
             <div class="panel-body">
@@ -44,7 +44,7 @@
                     </div>
                     <input name="_token" value="{{ csrf_token() }}" type="hidden">
                     <input name="_method" value="PUT" type="hidden">
-                    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Update">
+                    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Update" id="stil1">
                 </fieldset>
                 </form>
             </div>

@@ -77,39 +77,25 @@ class UserController extends Controller
             'first_name' => $request->get('first_name', null),
             'last_name' => $request->get('last_name', null)
         ];
-        $activate = (bool)$request->get('activate', false);
+       // $activate = (bool)$request->get('activate', true);
 
         // Attempt the registration
-        $result = $this->authManager->register($credentials, $activate);
+        $result = $this->authManager->register($credentials, $activation=true);
 
         if ($result->isFailure()) {
             return $result->dispatch;
         }
 
-        // Do we need to send an activation email?
-        if (!$activate) {
-            $code = $result->activation->getCode();
-            $email = $result->user->email;
-            Mail::queue(
-                'email.welcome',
-                ['code' => $code, 'email' => $email],
-                function ($message) use ($email) {
-                    $message->to($email)
-                        ->subject('Your account has been created');
-                }
-            );
-        }
-
-        // Assign User Roles
+              // Assign User Roles
         foreach ($request->get('roles', []) as $slug => $id) {
             $role = Sentinel::findRoleBySlug($slug);
             if ($role) {
                 $role->users()->attach($result->user);
             }
         }
-
-        $result->setMessage("User {$request->get('email')} has been created.");
-        return $result->dispatch(route('users.index'));
+		
+		$message = session()->flash('success', 'Uspješno je dodan novi djelatnik');
+        return $result->dispatch(route('users.index'))->withFlashMessage($message);
     }
 
     /**

@@ -75,58 +75,32 @@ body {
 
     <body>
 		<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div id="mySidenav" class="sidenav">
-		  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-		  <a href="{{ route('admin.dashboard') }}">Naslovnica</a>
-		  <a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('users.index') }}">Korisnici</a>
-		  <a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('roles.index') }}">Uloge</a>
-		  <a href="{{ route('admin.posts.index') }}">Posts</a>
-		  <a href="{{ route('admin.posts.index') }}">Comments</a>
-		</div>
-		<span style="font-size:30px;cursor:pointer" onclick="openNav()" id="font_nar">&#9776; </span>
-		<ul class="nav navbar-nav navbar-right">
-                        @if (Sentinel::check())
-                          <li>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="user"></span> {{ Sentinel::getUser()->email }} <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                              <li><a href="{{ route('auth.logout') }}">Odjava</a></li>
-                            </ul>
-                          </li>
-                        @else
-                            <li><a href="{{ route('auth.login.form') }}">Login</a></li>
-                            <li><a href="{{ route('auth.register.form') }}">Register</a></li>
-                        @endif
-                    </ul>
+			<div id="mySidenav" class="sidenav">
+			  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+			  <a href="{{ route('admin.dashboard') }}">Naslovnica</a>
+			  <a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('users.index') }}">Korisnici</a>
+			  <a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('roles.index') }}">Uloge</a>
+			  <a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('admin.employees.index') }}">Zapošljavanje</a>
+			  <a href=""></a>	
+			  <a href=""></a>
+			  <a href=""></a>
+			</div>
+			<span style="font-size:30px;cursor:pointer" onclick="openNav()" id="font_nar">&#9776; </span>
+			<ul class="nav navbar-nav navbar-right">
+				@if (Sentinel::check())
+				  <li>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="user"></span> {{ Sentinel::getUser()->first_name }} <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+					  <li><a href="{{ route('auth.logout') }}">Odjava</a></li>
+					</ul>
+				  </li>
+				@else
+					<li><a href="{{ route('auth.login.form') }}">Login</a></li>
+					<li><a href="{{ route('auth.register.form') }}">Register</a></li>
+				@endif
+			</ul>
 			<div class="container-fluid">
-				<!--<div class="navbar-header">
-					<a class="navbar-brand" href="{{ route('admin.dashboard') }}" id="stil1">Duplico</a>
-                    
-                </div>
-               
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li class="{{ Request::is('admin') ? 'active' : '' }}"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                        @if (Sentinel::check() && Sentinel::inRole('administrator'))
-                            <li class="{{ Request::is('admin/users*') ? 'active' : '' }}"><a href="{{ route('users.index') }}">Users</a></li>
-                            <li class="{{ Request::is('admin/roles*') ? 'active' : '' }}"><a href="{{ route('roles.index') }}">Roles</a></li>
-                        @endif
-						<li class="{{ Request::is('admin/posts*') ? 'active' : '' }}"><a href="{{ route('admin.posts.index') }}">Posts</a></li>
-						<li class="{{ Request::is('admin/comments*') ? 'active' : '' }}"><a href="#">Comments <span class="badge"></span></a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        @if (Sentinel::check())
-                          <li>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="user"></span> {{ Sentinel::getUser()->email }} <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                              <li><a href="{{ route('auth.logout') }}">Odjava</a></li>
-                            </ul>
-                          </li>
-                        @else
-                            <li><a href="{{ route('auth.login.form') }}">Login</a></li>
-                            <li><a href="{{ route('auth.register.form') }}">Register</a></li>
-                        @endif
-                    </ul>
-                </div>--> 
+				
             </div>
 			
         </nav>

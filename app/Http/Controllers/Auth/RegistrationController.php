@@ -54,10 +54,12 @@ class RegistrationController extends Controller
         $credentials = [
             'email' => trim($request->get('email')),
             'password' => $request->get('password'),
+			'first_name'=>$request->get('first_name'),
+			'last_name'=>$request->get('last_name'),
         ];
 
         // Attempt the registration
-        $result = $this->authManager->register($credentials);
+        $result = $this->authManager->register($credentials, $activation=true);
 
         if ($result->isFailure()) {
             return $result->dispatch();
@@ -68,7 +70,7 @@ class RegistrationController extends Controller
         $role->users()->attach($result->user->id);
 
         // Send the activation email
-        $code = $result->activation->getCode();
+        /*$code = $result->activation->getCode();
         $email = $result->user->email;
         Mail::queue(
             'email.welcome',
@@ -83,7 +85,7 @@ class RegistrationController extends Controller
         $result->setMessage('Registration complete.  Please check your email for activation instructions.');
 
         // There is no need to send the payload data to the end user
-        $result->clearPayload();
+        $result->clearPayload();*/
 
         // Return the appropriate response
         return $result->dispatch(route('auth.login.form'));

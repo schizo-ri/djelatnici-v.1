@@ -2,13 +2,24 @@
 
 @section('title', 'Create New User')
 
+<style>
+#border1 {
+
+    outline-style: solid;
+    outline-color: red;
+    outline-width: thin;
+}
+</style>
+
 @section('content')
 <div class="row" style="margin-top:80px">
-    <div class="col-md-4 col-md-offset-4">
+    <h4 class="panel-title"><b>Upiši novog korisnika</b></h4>
+	</br>
+	<div class="col-md-4 col-md-offset-4">
+	
         <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Create New User</h3>
-            </div>
+            
+
             <div class="panel-body">
                 <form accept-charset="UTF-8" role="form" method="post" action="{{ route('users.store') }}">
                 <fieldset>
@@ -43,12 +54,12 @@
                         {!! ($errors->has('password_confirmation') ? $errors->first('password_confirmation', '<p class="text-danger">:message</p>') : '') !!}
                     </div>
                     <div class="checkbox">
-                        <label>
+                       <!-- <label>
                             <input name="activate" type="checkbox" value="true" {{ old('activate') == 'true' ? 'checked' : ''}}> Activate
-                        </label>
+                        </label>-->
                     </div>
                     <input name="_token" value="{{ csrf_token() }}" type="hidden">
-                    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Create">
+                    <input class="btn btn-lg btn-default btn-block" type="submit" value="Upiši" id="border1"> 
                 </fieldset>
                 </form>
             </div>

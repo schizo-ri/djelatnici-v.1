@@ -12,7 +12,13 @@
             <div class="panel-body">
                 <form accept-charset="UTF-8" role="form" method="post" action="{{ route('auth.register.attempt') }}">
                 <fieldset>
-                    <div class="form-group {{ ($errors->has('email')) ? 'has-error' : '' }}">
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Ime" name="first_name" type="text">
+                    </div>
+					<div class="form-group">
+                        <input class="form-control" placeholder="Prezime" name="last_name" type="text">
+                    </div>
+					<div class="form-group {{ ($errors->has('email')) ? 'has-error' : '' }}">
                         <input class="form-control" placeholder="E-mail" name="email" type="text" value="{{ old('email') }}">
                         {!! ($errors->has('email') ? $errors->first('email', '<p class="text-danger">:message</p>') : '') !!}
                     </div>

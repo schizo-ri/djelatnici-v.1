@@ -5,7 +5,7 @@
 @section('content')
     <div class="page-header" style="margin-top:80px">
         <div class='btn-toolbar pull-right'>
-            <a class="btn btn-primary btn-lg" href="{{ route('users.create') }}">
+            <a class="btn btn-primary btn-lg" href="{{ route('users.create') }}" id="stil1">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 Create User
             </a>
@@ -15,7 +15,7 @@
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             @foreach ($users as $user)
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     <div class="panel panel-default">
                         <div class="panel-body text-center">
                             <img src="//www.gravatar.com/avatar/{{ md5($user->email) }}?d=mm" alt="{{ $user->email }}" class="img-circle">

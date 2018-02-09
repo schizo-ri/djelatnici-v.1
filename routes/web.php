@@ -46,7 +46,7 @@ Route::group(['prefix' => 'admin'], function () {
   Route::resource('users', 'Admin\UserController');
   // Roles
   Route::resource('roles', 'Admin\RoleController');
-  //Posts
+  //
   Route::resource('posts', 'Admin\PostController', ['names' => [
   'index' 		=> 'admin.posts.index', 
   'create' 		=> 'admin.posts.create', 
@@ -55,6 +55,15 @@ Route::group(['prefix' => 'admin'], function () {
   'edit' 		=> 'admin.posts.edit', 
   'update'		=> 'admin.posts.update', 
   'destroy'		=> 'admin.posts.destroy'
+  ]]);
+  Route::resource('employees', 'Admin\EmployeeController', ['names' => [
+  'index' 		=> 'admin.employees.index', 
+  'create' 		=> 'admin.employees.create', 
+  'store' 		=> 'admin.employees.store', 
+  'show' 		=> 'admin.employees.show', 
+  'edit' 		=> 'admin.employees.edit', 
+  'update'		=> 'admin.employees.update', 
+  'destroy'		=> 'admin.employees.destroy'
   ]]);
 });
 
