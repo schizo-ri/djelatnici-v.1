@@ -23,15 +23,15 @@ class CreateEmployeesTable extends Migration
 			$table->string('email');
 			$table->string('prebivaliste_adresa');
 			$table->string('prebivaliste_grad');
-			$table->string('boraviste_adresa');
-			$table->string('boraviste_grad');
-			$table->string('zvanje');
+			$table->string('boraviste_adresa')->nullable();
+			$table->string('boraviste_grad')->nullable();
+			$table->string('zvanje')->nullable();
 			$table->string('bracno_stanje');	
-			$table->integer('broj_djece');
-			$table->string('radno_mjesto');
+			$table->integer('broj_djece')->nullable();
+			$table->string('radnoMjesto_id')->nullable();
 			$table->timestamp('lijecn_pregled')->nullable();
 			$table->timestamp('ZNR')->nullable();
-			$table->text('napomena');
+			$table->text('napomena')->nullable();
             $table->timestamps();
         });
     }

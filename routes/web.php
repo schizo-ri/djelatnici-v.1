@@ -65,6 +65,24 @@ Route::group(['prefix' => 'admin'], function () {
   'update'		=> 'admin.employees.update', 
   'destroy'		=> 'admin.employees.destroy'
   ]]);
+  Route::resource('kids', 'Admin\KidController', ['names' => [
+  'index' 		=> 'admin.kids.index', 
+  'create' 		=> 'admin.kids.create', 
+  'store' 		=> 'admin.kids.store', 
+  'show' 		=> 'admin.kids.show', 
+  'edit' 		=> 'admin.kids.edit', 
+  'update'		=> 'admin.kids.update', 
+  'destroy'		=> 'admin.kids.destroy'
+  ]]);
+  Route::resource('works', 'Admin\WorkController', ['names' => [
+  'index' 		=> 'admin.works.index', 
+  'create' 		=> 'admin.works.create', 
+  'store' 		=> 'admin.works.store', 
+  'show' 		=> 'admin.works.show', 
+  'edit' 		=> 'admin.works.edit', 
+  'update'		=> 'admin.works.update', 
+  'destroy'		=> 'admin.works.destroy'
+  ]]);
 });
 
 // Post page

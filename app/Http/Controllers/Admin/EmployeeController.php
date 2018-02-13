@@ -50,9 +50,37 @@ class EmployeeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EmployeeRequest $request)
     {
-        //
+        //$user_id = Sentinel::getUser()->id;
+		$input = $request->except(['_token']);
+
+		$data = array(
+			'first_name'  			=> $input['first_name'],
+			'last_name'     		=> $input['last_name'],
+			'oib'           		=> $input['oib'],
+			'datum_rodjenja'		=> date("Y-m-d", strtotime($input['datum_rodjenja'])),
+			'mobitel'  				=> $input['mobitel'],
+			'email'  				=> $input['email'],
+			'prebivaliste_adresa'   => $input['prebivaliste_adresa'],
+			'prebivaliste_grad'     => $input['prebivaliste_grad'],
+			'boraviste_adresa'      => $input['boraviste_adresa'],
+			'boraviste_grad'        => $input['boraviste_grad'],
+			'zvanje'  			    => $input['zvanje'],
+			'bracno_stanje'  	    => $input['bracno_stanje'],
+			'radnoMjesto_id'  	    => $input['radnoMjesto_id'],
+			'lijecn_pregled' 	    => date("Y-m-d", strtotime($input['lijecn_pregled'])),
+			'ZNR' 	   			    => date("Y-m-d", strtotime($input['ZNR'])),
+			'napomena' 	   		    => $input['napomena']
+		);
+		
+		$employee = new Employee();
+		$employee->saveEmployee($data);
+		
+		$message = session()->flash('success', 'Novi kandidat je snimljen');
+		
+		//return redirect()->back()->withFlashMessage($messange);
+		return redirect()->route('admin.employees.index')->withFlashMessage($message);
     }
 
     /**
@@ -63,7 +91,9 @@ class EmployeeController extends Controller
      */
     public function show($id)
     {
-        //
+        $employee = Employee::find($id);
+
+		return view('admin.employees.show', ['employee' => $employee]);
     }
 
     /**
@@ -74,7 +104,9 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $employee = Employee::find($id);
+		
+		return view('admin.employees.edit', ['employee' => $employee]);
     }
 
     /**
@@ -84,9 +116,35 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EmployeeRequest $request, $id)
     {
-        //
+        $employee = Employee::find($id);
+		$input = $request->except(['_token']);
+
+		$data = array(
+			'first_name'  => $input['first_name'],
+			'last_name'    => $input['last_name'],
+			'oib'  => $input['oib'],
+			'datum_rodjenja'  => date("Y-m-d", strtotime($input['datum_rodjenja'])),
+			'mobitel'  => $input['mobitel'],
+			'email'  => $input['email'],
+			'prebivaliste_adresa'  => $input['prebivaliste_adresa'],
+			'prebivaliste_grad'  => $input['prebivaliste_grad'],
+			'boraviste_adresa'  => $input['boraviste_adresa'],
+			'boraviste_grad'  => $input['boraviste_grad'],
+			'zvanje'  => $input['zvanje'],
+			'bracno_stanje'  => $input['bracno_stanje'],
+			'radnoMjesto_id'  => $input['radnoMjesto_id'],
+			'lijecn_pregled' 	    => date("Y-m-d", strtotime($input['lijecn_pregled'])),
+			'ZNR' 	   			    => date("Y-m-d", strtotime($input['ZNR'])),
+			'napomena' 	   		    => $input['napomena']
+		);
+		
+		$employee->updateEmployee($data);
+		
+		$message = session()->flash('success', 'Podaci su ispravljeni');
+		
+		return redirect()->route('admin.employees.index')->withFlashMessage($message);
     }
 
     /**
@@ -97,6 +155,11 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $employee = Employee::find($id);
+		$employee->delete();
+		
+		$message = session()->flash('success', 'Kandidat je obrisan.');
+		
+		return redirect()->route('admin.employees.index')->withFlashMessage($message);
     }
 }

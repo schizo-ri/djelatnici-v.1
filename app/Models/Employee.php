@@ -11,7 +11,25 @@ class Employee extends Model
 	*
 	* @var array
 	*/
-	protected $fillable = ['first_name','last_name','oib','datum_rodjenja','mobitel','email','prebivaliste_adresa','prebivaliste_grad','boraviste_adresa','boraviste_grad','zvanje','bracno_stanje', 'broj_djece','radno_mjesto','lijecn_pregled','ZNR','napomena'];
+	protected $fillable = ['first_name','last_name','oib','datum_rodjenja','mobitel','email','prebivaliste_adresa','prebivaliste_grad','boraviste_adresa','boraviste_grad','zvanje','bracno_stanje','radnoMjesto_id','lijecn_pregled','ZNR','napomena'];
+	
+	/*
+	* The Eloquent works model name
+	* 
+	* @var string
+	*/
+	protected static $worksModel = 'App\Models\Work'; 
+	
+	/*
+	* Returns the works relationship
+	* 
+	* @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	*/
+	
+	public function work()
+	{
+		return $this->belongsTo(static::$worksModel,'radnoMjesto_id');
+	}
 	
 	/*
 	* Save Employee
