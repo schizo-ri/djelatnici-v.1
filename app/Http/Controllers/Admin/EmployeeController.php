@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\EmployeeRequest;
 use App\Http\Controllers\Controller;
 use Sentinel;
+use Session;
 
 class EmployeeController extends Controller
 {
@@ -31,7 +32,7 @@ class EmployeeController extends Controller
 			$employees = Employee::orderBy('last_name','ASC')->paginate(50);
 		}
 
-	return view('admin.employees.index',['employees'=>$employees]);
+		return view('admin.employees.index',['employees'=>$employees]);
     }
 
     /**

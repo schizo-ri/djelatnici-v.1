@@ -65,6 +65,24 @@ Route::group(['prefix' => 'admin'], function () {
   'update'		=> 'admin.employees.update', 
   'destroy'		=> 'admin.employees.destroy'
   ]]);
+  Route::resource('equipments', 'Admin\EquipmentController', ['names' => [
+  'index' 		=> 'admin.equipments.index', 
+  'create' 		=> 'admin.equipments.create', 
+  'store' 		=> 'admin.equipments.store', 
+  'show' 		=> 'admin.equipments.show', 
+  'edit' 		=> 'admin.equipments.edit', 
+  'update'		=> 'admin.equipments.update', 
+  'destroy'		=> 'admin.equipments.destroy'
+  ]]);
+  Route::resource('terminations', 'Admin\TerminationController', ['names' => [
+  'index' 		=> 'admin.terminations.index', 
+  'create' 		=> 'admin.terminations.create', 
+  'store' 		=> 'admin.terminations.store', 
+  'show' 		=> 'admin.terminations.show', 
+  'edit' 		=> 'admin.terminations.edit', 
+  'update'		=> 'admin.terminations.update', 
+  'destroy'		=> 'admin.terminations.destroy'
+  ]]);
   Route::resource('kids', 'Admin\KidController', ['names' => [
   'index' 		=> 'admin.kids.index', 
   'create' 		=> 'admin.kids.create', 
@@ -82,6 +100,24 @@ Route::group(['prefix' => 'admin'], function () {
   'edit' 		=> 'admin.works.edit', 
   'update'		=> 'admin.works.update', 
   'destroy'		=> 'admin.works.destroy'
+  ]]);
+  Route::resource('registrations', 'Admin\RegistrationController', ['names' => [
+  'index' 		=> 'admin.registrations.index', 
+  'create' 		=> 'admin.registrations.create', 
+  'store' 		=> 'admin.registrations.store', 
+  'show' 		=> 'admin.registrations.show', 
+  'edit' 		=> 'admin.registrations.edit', 
+  'update'		=> 'admin.registrations.update', 
+  'destroy'		=> 'admin.registrations.destroy'
+  ]]);
+  Route::resource('employee_equipments', 'Admin\EmployeeEquipmentController', ['names' => [
+  'index' 		=> 'admin.employee_equipments.index', 
+  'create' 		=> 'admin.employee_equipments.create', 
+  'store' 		=> 'admin.employee_equipments.store', 
+  'show' 		=> 'admin.employee_equipments.show', 
+  'edit' 		=> 'admin.employee_equipments.edit', 
+  'update'		=> 'admin.employee_equipments.update', 
+  'destroy'		=> 'admin.employee_equipments.destroy'
   ]]);
 });
 

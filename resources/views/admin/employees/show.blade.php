@@ -45,7 +45,7 @@
 					@endforeach
 				@endif
 				</br>
-				<p><b>Radno mjesto: </b>{{ $employee->work['naziv'] }}</p>
+				<p><b>Radno mjesto: </b>{{ $employee->work['odjel'] . ' - '. $employee->work['naziv'] }}</p>
 				<p><b>Liječnički pregled: </b>{{ date('d.m.Y', strtotime($employee->lijecn_pregled))  }}</p>
 				<p><b>Zakon na radu: </b>{{ date('d.m.Y', strtotime($employee->ZNR))  }}</p>
 				

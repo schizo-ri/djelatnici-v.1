@@ -30,7 +30,9 @@ class EmployeeRequest extends FormRequest
 			'datum_rodjenja'  =>'required',
 			'prebivaliste_adresa'  =>'required',
 			'prebivaliste_grad'  =>'required',
-			'zvanje'  =>'required'
+			'zvanje'  =>'required',
+			'lijecn_pregled'  =>'required',
+			'ZNR'  =>'required'
         ];
     }
 	
@@ -48,7 +50,9 @@ class EmployeeRequest extends FormRequest
 			'datum_rodjenja.required'  => 'Unos datuma rođenja je obavezan',
 			'prebivaliste_adresa.required'  => 'Unos adrese je obavezan',
 			'prebivaliste_grad.required'  => 'Unos grada je obavezan',
-			'zvanje.required'  => 'Unos zvanja je obavezan'
+			'zvanje.required'  => 'Unos zvanja je obavezan',
+			'lijecn_pregled.required'  => 'Unos datuma je obavezan',
+			'ZNR.required'  => 'Unos datuma je obavezan',
 		];
 	}
 }

@@ -91,10 +91,10 @@
 					<div class="form-group {{ ($errors->has('radnoMjesto_id'))  ? 'has-error' : '' }}">
                         <label>Radno mjesto:</label>
 						<select class="form-control" name="radnoMjesto_id" id="sel1" value="{{ old('radnoMjesto_id') }}">
-							@foreach (DB::table('works')->orderBy('naziv','ASC')->get() as $work)
-								<option name="radnoMjesto_id" value="{{ $work->id }}">{{ $work->naziv }}</option>
+							@foreach (DB::table('works')->orderBy('odjel','ASC')->orderBy('naziv','ASC')->get() as $work)
+								<option name="radnoMjesto_id" value="{{ $work->id }}">{{ $work->odjel . ' - '. $work->naziv }}</option>
 							@endforeach	
-							<option selected="selected" name="radnoMjesto_id" value="{{ $employee->radnoMjesto_id}}">{{ $employee->work['naziv'] }}</option>
+							<option selected="selected" name="radnoMjesto_id" value="{{ $employee->radnoMjesto_id}}">{{ $employee->work['odjel'] . ' - ' . $employee->work['naziv'] }}</option>
 						</select>
 						{!! ($errors->has('radnoMjesto_id') ? $errors->first('radnoMjesto_id', '<p class="text-danger">:message</p>') : '') !!}
                     </div>

@@ -2,6 +2,23 @@
 
 @section('title', 'Zapošljavanje')
 
+<style>
+#padding1 {
+    padding-left: 30px;
+
+}
+th {
+    font-size: 12px;
+} 
+td {
+    font-size: 14px;
+} 
+table, td, th, tr {
+    vertical-align: center;
+	table-layout: fixed;
+} 
+</style>
+
 @section('content')
 </br>
 </br>
@@ -23,21 +40,28 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Ime i prezime</th>
-                            <th>Datum rođenja</th>
-                            <th>Opcije</th>
+                            <th width="150">Radno mjesto</th>
+							<th width="100">Ime i prezime</th>
+                            <th width="80">Datum rođenja</th>
+                            <th width="100">Opcije</th>
+							<th width="70">Prijava</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($employees as $employee)
+						@if(!DB::table('registrations')->where('employee_id',$employee->id)->first() )
                             <tr>
                                 <td>
+									<p>{{ $employee->work['odjel']}}</p>
+									<p id="padding1">{{ $employee->work['naziv']}}</p>
+								</td>
+								<td>
 									<a href="{{ route('admin.employees.show', $employee->id) }}">
 										{{ $employee->first_name . ' ' . $employee->last_name }}
 									</a>
 								</td>
                                 <td>{{ date('d.m.Y', strtotime($employee->datum_rodjenja)) }}</td>
-                                  <td>
+                                <td>
                                     <a href="{{ route('admin.employees.edit', $employee->id) }}" class="btn btn-default">
                                         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                         Ispravi
@@ -47,7 +71,14 @@
                                         Obriši
                                     </a>
                                 </td>
+								<td>
+									<a href="{{ route('admin.registrations.create', $employee->id) }}" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                        Prijavi radnika
+                                    </a>
+								</td>
                             </tr>
+							@endif
                         @endforeach
                     </tbody>
                 </table>

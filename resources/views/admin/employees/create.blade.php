@@ -78,6 +78,7 @@
 					<div class="form-group">
 						<label>Bračno stanje:</label>
 						<select class="form-control" name="bracno_stanje" value="{{ old('bracno_stanje') }}">
+							<option selected="selected" value=""></option>
 							<option>U braku</option>
 							<option>nije u braku</option>
 						</select>
@@ -86,21 +87,21 @@
 					<div class="form-group {{ ($errors->has('radnoMjesto_id'))  ? 'has-error' : '' }}">
                         <label>Radno mjesto:</label>
 						<select class="form-control" name="radnoMjesto_id" id="sel1" value="{{ old('radnoMjesto_id') }}">
-							@foreach (DB::table('works')->orderBy('naziv','ASC')->get() as $work)
-								<option name="radnoMjesto_id" value="{{ $work->id }}">{{ $work->naziv }}</option>
+							<option selected="selected" value=""></option>@foreach(DB::table('works')->orderBy('odjel','ASC')->orderBy('naziv','ASC')->get() as $work)
+								<option name="radnoMjesto_id" value="{{ $work->id }}">{{ $work->odjel . ' - '. $work->naziv }}</option>
 							@endforeach	
-							<option selected="selected" value=""></option>
+							
 						</select>
 						{!! ($errors->has('radnoMjesto_id') ? $errors->first('radnoMjesto_id', '<p class="text-danger">:message</p>') : '') !!}
                     </div>
 					
 					<div class="form-group">
 						<label>Datum liječničkog pregleda: </label>
-						<input name="lijecn_pregled" class="date form-control" type="text" value = "">
+						<input name="lijecn_pregled" class="date form-control" type="text" value = "{{ Carbon\Carbon::now()->format('d-m-Y') }}">
 					</div>
 					<div class="form-group">
 						<label>Datum obuke zaštite na radu: </label>
-						<input name="ZNR" class="date form-control" type="text" value = "">
+						<input name="ZNR" class="date form-control" type="text" value = "{{ Carbon\Carbon::now()->format('d-m-Y') }}">
 					</div>
 					<script type="text/javascript">
 								$('.date').datepicker({  
