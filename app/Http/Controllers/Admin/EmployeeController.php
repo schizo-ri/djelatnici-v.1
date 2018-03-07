@@ -8,12 +8,13 @@ use App\Http\Requests\EmployeeRequest;
 use App\Http\Controllers\Controller;
 use Sentinel;
 use Session;
+use PDF;
 
 class EmployeeController extends Controller
 {
     /**
-   * Set middleware to quard controller.
    *
+   * Set middleware to quard controller.
    * @return void
    */
     public function __construct()
@@ -28,9 +29,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        if(Sentinel::inRole('administrator')) {
-			$employees = Employee::orderBy('last_name','ASC')->paginate(50);
-		}
+		$employees = Employee::orderBy('last_name','ASC')->get();
 
 		return view('admin.employees.index',['employees'=>$employees]);
     }
@@ -59,8 +58,12 @@ class EmployeeController extends Controller
 		$data = array(
 			'first_name'  			=> $input['first_name'],
 			'last_name'     		=> $input['last_name'],
+			'ime_oca'     			=> $input['ime_oca'],
+			'ime_majke'     		=> $input['ime_majke'],
 			'oib'           		=> $input['oib'],
+			'oi'           			=> $input['oi'],
 			'datum_rodjenja'		=> date("Y-m-d", strtotime($input['datum_rodjenja'])),
+			'mjesto_rodjenja'       => $input['mjesto_rodjenja'],
 			'mobitel'  				=> $input['mobitel'],
 			'email'  				=> $input['email'],
 			'prebivaliste_adresa'   => $input['prebivaliste_adresa'],
@@ -68,6 +71,8 @@ class EmployeeController extends Controller
 			'boraviste_adresa'      => $input['boraviste_adresa'],
 			'boraviste_grad'        => $input['boraviste_grad'],
 			'zvanje'  			    => $input['zvanje'],
+			'konf_velicina'         => $input['konf_velicina'],
+			'broj_cipela'         	=> $input['broj_cipela'],
 			'bracno_stanje'  	    => $input['bracno_stanje'],
 			'radnoMjesto_id'  	    => $input['radnoMjesto_id'],
 			'lijecn_pregled' 	    => date("Y-m-d", strtotime($input['lijecn_pregled'])),
@@ -125,8 +130,12 @@ class EmployeeController extends Controller
 		$data = array(
 			'first_name'  => $input['first_name'],
 			'last_name'    => $input['last_name'],
+			'ime_oca'     			=> $input['ime_oca'],
+			'ime_majke'     		=> $input['ime_majke'],
 			'oib'  => $input['oib'],
+			'oi'           			=> $input['oi'],
 			'datum_rodjenja'  => date("Y-m-d", strtotime($input['datum_rodjenja'])),
+			'mjesto_rodjenja'       => $input['mjesto_rodjenja'],
 			'mobitel'  => $input['mobitel'],
 			'email'  => $input['email'],
 			'prebivaliste_adresa'  => $input['prebivaliste_adresa'],
@@ -134,6 +143,8 @@ class EmployeeController extends Controller
 			'boraviste_adresa'  => $input['boraviste_adresa'],
 			'boraviste_grad'  => $input['boraviste_grad'],
 			'zvanje'  => $input['zvanje'],
+			'konf_velicina'         => $input['konf_velicina'],
+			'broj_cipela'         	=> $input['broj_cipela'],
 			'bracno_stanje'  => $input['bracno_stanje'],
 			'radnoMjesto_id'  => $input['radnoMjesto_id'],
 			'lijecn_pregled' 	    => date("Y-m-d", strtotime($input['lijecn_pregled'])),
@@ -163,4 +174,11 @@ class EmployeeController extends Controller
 		
 		return redirect()->route('admin.employees.index')->withFlashMessage($message);
     }
+	
+	public function generate_pdf($id)
+	{
+	$employee = Employee::find($id);
+	$pdf = PDF::loadView('documents.prijava.show', compact('employee'));
+	return $pdf->download($employee->last_name . '_Prijava_dokumentacija.pdf');
+	}
 }

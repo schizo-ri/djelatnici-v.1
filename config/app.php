@@ -51,7 +51,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://localhost:8000/'),
 
     /*
     |--------------------------------------------------------------------------
@@ -162,14 +162,14 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-
+		Barryvdh\DomPDF\ServiceProvider::class,
         /*
          * Package Service Providers...
          */
         Centaur\CentaurServiceProvider::class,
         Vinkla\Hashids\HashidsServiceProvider::class,
 		Cviebrock\EloquentSluggable\ServiceProvider::class,
-
+		
         /*
          * Application Service Providers...
          */
@@ -179,6 +179,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 		App\Providers\CommentServiceProvider::class,
+		Maatwebsite\Excel\ExcelServiceProvider::class,
     ],
 
     /*
@@ -227,6 +228,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Hashids' => Vinkla\Hashids\Facades\Hashids::class,
+		'PDF' => Barryvdh\DomPDF\Facade::class,
+		'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
     ],
 

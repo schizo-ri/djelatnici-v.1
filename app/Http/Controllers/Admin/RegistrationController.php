@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Sentinel;
 use DB;
 use Session;
+use PDF;
 
 class RegistrationController extends Controller
 {
@@ -29,8 +30,8 @@ class RegistrationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $registrations = Registration::orderBy('id','ASC')->paginate(50);
+    {	
+        $registrations = Registration::get();
 
 		return view('admin.registrations.index',['registrations'=>$registrations]);
     }
@@ -55,13 +56,13 @@ class RegistrationController extends Controller
     public function store(RegistrationRequest $request)
     {
         $input = $request->except(['_token']);
-
+		
 		$data = array(
 			'employee_id'  		=> $input['employee_id'],
 			'radnoMjesto_id'    => $input['radnoMjesto_id'],
 			'datum_prijave'		=> date("Y-m-d", strtotime($input['datum_prijave'])),
 			'probni_rok'  		=> $input['probni_rok'],
-			'godišnji_dani'   	=> $input['godišnji_dani'],
+			'staz'   			=> $input['staz'],
 			'lijecn_pregled'    => date("Y-m-d", strtotime($input['lijecn_pregled'])),
 			'ZNR'      			=> date("Y-m-d", strtotime($input['ZNR'])),
 			'napomena'  	    => $input['napomena']
@@ -84,7 +85,9 @@ class RegistrationController extends Controller
      */
     public function show($id)
     {
-        //
+        $registration = Registration::find($id);
+		
+		return view('admin.registrations.show', ['registration' => $registration]);
     }
 
     /**
@@ -110,17 +113,35 @@ class RegistrationController extends Controller
     {
         $registration = Registration::find($id);
 		$input = $request->except(['_token']);
-
+		//dd($input);
+		
+		//if(!$input['datum_odjave']){
+			$data = array(
+				'employee_id'  		=> $input['employee_id'],
+				'radnoMjesto_id'    => $input['radnoMjesto_id'],
+				'datum_prijave'		=> date("Y-m-d", strtotime($input['datum_prijave'])),
+				'probni_rok'  		=> $input['probni_rok'],
+				'staz'   			=> $input['staz'],
+				'lijecn_pregled'    => date("Y-m-d", strtotime($input['lijecn_pregled'])),
+				'ZNR'      			=> date("Y-m-d", strtotime($input['ZNR'])),
+				'napomena'  	    => $input['napomena']
+			);
+		/*} else {
 		$data = array(
 			'employee_id'  		=> $input['employee_id'],
 			'radnoMjesto_id'    => $input['radnoMjesto_id'],
 			'datum_prijave'		=> date("Y-m-d", strtotime($input['datum_prijave'])),
 			'probni_rok'  		=> $input['probni_rok'],
-			'godišnji_dani'   	=> $input['godišnji_dani'],
+			'staz'   			=> $input['staz'],
 			'lijecn_pregled'    => date("Y-m-d", strtotime($input['lijecn_pregled'])),
 			'ZNR'      			=> date("Y-m-d", strtotime($input['ZNR'])),
-			'napomena'  	    => $input['napomena']
+			'napomena'  	    => $input['napomena'],
+			'datum_odjave'		=> date("Y-m-d", strtotime($input['datum_odjave'])),
+			'otkaz_id'   		=> $input['otkaz_id'],
+			'otkazni_rok'   	=> $input['otkazni_rok']
+	
 		);
+		}*/
 		
 		$registration->updateRegistration($data);
 		
@@ -144,4 +165,12 @@ class RegistrationController extends Controller
 		
 		return redirect()->route('admin.registrations.index')->withFlashMessage($message);
     }
+	
+	public function generate_pdf($id) 
+	{
+	$registration = Registration::find($id);
+	$pdf = PDF::loadView('admin.registrations.show', compact('registration'));
+	return $pdf->download('djelatnik_'. $registration->id .'.pdf');
+
+	}
 }

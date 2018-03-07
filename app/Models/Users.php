@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use Cartalyst\Sentinel\Users\EloquentUser;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Users extends EloquentUser
+class Users extends Authenticatable 
 {
 	/*
 	* The Eloquent post model names

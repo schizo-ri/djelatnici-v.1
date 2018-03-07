@@ -40,16 +40,14 @@ $employee = $employees->where('id', $employee_id)->first();
 						{!! ($errors->has('datum_prijave') ? $errors->first('datum_prijave', '<p class="text-danger">:message</p>') : '') !!}
 					</div>
 					<div class="form-group {{ ($errors->has('probni_rok'))  ? 'has-error' : '' }}">
-						<span><b>Probni rok (dana):</b></span>
+						<span><b>Probni rok (mjeseci):</b></span>
 						<input name="probni_rok" type="text" class="form-control">
 					</div>
 						{!! ($errors->has('probni_rok') ? $errors->first('probni_rok', '<p class="text-danger">:message</p>') : '') !!}
-					<div class="form-group {{ ($errors->has('godišnji_dani'))  ? 'has-error' : '' }}">
-						<span><b>Dani godišnjeg odmora:</b></span>
-						<input name="godišnji_dani" type="text" class="form-control">
+					<div class="form-group {{ ($errors->has('staz'))  ? 'has-error' : '' }}">
+						<span><b>Staž kod prošlog poslodavca:</b></span>
+						<input name="staz" type="text" class="form-control" value="0">
 					</div>
-						{!! ($errors->has('	godišnji_dani') ? $errors->first('godišnji_dani', '<p class="text-danger">:message</p>') : '') !!}
-
 					<div class="form-group {{ ($errors->has('lijecn_pregled'))  ? 'has-error' : '' }}">
 						<label>Datum liječničkog pregleda: </label>
 						<input name="lijecn_pregled" class="date form-control" type="text" value = "{{ date('d-m-Y', strtotime($employee->lijecn_pregled)) }}">

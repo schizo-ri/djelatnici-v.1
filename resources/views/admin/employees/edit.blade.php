@@ -27,11 +27,23 @@
 						<input name="last_name" type="text" class="form-control" value="{{ $employee->last_name }}" }}">
 					</div>
 					{!! ($errors->has('last_name') ? $errors->first('last_name', '<p class="text-danger">:message</p>') : '') !!}
+					<div class="form-group">
+						<label>Ime oca</label>
+						<input name="ime_oca" type="text" class="form-control" value="{{ $employee->ime_oca }}">
+					</div>
+					<div class="form-group">
+						<label>Ime majke</label>
+						<input name="ime_majke" type="text" class="form-control" value="{{ $employee->ime_majke }}">
+					</div>
 					<div class="form-group {{ ($errors->has('oib')) ? 'has-error' : '' }}">
 						<label>OIB</label>
 						<input name="oib" type="text" class="form-control" value="{{ $employee->oib }}">
 					</div>
 					{!! ($errors->has('oib') ? $errors->first('oib', '<p class="text-danger">:message</p>') : '') !!}
+					<div class="form-group">
+						<label>Broj osobne iskaznice:</label>
+						<input name="oi" type="text" class="form-control" value="{{ $employee->oi }}">
+					</div>
 					<div class="form-group">
 						<label>Datum rođenja</label>
 						<input name="datum_rodjenja" class="date form-control" type="text" value ="{{ date('d-m-Y', strtotime($employee->datum_rodjenja)) }}">
@@ -42,6 +54,10 @@
 								   format: 'dd-mm-yyyy'
 								 });  
 					</script> 
+					<div class="form-group">
+						<label>Mjesto rođenja</label>
+						<input name="mjesto_rodjenja" type="text" class="form-control" value="{{ $employee->mjesto_rodjenja }}">
+					</div>
 					<div class="form-group">
 						<label>	Mobitel</label>
 						<input name="mobitel" type="text" class="form-control" value="{{ $employee->mobitel }}">
@@ -119,6 +135,13 @@
 								   format: 'dd-mm-yyyy'
 								 });  
 					</script> 
+					<div class="form-group">
+						<label>Konfekcijski broj</label>
+						<input name="konf_velicina" type="text" class="form-control" value="{{ $employee->konf_velicina }}">
+					</div>
+					<div class="form-group">Veličina cipela</label>
+						<input name="broj_cipela" type="text" class="form-control" value="{{ $employee->broj_cipela }}">
+					</div>
 					<div class="form-group">
 						<label>Napomena: </label>
 						<textarea class="form-control" rows="4" name="napomena">{{ $employee->napomena }}</textarea>

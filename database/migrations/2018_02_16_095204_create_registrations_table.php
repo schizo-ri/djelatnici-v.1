@@ -19,13 +19,10 @@ class CreateRegistrationsTable extends Migration
 			$table->integer('radnoMjesto_id');
 			$table->date('datum_prijave');
 			$table->integer('probni_rok')->nullable($value = true);
-			$table->integer('godišnji_dani')->nullable($value = true);
+			$table->integer('staz')->nullable($value = true);
 			$table->date('lijecn_pregled')->nullable();
 			$table->date('ZNR')->nullable();
 			$table->string('napomena')->nullable($value = true);
-			$table->integer('otkaz_id')->nullable($value = true);
-			$table->integer('otkazni_rok')->nullable($value = true);
-			$table->date('datum_odjave')->nullable($value = true);
             $table->timestamps();
         });
     }

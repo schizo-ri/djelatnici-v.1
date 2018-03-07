@@ -8,6 +8,7 @@
 }
 th {
     font-size: 12px;
+	text-align: center;
 } 
 td {
     font-size: 14px;
@@ -16,6 +17,7 @@ table, td, th, tr {
     vertical-align: center;
 	table-layout: fixed;
 } 
+
 </style>
 
 @section('content')
@@ -31,40 +33,64 @@ table, td, th, tr {
         </div>
 		</br>
         <h1>Popis zadužene radne opreme</h1>
+		<input class="form-control" id="myInput" type="text" placeholder="Traži..">
     </div>
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="col-lg-12">
             <div class="table-responsive">
 			@if(count($employeeEquipments) > 0)
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th width="150">Zaduženi djelatnik</th>
+                            <th width="100">Zaduženi djelatnik</th>
 							<th width="100">Radna oprema</th>
                             <th width="50">Količina</th>
-							<th width="80">Napomena</th>
-                            <th width="100">Opcije</th>
+							<th width="70">Datum zaduženja</th>
+							<th width="70">Datum razduženja</th>
+							<th width="100">Napomena</th>
+                            <th width="80">Opcije</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="myTable">
+					
                         @foreach ($employeeEquipments as $employeeEquipment)
+						
                             <tr>
                                 <td>{{ $employeeEquipment->employee['first_name'] . ' ' . $employeeEquipment->employee['last_name'] }}</td>
 								<td>{{ $employeeEquipment->equipment['naziv'] }}</td>
-								<td>{{ $employeeEquipment->količina }}</td>
+								<td>{{ $employeeEquipment->kolicina }}</td>
+								<td>{{ date('d.m.Y.', strtotime($employeeEquipment->datum_zaduzenja)) }}
+								<td>
+								@if($employeeEquipment->datum_povrata)
+								{{ date('d.m.Y.', strtotime($employeeEquipment->datum_povrata)) }}
+								@endif
+								</td>
 								<td>{{ $employeeEquipment->napomena }}</td>
 								<td>
-                                    <a href="{{ route('admin.employee_equipments.edit', $employeeEquipment->id) }}" class="btn btn-default">
-                                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                        Ispravi
+                                    <a href="{{ route('admin.employee_equipments.destroy', $employeeEquipment->id) }}" class="btn btn-danger btn-block action_confirm {{  $employeeEquipment->datum_povrata ? 'disabled' : '' }}" data-method="delete" data-token="{{ csrf_token() }}" >
+										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+											Obriši
+									</a>
+									<a href="{{ route('admin.employee_equipments.edit', $employeeEquipment->id) }}" class="btn btn-default btn-block {{  $employeeEquipment->datum_povrata ? 'disabled' : '' }}" id="btn">
+                                        
+                                        Vrati zaduženo
                                     </a>
-                                    <a href="{{ route('admin.employee_equipments.destroy', $employeeEquipment->id) }}" class="btn btn-danger action_confirm" data-method="delete" data-token="{{ csrf_token() }}">
-                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                        Obriši
-                                    </a>
+
                                 </td>
+
                             </tr>
+			
                         @endforeach
+						<script>
+						$(document).ready(function(){
+						  $("#myInput").on("keyup", function() {
+							var value = $(this).val().toLowerCase();
+							$("#myTable tr").filter(function() {
+							  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+							});
+						  });
+						});
+						</script>
                     </tbody>
                 </table>
 				@else

@@ -24,8 +24,11 @@
             <div class="panel-heading">
 				<h3>{{ $employee->first_name . ' ' . $employee->last_name }}</h3>
 				</br>
+				<p><b>Ime oca, majke: </b>{{ $employee->ime_oca . ', ' . $employee->ime_majke}}</p>
 				<p><b>OIB: </b>{{ $employee->oib }}</p>
+				<p><b>Osobna iskaznica: </b>{{ $employee->oi }}</p>
 				<p><b>Datum rođenja: </b>{{ $employee->datum_rodjenja }}</p>
+				<p><b>Mjesto rođenja: </b>{{ $employee->mjesto_rodjenja }}</p>
 				<p><b>Mobitel: </b>{{ $employee->mobitel }}</p>
 				<p><b>E-mail: </b>{{ $employee->email }}</p>
 				</br>
@@ -35,6 +38,9 @@
 				@endif
 				</br>
 				<p><b>Zvanje: </b>{{ $employee->zvanje }}</p>
+				<p><b>Konfekcijski broj: </b>{{ $employee->konf_velicina }}</p>
+				<p><b>Veličina cipela: </b>{{ $employee->broj_cipela }}</p>
+				<p><b>Napomena: </b>{{ $employee->napomena }}</p>
 				</br>
 				<p><b>Bračno stanje: </b>{{ $employee->bracno_stanje }}</p>
 				<p><b>Broj djece: </b>{{ DB::table('kids')->where('employee_id', $employee->id)->count() }}</p>
@@ -47,7 +53,7 @@
 				</br>
 				<p><b>Radno mjesto: </b>{{ $employee->work['odjel'] . ' - '. $employee->work['naziv'] }}</p>
 				<p><b>Liječnički pregled: </b>{{ date('d.m.Y', strtotime($employee->lijecn_pregled))  }}</p>
-				<p><b>Zakon na radu: </b>{{ date('d.m.Y', strtotime($employee->ZNR))  }}</p>
+				<p><b>Zaštita na radu: </b>{{ date('d.m.Y', strtotime($employee->ZNR))  }}</p>
 				
 			</div>
            	

@@ -31,6 +31,7 @@ table, td, th, tr {
         </div>
 		</br>
         <h1>Popis radne opreme</h1>
+		<input class="form-control" id="myInput" type="text" placeholder="Traži..">
     </div>
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -43,11 +44,11 @@ table, td, th, tr {
 							<th width="100">Napomena</th>
                             <th width="50">Količina (monteri) </th>
 							<th width="50">Količina (inženjeri) </th>
-							<th width="80">Zaduženi djelatnik</th>
+							<th width="80">Odgovorni djelatnik</th>
                             <th width="100">Opcije</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="myTable">
                         @foreach ($equipments as $equipment)
                             <tr>
                                 <td>{{ $equipment->naziv }}</td>
@@ -67,6 +68,16 @@ table, td, th, tr {
                                 </td>
                             </tr>
                         @endforeach
+						<script>
+						$(document).ready(function(){
+						  $("#myInput").on("keyup", function() {
+							var value = $(this).val().toLowerCase();
+							$("#myTable tr").filter(function() {
+							  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+							});
+						  });
+						});
+						</script>
                     </tbody>
                 </table>
 				@else

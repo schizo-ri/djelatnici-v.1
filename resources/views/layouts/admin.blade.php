@@ -70,7 +70,9 @@ body {
 	color: #f48b09;
 	background-color: #111;
 }
-
+#padding {
+    padding-left: 0.5cm;
+}
 </style>	
 
     <body>
@@ -80,13 +82,15 @@ body {
 			  <a href="{{ route('admin.dashboard') }}">Naslovnica</a>
 			  <a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('users.index') }}">Korisnici</a>
 			  <a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('roles.index') }}">Uloge</a>
+			  <a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('admin.works.index') }}">Radna mjesta</a>
+			  <a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('admin.terminations.index') }}">Otkazi</a>
+			  <a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('admin.equipments.index') }}">Radna oprema</a>
+			  <a class="{{ Request::is('admin') ? 'active' : '' }}"><span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span></a>
 			  <a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('admin.employees.index') }}">Kandidati za posao</a>
 			  <a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('admin.registrations.index') }}">Prijavljeni radnici</a>
 			  <a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('admin.employee_equipments.index') }}">Zadužena oprema</a>
 			  <a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('admin.kids.index') }}">Djeca zaposlenika</a>
-			  <a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('admin.works.index') }}">Radna mjesta</a>
-			  <a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('admin.terminations.index') }}">Otkazi</a>
-			  <a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('admin.equipments.index') }}">Radna oprema</a>
+			  <a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('admin.employee_terminations.index') }}">Odjavljeni radnici</a>
 			</div>
 			<span style="font-size:30px;cursor:pointer" onclick="openNav()" id="font_nar">&#9776; </span>
 			<ul class="nav navbar-nav navbar-right">
@@ -118,8 +122,7 @@ body {
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         <!-- Restfulizer.js - A tool for simulating put,patch and delete requests -->
         <script src="{{ asset('js/restfulizer.js') }}"></script>
-		@stack('script')
-		
+
 		<script>
 			function openNav() {
 				document.getElementById("mySidenav").style.width = "250px";
@@ -129,5 +132,6 @@ body {
 				document.getElementById("mySidenav").style.width = "0";
 			}
 		</script>
+		@stack('script')
     </body>
 </html>

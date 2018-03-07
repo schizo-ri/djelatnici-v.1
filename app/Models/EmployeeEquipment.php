@@ -11,8 +11,7 @@ class EmployeeEquipment extends Model
 	*
 	* @var array
 	*/
-	protected $fillable = ['employee_id','equipment_id','komada','napomena'];
-	
+	protected $fillable = ['employee_id','datum_zaduzenja','datum_povrata','equipment_id','kolicina','napomena'];
 	
 	/*
 	* The Eloquent employee model name
@@ -29,14 +28,14 @@ class EmployeeEquipment extends Model
 	protected static $equipmentModel = 'App\Models\Equipment'; 
 	
 	/*
-	* Returns the comments relationship
+	* Returns the employee relationship
 	* 
 	* @return \Illuminate\Database\Eloquent\Relations\HasMany
 	*/
 	
 	public function employee()
 	{
-		return $this->belongsToMany(static::$employeeModel,'employee_id');
+		return $this->belongsTo(static::$employeeModel,'employee_id');
 	}	
 	
 	/*
@@ -47,7 +46,7 @@ class EmployeeEquipment extends Model
 	
 	public function equipment()
 	{
-		return $this->belongsToMany(static::$equipmentModel,'equipment_id');
+		return $this->belongsTo(static::$equipmentModel,'equipment_id');
 	}	
 	
 	/*

@@ -25,19 +25,34 @@
 						<input name="last_name" type="text" class="form-control" value="{{ old('last_name') }}">
 					</div>
 					{!! ($errors->has('last_name') ? $errors->first('last_name', '<p class="text-danger">:message</p>') : '') !!}
+					<div class="form-group">
+						<label>Ime oca: </label>
+						<input name="ime_oca" type="text" class="form-control" value="{{ old('ime_oca') }}">
+					</div>
+					<div class="form-group">
+						<label>Ime majke: </label>
+						<input name="ime_majke" type="text" class="form-control" value="{{ old('ime_majke') }}">
+					</div>
 					<div class="form-group {{ ($errors->has('oib')) ? 'has-error' : '' }}">
 						<label>OIB: </label>
 						<input name="oib" type="text" class="form-control" value="{{ old('oib') }}">
 					</div>
 					{!! ($errors->has('oib') ? $errors->first('oib', '<p class="text-danger">:message</p>') : '') !!}
 					<div class="form-group">
+						<label>Broj osobne iskaznice: </label>
+						<input name="oi" type="text" class="form-control" value="{{ old('oi') }}">
+					</div>
+					<div class="form-group">
 						<label>Datum rođenja: </label>
 						<input name="datum_rodjenja" class="date form-control" type="text" value = "{{ Carbon\Carbon::now()->format('d-m-Y') }}">
 						{!! ($errors->has('datum_rodjenja') ? $errors->first('datum_rodjenja', '<p class="text-danger">:message</p>') : '') !!}
 					</div>
-					
 					<div class="form-group">
-						<label>	Mobitel: </label>
+						<label>Mjesto rođenja: </label>
+						<input name="mjesto_rodjenja" type="text" class="form-control" value="{{ old('mjesto_rodjenja') }}">
+					</div>
+					<div class="form-group">
+						<label>Mobitel: </label>
 						<input name="mobitel" type="text" class="form-control" value="{{ old('mobitel') }}">
 					</div>
 					<div class="form-group">
@@ -103,10 +118,20 @@
 						<label>Datum obuke zaštite na radu: </label>
 						<input name="ZNR" class="date form-control" type="text" value = "{{ Carbon\Carbon::now()->format('d-m-Y') }}">
 					</div>
+					<div class="form-group">
+						<label>Komfekcijski broj: </label>
+						<input name="konf_velicina" type="text" class="form-control" value="{{ old('konf_velicina') }}">
+					</div>
+					<div class="form-group">
+						<label>Broj cipela: </label>
+						<input name="broj_cipela" type="text" class="form-control" value="{{ old('broj_cipela') }}">
+					</div>
 					<script type="text/javascript">
 								$('.date').datepicker({  
-								   format: 'dd-mm-yyyy'
-								 });  
+								   format: 'dd-mm-yyyy',
+								   startDate:'-60y',
+								   endDate:'+1y',
+								}); 
 					</script> 
 					<div class="form-group">
 						<label>Napomena: </label>

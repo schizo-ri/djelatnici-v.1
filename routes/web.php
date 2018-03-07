@@ -74,6 +74,15 @@ Route::group(['prefix' => 'admin'], function () {
   'update'		=> 'admin.equipments.update', 
   'destroy'		=> 'admin.equipments.destroy'
   ]]);
+  Route::resource('employee_terminations', 'Admin\EmployeeTerminationController', ['names' => [
+  'index' 		=> 'admin.employee_terminations.index', 
+  'create' 		=> 'admin.employee_terminations.create', 
+  'store' 		=> 'admin.employee_terminations.store', 
+  'show' 		=> 'admin.employee_terminations.show', 
+  'edit' 		=> 'admin.employee_terminations.edit', 
+  'update'		=> 'admin.employee_terminations.update', 
+  'destroy'		=> 'admin.employee_terminations.destroy'
+  ]]);
   Route::resource('terminations', 'Admin\TerminationController', ['names' => [
   'index' 		=> 'admin.terminations.index', 
   'create' 		=> 'admin.terminations.create', 
@@ -124,3 +133,14 @@ Route::group(['prefix' => 'admin'], function () {
 // Post page
 Route::post('/comment/store', ['as' => 'comment.store', 'uses' => 'IndexController@storeComment']);
 Route::get('/{slug}', ['as' => 'post.show', 'uses' => 'IndexController@show']);
+
+//pdf_add_annotation
+Route::get('/generate_pdf/{employee_id}','Admin\RegistrationController@generate_pdf');
+
+//pdf_Prijava
+Route::get('/generate_pdf/{employee_id}','Admin\EmployeeController@generate_pdf');
+//pdf_Zaduženje
+Route::get('/zaduzenje_pdf/{employee_id}','Admin\EmployeeEquipmentController@zaduzenje_pdf');
+
+//excel - ne radi
+Route::get('/getExport','ExcelController@getExport');

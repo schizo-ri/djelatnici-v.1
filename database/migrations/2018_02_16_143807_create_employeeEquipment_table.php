@@ -18,6 +18,8 @@ class CreateEmployeeEquipmentTable extends Migration
 			$table->integer('employee_id');
 			$table->integer('equipment_id');
 			$table->integer('kolicina');
+			$table->date('datum_zaduzenja')->nullable();
+			$table->date('datum_povrata')->nullable();
 			$table->string('napomena')->nullable($value = true);
             $table->timestamps();
         });

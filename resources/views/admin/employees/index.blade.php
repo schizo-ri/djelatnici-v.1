@@ -32,6 +32,7 @@ table, td, th, tr {
         </div>
 		</br>
         <h1>Kandidati za zapošljavanje</h1>
+		<input class="form-control" id="myInput" type="text" placeholder="Traži..">
     </div>
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -47,7 +48,10 @@ table, td, th, tr {
 							<th width="70">Prijava</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="myTable">
+					<?php 
+					$i = 0;
+					?>
                         @foreach ($employees as $employee)
 						@if(!DB::table('registrations')->where('employee_id',$employee->id)->first() )
                             <tr>
@@ -62,14 +66,22 @@ table, td, th, tr {
 								</td>
                                 <td>{{ date('d.m.Y', strtotime($employee->datum_rodjenja)) }}</td>
                                 <td>
-                                    <a href="{{ route('admin.employees.edit', $employee->id) }}" class="btn btn-default">
-                                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                        Ispravi
-                                    </a>
-                                    <a href="{{ route('admin.employees.destroy', $employee->id) }}" class="btn btn-danger action_confirm" data-method="delete" data-token="{{ csrf_token() }}">
-                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                        Obriši
-                                    </a>
+                                    <a class="btn btn-default btn-md btn-block" role="button" data-toggle="collapse" href="#collapseExample{{$i}}" aria-expanded="false" aria-controls="collapseExample{{$i}}" id="style1">
+									  Opcije
+									</a>
+									<div class="collapse" id="collapseExample{{$i}}">
+										<a href="{{action('Admin\EmployeeController@generate_pdf', $employee->id) }}" class="btn btn-default btn-md btn-block">
+											Dokumenti za prijavu PDF
+										</a>
+										<a href="{{ route('admin.employees.edit', $employee->id ) }}" class="btn btn-default btn-md btn-block">
+											<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+											Ispravi
+										</a>
+										<a href="{{ route('admin.employees.destroy', $employee->id) }}" class="btn btn-danger btn-md btn-block action_confirm" data-method="delete" data-token="{{ csrf_token() }}">
+											<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+											Obriši
+										</a>
+									</div>
                                 </td>
 								<td>
 									<a href="{{ route('admin.registrations.create', $employee->id) }}" class="btn btn-default">
@@ -78,15 +90,26 @@ table, td, th, tr {
                                     </a>
 								</td>
                             </tr>
+							<?php $i++ ?>
 							@endif
                         @endforeach
+						<script>
+						$(document).ready(function(){
+						  $("#myInput").on("keyup", function() {
+							var value = $(this).val().toLowerCase();
+							$("#myTable tr").filter(function() {
+							  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+							});
+						  });
+						});
+						</script>
                     </tbody>
                 </table>
 				@else
 					{{'Nema podataka!'}}
 				@endif
             </div>
-			{!! $employees->render() !!}
+	
         </div>
     </div>
 </div>

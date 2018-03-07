@@ -18,7 +18,7 @@ class CreateEmployeesTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
 			$table->string('oib');
-			$table->timestamp('datum_rodjenja')->nullable();
+			$table->date('datum_rodjenja')->nullable();
 			$table->string('mobitel');
 			$table->string('email');
 			$table->string('prebivaliste_adresa');
