@@ -28,6 +28,7 @@ table, td, th, tr {
         <h1>Prijavljeni radnici</h1>
 		<input class="form-control" id="myInput" type="text" placeholder="Traži..">
 		</br>
+		<!--<a href="{{URL::to('getExport')}}" class="btn btn-success">Export</a>-->
 	
     </div>
     <div class="row">

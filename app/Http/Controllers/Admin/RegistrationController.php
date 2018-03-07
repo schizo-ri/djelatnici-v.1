@@ -31,8 +31,10 @@ class RegistrationController extends Controller
      */
     public function index()
     {	
-        $registrations = Registration::get();
-
+        $registrations = Registration::join('employees','registrations.employee_id', '=', 'employees.id')->select('registrations.*','employees.first_name','employees.last_name')->orderBy('employees.last_name','ASC')->get();
+		
+		//dd($registrations);
+		
 		return view('admin.registrations.index',['registrations'=>$registrations]);
     }
 
