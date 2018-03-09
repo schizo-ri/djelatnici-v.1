@@ -28,10 +28,21 @@
                     </div>
 					<div class="form-group {{ ($errors->has('ime')) ? 'has-error' : '' }}">
 						<label>Naziv radnog mjesta:</label>
-						<input name="naziv" type="text" class="form-control">
+						<input name="naziv" type="text" class="form-control" value="{{ old('naziv') }}">
 						{!! ($errors->has('naziv') ? $errors->first('naziv', '<p class="text-danger">:message</p>') : '') !!}
 					</div>
-
+					<div class="form-group">
+						<label>Pravilnik:</label>
+						<select class="form-control" name="pravilnik" id="sel1" value="{{ old('pravilnik') }}">
+							<option selected="selected" value=""></option>
+							<option name="pravilnik">{{ 'Pravilnik o poslovima s posebnim uvjetima rada, čl. 3.' }}</option>
+							<option name="pravilnik">{{ 'Pravilnik o sigurnosti i zaštiti zdravlja pri radu sa računalom' }}</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label>Prema točkama:</label>
+						<input name="tocke" type="text" class="form-control" value="{{ old('tocke') }}">
+					</div>
 					<input name="_token" value="{{ csrf_token() }}" type="hidden">
                     <input class="btn btn-lg btn-primary btn-block" type="submit" value="Upiši radno mjesto" id="stil1">
 				</form>

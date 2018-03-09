@@ -3,11 +3,17 @@
 	<head>
 		<meta charset="utf-8">
 	</head>
+	<style>
+	body { 
+		font-family: DejaVu Sans, sans-serif;
+		font-size: 10px;
+	}
+	</style>
 	<body>
-		<h2>Djelatnik {{ $registration->employee['first_name'] . ' ' . $registration->employee['last_name']}} slavi rođendan!</h2>
+		<h3>Djelatnik {{ $djelatnik->first_name . ' ' . $djelatnik->last_name }} slavi rođendan!</h3>
 
 		<div>
-		Datum rođenja: {{ $registration->employee['datum_rodjenja']}}
+		Datum rođenja: {{ date("d.m.Y", strtotime($djelatnik->datum_rodjenja)) }}
 		</div>
 	</body>
 </html>

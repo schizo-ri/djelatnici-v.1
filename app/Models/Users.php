@@ -8,39 +8,19 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Users extends Authenticatable 
 {
-	/*
-	* The Eloquent post model names
-	* 
-	* @var string
-	*/
-	protected static $postsModel = 'App\Models\Post'; /* putanja do modela posts
+	use Notifiable;
 	
-	/*
-	* The Eloquent comments model name
-	* 
-	* @var string
-	*/
-	protected static $commentsModel = 'App\Models\Comment'; /* putanja do modela comments
+	$user = DB::table('Users')->where('id',9)->get();
+
 	
-	/*
-	* Returns the posts relationship
-	* 
-	* @return \Illuminate\Database\Eloquent\Relations\HasMany
-	*/
+	//$user->notify(new InvoicePaid($invoice));	
+	$when = Carbon::now()->addMinutes(10);
+	Notification::send($user, new InvoicePaid($invoice))->delay($when));
 	
-	public function posts()
-	{
-		return $this->hasMany(static::$postsModel,'user_id');
-	}
 	
-	/*
-	* Returns the comments relationship
-	* 
-	* @return \Illuminate\Database\Eloquent\Relations\HasMany
-	*/
+	 public function routeNotificationForMail()
+    {
+        return $this->email;
+    }
 	
-	public function comments()
-	{
-		return $this->hasMany(static::$commentsModel,'user_id');
-	}	
 }

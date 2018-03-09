@@ -22,7 +22,7 @@ class WorkController extends Controller
      */
     public function index()
     {
-        $works = Work::orderBy('odjel','ASC')->orderBy('naziv','ASC')->paginate(20);
+        $works = Work::orderBy('odjel','ASC')->orderBy('naziv','ASC')->paginate(100);
 		
 		return view('admin.works.index',['works'=>$works]);
     }
@@ -49,7 +49,9 @@ class WorkController extends Controller
 
 		$data = array(
 			'odjel'  => $input['odjel'],
-			'naziv'  => $input['naziv']
+			'naziv'  => $input['naziv'],
+			'pravilnik'  => $input['pravilnik'],
+			'tocke'  => $input['tocke']
 		);
 		
 		$work = new Work();
@@ -101,7 +103,9 @@ class WorkController extends Controller
 
 		$data = array(
 			'odjel'  => $input['odjel'],
-			'naziv'  => $input['naziv']
+			'naziv'  => $input['naziv'],
+			'pravilnik'  => $input['pravilnik'],
+			'tocke'  => $input['tocke']
 		);
 		
 		$work->updateWork($data);

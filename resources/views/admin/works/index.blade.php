@@ -26,6 +26,8 @@
                         <tr>
                             <th>Odjel</th>
                             <th>Naziv</th>
+							<th>Pravilnik</th>
+							<th>Točke</th>
                             <th>Opcije</th>
                         </tr>
                     </thead>
@@ -34,6 +36,8 @@
                             <tr>
                                 <td>{{ $work->odjel }}</td>
                                 <td>{{ $work->naziv }}</td>
+								<td>{{ $work->pravilnik }}</td>
+								<td>{{ $work->tocke }}</td>
                                   <td>
                                     <a href="{{ route('admin.works.edit', $work->id) }}" class="btn btn-default">
                                         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>

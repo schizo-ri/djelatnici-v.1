@@ -181,4 +181,13 @@ class EmployeeController extends Controller
 	$pdf = PDF::loadView('documents.prijava.show', compact('employee'));
 	return $pdf->download($employee->last_name . '_Prijava_dokumentacija.pdf');
 	}
+	
+	public function lijecnicki_pdf($id)
+	{
+	/*$employee = Employee::find($id);
+	$pdf = PDF::loadView('documents.lijecnicki.show', compact('employee'));
+	return $pdf->download($employee->last_name . '_Uputnica.pdf');*/
+	
+	return view('documents.lijecnicki.show');
+	}
 }

@@ -4,7 +4,9 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use App\Console\Commands\SendEmails;
+use App\Console\Commands\Rodjendan;
+use App\Console\Commands\Lijecnicki;
+use App\Console\Commands\Godisnjica;
 
 class Kernel extends ConsoleKernel
 {
@@ -15,7 +17,10 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
       //  \App\Console\Commands\Inspire::class,
-		\App\Console\Commands\SendEmails::class,
+		\App\Console\Commands\Rodjendan::class,
+		\App\Console\Commands\Godisnjica::class,
+		\App\Console\Commands\Probni::class,
+		\App\Console\Commands\Lijecnicki::class,
     ];
 
     /**
@@ -26,7 +31,15 @@ class Kernel extends ConsoleKernel
     */
     protected function schedule(Schedule $schedule)
     {
-         $schedule->command('email:Rodjendan')->dailyAt('15:35');
+        $schedule->command('email:Rodjendan')
+				  ->dailyAt('8:00');
+				  ->evenInMaintenanceMode();
+		$schedule->command('email:Godisnjica')
+				  ->dailyAt('8:00');
+				  ->evenInMaintenanceMode();
+		$schedule->command('email:Lijecnicki')
+				  ->dailyAt('8:00');
+				  ->evenInMaintenanceMode();
     }
 
     /**

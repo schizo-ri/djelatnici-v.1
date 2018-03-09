@@ -139,8 +139,11 @@ Route::get('/generate_pdf/{employee_id}','Admin\RegistrationController@generate_
 
 //pdf_Prijava
 Route::get('/generate_pdf/{employee_id}','Admin\EmployeeController@generate_pdf');
+//pdf_Liječnički
+Route::get('/lijecnicki_pdf/{employee_id}','Admin\EmployeeController@lijecnicki_pdf');
 //pdf_Zaduženje
 Route::get('/zaduzenje_pdf/{employee_id}','Admin\EmployeeEquipmentController@zaduzenje_pdf');
 
 //excel - ne radi
 Route::get('/getExport','ExcelController@getExport');
+

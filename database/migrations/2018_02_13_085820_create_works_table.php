@@ -17,6 +17,8 @@ class CreateWorksTable extends Migration
             $table->increments('id');
 			$table->string('odjel');
             $table->string('naziv');
+			$table->string('pravilnik')->nullable($value = true);
+			$table->string('točke')->nullable($value = true);
             $table->timestamps();
         });
     }

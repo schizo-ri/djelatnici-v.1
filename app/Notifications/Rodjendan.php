@@ -8,9 +8,9 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use App\Models\Users;
 
-class Rodjendan extends Notification
+class Rodjendan extends Notification// implements ShouldQueue
 {
-    use Queueable;
+   // use Queueable;
 	
 	protected $rodjendan;
 
@@ -48,9 +48,8 @@ class Rodjendan extends Notification
 					->subject('Rođendan djelatnika')
 					//->greeting('Pozdrav!')
                     ->line('Djelatnik danas ima rođendan.')
-					//->action('View Invoice', $url)
-                   // ->action('Notification Action', 'https://laravel.com')
-                  //  ->line('Thank you for using our application!');
+					->action('Notification Action', url('/'))
+                    ->line('...');
     }
 
     /**
@@ -61,8 +60,6 @@ class Rodjendan extends Notification
      */
     public function toArray($notifiable)
     {
-        return [
-           //
-        ];
+       //
     }
 }

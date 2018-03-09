@@ -20,6 +20,7 @@ table, td, th, tr {
 </style>
 
 @section('content')
+
 </br>
 </br>
 <div class="container">
@@ -71,7 +72,13 @@ table, td, th, tr {
 									</a>
 									<div class="collapse" id="collapseExample{{$i}}">
 										<a href="{{action('Admin\EmployeeController@generate_pdf', $employee->id) }}" class="btn btn-default btn-md btn-block">
-											Dokumenti za prijavu PDF
+											Upute prijava
+										</a>
+										<a href="{{action('Admin\EmployeeController@lijecnicki_pdf', $employee->id) }}" class="btn btn-default btn-md btn-block">
+											Uputnica za LP
+										</a>
+										<a href="{{action('Admin\EmployeeController@lijecnicki_pdf', $employee->id) }}" class="btn btn-default btn-md btn-block">
+											Uputnica za LP
 										</a>
 										<a href="{{ route('admin.employees.edit', $employee->id ) }}" class="btn btn-default btn-md btn-block">
 											<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
