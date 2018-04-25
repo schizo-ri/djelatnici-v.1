@@ -6,21 +6,41 @@ use Cartalyst\Sentinel\Users\EloquentUser;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Users extends Authenticatable 
+class Users extends EloquentUser 
 {
-	use Notifiable;
+	/*
+	* The Eloquent post model names
+	* 
+	* @var string
+	*/
+	protected static $postsModel = 'App\Models\Post'; /* putanja do modela posts
 	
-	$user = DB::table('Users')->where('id',9)->get();
-
+	/*
+	* The Eloquent comments model name
+	* 
+	* @var string
+	*/
+	protected static $commentsModel = 'App\Models\Comment'; /* putanja do modela comments
 	
-	//$user->notify(new InvoicePaid($invoice));	
-	$when = Carbon::now()->addMinutes(10);
-	Notification::send($user, new InvoicePaid($invoice))->delay($when));
+	/*
+	* Returns the posts relationship
+	* 
+	* @return \Illuminate\Database\Eloquent\Relations\HasMany
+	*/
 	
+	public function posts()
+	{
+		return $this->hasMany(static::$postsModel,'user_id');
+	}
 	
-	 public function routeNotificationForMail()
-    {
-        return $this->email;
-    }
+	/*
+	* Returns the comments relationship
+	* 
+	* @return \Illuminate\Database\Eloquent\Relations\HasMany
+	*/
 	
+	public function comments()
+	{
+		return $this->hasMany(static::$commentsModel,'user_id');
+	}	
 }

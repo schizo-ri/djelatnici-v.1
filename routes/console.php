@@ -18,5 +18,37 @@ Artisan::command('inspire', function () {
 })->describe('Display an inspiring quote');
 
 Artisan::command('email:Rodjendan', function () {
-    $this->comment($date::quote());
-})->describe('Display an SendEmails quote');
+    $this->comment(Rodjendan::quote());
+})->describe('Display an Rodjendan quote');
+
+Artisan::command('email:Godisnjica', function () {
+    $this->comment(Godisnjica::quote());
+})->describe('Display an Godisnjica quote');
+
+Artisan::command('email:Lijecnicki', function () {
+    $this->comment(Lijecnicki::quote());
+})->describe('Display an Lijecnicki quote');
+
+Artisan::command('email:Lijecnicki1', function () {
+    $this->comment(Lijecnicki1::quote());
+})->describe('Display an Lijecnicki1 quote');
+
+Artisan::command('email:Lijecnicki2', function () {
+    $this->comment(Lijecnicki2::quote());
+})->describe('Display an Lijecnicki2 quote');
+
+Artisan::command('email:Probni', function () {
+    $this->comment(Probni::quote());
+})->describe('Display an Probni quote');
+
+Artisan::command('email:Probni1', function () {
+    $this->comment(Probni1::quote());
+})->describe('Display an Probni1 quote');
+
+Artisan::command('email:Probni2', function () {
+    $this->comment(Probni2::quote());
+})->describe('Display an Probni2 quote');
+
+Artisan::command('email:Odjava', function () {
+    $this->comment(Odjava::quote());
+})->describe('Display an Odjava quote');

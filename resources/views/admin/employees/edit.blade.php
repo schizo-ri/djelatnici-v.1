@@ -97,11 +97,16 @@
 						<input name="zvanje" type="text" class="form-control" value="{{ $employee->zvanje }}">
 					</div>
 					{!! ($errors->has('zvanje') ? $errors->first('zvanje', '<p class="text-danger">:message</p>') : '') !!}
+					<div class="form-group {{ ($errors->has('sprema')) ? 'has-error' : '' }}">
+						<label>Stručna sprema:</label>
+						<input name="sprema" type="text" class="form-control" value="{{ $employee->sprema }}">
+					</div>
+					{!! ($errors->has('sprema') ? $errors->first('sprema', '<p class="text-danger">:message</p>') : '') !!}
 					<div class="form-group">
 						<label>Bračno stanje:</label>
-						<select class="form-control" name="bracno_stanje" value="{{ $employee->bracno_stanje }}">
-							<option>U braku</option>
-							<option>nije u braku</option>
+						<select class="form-control" name="bracno_stanje">
+							<option {!! ($employee->bracno_stanje == 'U braku' ? 'selected ': '') !!}  >U braku</option>
+							<option {!! ($employee->bracno_stanje == 'nije u braku' ? 'selected' : '') !!} >nije u braku</option>
 						</select>
 					</div>
 					<div class="form-group {{ ($errors->has('radnoMjesto_id'))  ? 'has-error' : '' }}">
@@ -139,7 +144,8 @@
 						<label>Konfekcijski broj</label>
 						<input name="konf_velicina" type="text" class="form-control" value="{{ $employee->konf_velicina }}">
 					</div>
-					<div class="form-group">Veličina cipela</label>
+					<div class="form-group">
+					<label>Veličina cipela</label>
 						<input name="broj_cipela" type="text" class="form-control" value="{{ $employee->broj_cipela }}">
 					</div>
 					<div class="form-group">

@@ -40,19 +40,25 @@ class Lijecnicki extends Command
      */
     public function handle()
     {	
+		$datum = new DateTime('now');
+		$datum->modify('+1 month');
+		$dan = date_format($datum,'d');
+		$mjesec= date_format($datum,'m');
+		$godina= date_format($datum,'Y');
 		
-		$djelatnici = Registration::join('employees','registrations.employee_id', '=', 'employees.id')->select('registrations.*','employees.first_name','employees.last_name')->whereMonth('registrations.lijecn_pregled', '=', date('m'))->whereDay('registrations.lijecn_pregled', '=', date('d'))->get();
-			
+		$djelatnici = Registration::join('employees','registrations.employee_id', '=', 'employees.id')->select('registrations.*','employees.first_name','employees.last_name')->whereYear('registrations.lijecn_pregled', '=', $godina)->whereMonth('registrations.lijecn_pregled', '=', $mjesec)->whereDay('registrations.lijecn_pregled', '=', $dan)->get();
+		
 		foreach($djelatnici as $djelatnik) {
 	
 			// Send the email to user
 				Mail::queue('email.Lijecnicki', ['djelatnik' => $djelatnik], function ($mail) use ($djelatnik ) {
 					$mail->to('andrea.glivarec@duplico.hr')
+						->cc('uprava@duplico.hr')
+						->cc('petrapaola.bockor@duplico.hr')
 						->cc('jelena.juras@duplico.hr')
-						->from('jelena.juras@duplico.hr', 'Duplico')
-						->subject('Liječnički pregled ' . $djelatnik->first_name . ' '. $djelatnik->last_name);
+						->from('info@duplico.hr', 'Duplico')
+						->subject('Liječnički ' . ' pregled ' . ' - ' . $djelatnik->first_name . ' '. $djelatnik->last_name);
 				});
-		
 		}
 
 		$this->info('Obavijest je poslana!');

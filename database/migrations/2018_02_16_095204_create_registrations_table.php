@@ -19,7 +19,7 @@ class CreateRegistrationsTable extends Migration
 			$table->integer('radnoMjesto_id');
 			$table->date('datum_prijave');
 			$table->integer('probni_rok')->nullable($value = true);
-			$table->integer('staz')->nullable($value = true);
+			$table->string('staz')->nullable($value = true);
 			$table->date('lijecn_pregled')->nullable();
 			$table->date('ZNR')->nullable();
 			$table->string('napomena')->nullable($value = true);

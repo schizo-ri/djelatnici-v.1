@@ -17,7 +17,7 @@ class CreateEmployeeTerminationsTable extends Migration
             $table->increments('id');
 			$table->integer('employee_id');
 			$table->integer('otkaz_id');
-			$table->integer('otkazni_rok');
+			$table->string('otkazni_rok');
 			$table->date('datum_odjave');
 			$table->string('napomena')->nullable($value = true);
             $table->timestamps();

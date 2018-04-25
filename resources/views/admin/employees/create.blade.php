@@ -5,9 +5,9 @@
 @section('content')
 </br>
 </br>
-
+</br>
 <div class="row">
-  <h1>Upis novog kandidata</h1>
+  <h2>Upis novog kandidata</h2>
 </div> 
 <div class="container">
 
@@ -90,6 +90,11 @@
 						<input name="zvanje" type="text" class="form-control" value="{{ old('zvanje') }}">
 					</div>
 					{!! ($errors->has('zvanje') ? $errors->first('zvanje', '<p class="text-danger">:message</p>') : '') !!}
+					<div class="form-group {{ ($errors->has('sprema')) ? 'has-error' : '' }}">
+						<label>Stručna sprema:</label>
+						<input name="sprema" type="text" class="form-control" value="{{ old('sprema') }}">
+					</div>
+					{!! ($errors->has('sprema') ? $errors->first('sprema', '<p class="text-danger">:message</p>') : '') !!}
 					<div class="form-group">
 						<label>Bračno stanje:</label>
 						<select class="form-control" name="bracno_stanje" value="{{ old('bracno_stanje') }}">
@@ -119,7 +124,7 @@
 						<input name="ZNR" class="date form-control" type="text" value = "{{ Carbon\Carbon::now()->format('d-m-Y') }}">
 					</div>
 					<div class="form-group">
-						<label>Komfekcijski broj: </label>
+						<label>Konfekcijski broj: </label>
 						<input name="konf_velicina" type="text" class="form-control" value="{{ old('konf_velicina') }}">
 					</div>
 					<div class="form-group">

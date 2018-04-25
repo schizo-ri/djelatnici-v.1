@@ -48,9 +48,9 @@ class Rodjendan extends Command
 
 		// Send the email to user
 			Mail::queue('email.Rodjendan', ['djelatnik' => $djelatnik], function ($mail) use ($djelatnik) {
-				$mail->to('zeljko.rendulic@duplico.hr')
+				$mail->to('uprava@duplico.hr')
 					->cc('jelena.juras@duplico.hr')
-					->from('jelena.juras@duplico.hr', 'Duplico')
+					->from('info@duplico.hr', 'Duplico')
 					->subject('Rođendan djelatnika ' . $djelatnik->first_name . ' '. $djelatnik->last_name);
 			});
 		}

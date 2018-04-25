@@ -85,7 +85,7 @@ td{
 				 @foreach($equipments as $equipment)
 				  @foreach($employeeEquipment as $oprema)
 				  @if($equipment->id == $oprema->equipment_id)
-				  @if($oprema->employee_id == $registration->employee_id )
+				  @if($oprema->employee_id == $employee->id )
 					<tr>
 						<td align="right" >{{ $i }}.</td>
 						<td>{{ $equipment->naziv }}</td>

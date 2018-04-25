@@ -38,6 +38,7 @@ body {
 				@endif
 				</br>
 				<p><b>Zvanje: </b>{{ $registration->employee['zvanje']  }}</p>
+				<p><b>Stručna sprema: </b>{{ $registration->employee['sprema']  }}</p>
 				<p><b>Konfekcijski broj: </b>{{ $registration->employee['konf_velicina']  }}</p>
 				<p><b>Veličina cipela: </b>{{$registration->employee['broj_cipela']  }}</p>
 				<p><b>Staž kod prošlog poslodavca: </b>{{ $registration->staz  }}</p>

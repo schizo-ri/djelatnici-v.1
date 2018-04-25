@@ -1,7 +1,15 @@
 @extends('layouts.admin')
 
 @section('title', 'Prijava radnika')
-
+<style>
+.staž{
+	display:inline-block;
+	padding:5px;
+	fort-size:0.75rem;
+	border-radius: 5%;
+	width: 50px;
+}
+</style>
 @section('content')
 </br>
 </br>
@@ -42,8 +50,11 @@
 					</div>
 						{!! ($errors->has('probni_rok') ? $errors->first('probni_rok', '<p class="text-danger">:message</p>') : '') !!}
 					<div class="form-group {{ ($errors->has('staz'))  ? 'has-error' : '' }}">
-						<span><b>Staž kod prošlog poslodavca</b></span>
-						<input name="staz" type="text" class="form-control" value="{{ $registration->staz }}">
+
+ 						<span><b>Staž kod prošlog poslodavca (broj godina-mjeseci-dana):</b></span><br>
+						<input name="stazY" type="text" class="staž" value="{{ $stažY }}">-
+						<input name="stazM" type="text" class="staž" value="{{ $stažM}}">-
+						<input name="stazD" type="text" class="staž" value="{{ $stažD }}">
 					</div>
 
 					<div class="form-group {{ ($errors->has('lijecn_pregled'))  ? 'has-error' : '' }}">

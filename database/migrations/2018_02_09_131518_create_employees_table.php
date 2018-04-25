@@ -26,6 +26,7 @@ class CreateEmployeesTable extends Migration
 			$table->string('boraviste_adresa')->nullable();
 			$table->string('boraviste_grad')->nullable();
 			$table->string('zvanje')->nullable();
+			$table->string('sprema')->nullable();
 			$table->string('bracno_stanje');	
 			$table->integer('broj_djece')->nullable();
 			$table->string('radnoMjesto_id')->nullable();

@@ -13,13 +13,13 @@
 	$date1 = new DateTime($djelatnik->lijecn_pregled); 
     $date2 = new DateTime("now"); 
     $interval = $date1->diff($date2); 
-    $days = $interval->format('%a');  
+    $days = $interval->format('%a');
 	?>
 	<body>
 		<h3>Djelatnik {{ $djelatnik->first_name . ' ' . $djelatnik->last_name }} treba na liječnički pregled za  {{ $days }} dana!</h3>
 
 		<div>
-		Datum liječničkog: {{ date("d.m.Y", strtotime($djelatnik->lijecn_pregled)) }}
+		Datum isteka liječničkog uvjerenja: {{ date("d.m.Y", strtotime($djelatnik->lijecn_pregled)) }}
 		</div>
 	</body>
 </html>

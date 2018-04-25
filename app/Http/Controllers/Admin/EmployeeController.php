@@ -9,6 +9,9 @@ use App\Http\Controllers\Controller;
 use Sentinel;
 use Session;
 use PDF;
+use App\Models\Equipment;
+use App\Models\Users;
+use Mail;
 
 class EmployeeController extends Controller
 {
@@ -71,6 +74,7 @@ class EmployeeController extends Controller
 			'boraviste_adresa'      => $input['boraviste_adresa'],
 			'boraviste_grad'        => $input['boraviste_grad'],
 			'zvanje'  			    => $input['zvanje'],
+			'sprema'  			    => $input['sprema'],
 			'konf_velicina'         => $input['konf_velicina'],
 			'broj_cipela'         	=> $input['broj_cipela'],
 			'bracno_stanje'  	    => $input['bracno_stanje'],
@@ -82,6 +86,26 @@ class EmployeeController extends Controller
 		
 		$employee = new Employee();
 		$employee->saveEmployee($data);
+		
+		$djelatnik = Employee::join('works','employees.radnoMjesto_id', '=', 'works.id')->select('employees.*','works.odjel','works.naziv')->where('employees.id',$employee->id)->first();
+		$radno_mj=$djelatnik->naziv;
+		
+		//dd($radno_mj);
+		
+		$zaduzene_osobe = Equipment::distinct()->get(['User_id']);
+		$email_proba = 'jelena.juras@duplico.hr'; 
+		
+		foreach($zaduzene_osobe as $zaduzena_osoba){
+			$user_mail = Users::select('id','email')->where('id',$zaduzena_osoba->User_id)->value('email');
+			Mail::queue(
+				'email.prijava',
+				['djelatnik' => $djelatnik,'user_mail' => $user_mail,'napomena' => $input['napomena'], 'radno_mj' => $radno_mj ],
+				function ($message) use ($user_mail) {
+					$message->to($user_mail)
+						->subject('Novi djelatnik - prijava');
+				}
+			);
+		}		
 		
 		$message = session()->flash('success', 'Novi kandidat je snimljen');
 		
@@ -143,6 +167,7 @@ class EmployeeController extends Controller
 			'boraviste_adresa'  => $input['boraviste_adresa'],
 			'boraviste_grad'  => $input['boraviste_grad'],
 			'zvanje'  => $input['zvanje'],
+			'sprema'  => $input['sprema'],
 			'konf_velicina'         => $input['konf_velicina'],
 			'broj_cipela'         	=> $input['broj_cipela'],
 			'bracno_stanje'  => $input['bracno_stanje'],
@@ -184,10 +209,45 @@ class EmployeeController extends Controller
 	
 	public function lijecnicki_pdf($id)
 	{
-	/*$employee = Employee::find($id);
-	$pdf = PDF::loadView('documents.lijecnicki.show', compact('employee'));
+	$employee1 = Employee::find($id);
+	$employee = Employee::join('works','employees.radnoMjesto_id', '=', 'works.id')->select('employees.*','works.odjel','works.naziv','works.tocke')->where('employees.id',$employee1->id)->first();
+
+	/*$pdf = PDF::loadView('documents.lijecnicki.show', compact('employee'));
 	return $pdf->download($employee->last_name . '_Uputnica.pdf');*/
+	if($employee->tocke == '10, 16, 17, 18'){
+		$pdf = PDF::loadView('documents.lijecnicki.show1', compact('employee'));
+		return $pdf->download($employee->last_name . '_Uputnica.pdf');
+	} elseif ($employee->tocke == '10'){
+		$pdf = PDF::loadView('documents.lijecnicki.show2', compact('employee'));
+		return $pdf->download($employee->last_name . '_Uputnica.pdf');
+	} elseif (!$employee->tocke){
+		$pdf = PDF::loadView('documents.lijecnicki.show3', compact('employee'));
+		return $pdf->download($employee->last_name . '_Uputnica.pdf');
+	}
+	}
 	
-	return view('documents.lijecnicki.show');
+	public function lijecnicki($id)
+	{
+	$employee1 = Employee::find($id);
+	$employee = Employee::join('works','employees.radnoMjesto_id', '=', 'works.id')->select('employees.*','works.odjel','works.naziv','works.tocke')->where('employees.id',$employee1->id)->first();
+
+	/*$pdf = PDF::loadView('documents.lijecnicki.show', compact('employee'));
+	return $pdf->download($employee->last_name . '_Uputnica.pdf');*/
+	if($employee->tocke == '10, 16, 17, 18'){
+		return view('documents.lijecnicki.show1', ['employee' => $employee]);
+	} elseif ($employee->tocke == '10'){
+		return view('documents.lijecnicki.show2', ['employee' => $employee]);
+	} elseif (!$employee->tocke){
+		return view('documents.lijecnicki.show3', ['employee' => $employee]);
+	}
+	}
+	
+	public function prijava_pdf($id)
+	{
+	$employee = Employee::find($id);
+	
+	$pdf = PDF::loadView('documents.prijava.show1', compact('employee'));
+	return $pdf->download($employee->last_name . '_Prijava.pdf');
+	
 	}
 }

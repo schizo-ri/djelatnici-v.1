@@ -27,7 +27,7 @@
 				<p><b>Ime oca, majke: </b>{{ $employee->ime_oca . ', ' . $employee->ime_majke}}</p>
 				<p><b>OIB: </b>{{ $employee->oib }}</p>
 				<p><b>Osobna iskaznica: </b>{{ $employee->oi }}</p>
-				<p><b>Datum rođenja: </b>{{ $employee->datum_rodjenja }}</p>
+				<p><b>Datum rođenja: </b>{{ date('d.m.Y', strtotime($employee->datum_rodjenja)) }}</p>
 				<p><b>Mjesto rođenja: </b>{{ $employee->mjesto_rodjenja }}</p>
 				<p><b>Mobitel: </b>{{ $employee->mobitel }}</p>
 				<p><b>E-mail: </b>{{ $employee->email }}</p>
@@ -38,6 +38,7 @@
 				@endif
 				</br>
 				<p><b>Zvanje: </b>{{ $employee->zvanje }}</p>
+				<p><b>Stručna sprema: </b>{{ $employee->sprema }}</p>
 				<p><b>Konfekcijski broj: </b>{{ $employee->konf_velicina }}</p>
 				<p><b>Veličina cipela: </b>{{ $employee->broj_cipela }}</p>
 				<p><b>Napomena: </b>{{ $employee->napomena }}</p>

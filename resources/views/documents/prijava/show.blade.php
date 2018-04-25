@@ -55,10 +55,10 @@ body {
 	<br/>
 	<div>
 	<p>KONTAKT DUPLICO:</p>
-	<p>Jelena Juras</p>
-	<p>jelena.juras@duplico.hr </p>
-	<p>+385 1 2657 700</p>
-	<p>+385 99 364 5386</p>
+	<p>Petra Paula Bočkor</p>
+	<p>petrapaola.bockor@duplico.hr</p>
+	<p>+385 1 2657 711</p>
+	<p>+385 1 6589 222</p>
 	</div>
 	<br/>
 	<h3>OSTALO:</h3>
@@ -74,7 +74,7 @@ body {
 	Domu zdravlja Zagreb Zapad, Baštijanova 52, Zagreb – Medicina rada
 	</div>
 	<div id="padding2">
-	doktor Silvana Kalabrid Babid
+	doktor Silvana Kalabrić Babić
 	</div>
 	<div id="padding2">
 	medicinska sestra Slavica Franjić

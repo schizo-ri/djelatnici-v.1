@@ -11,7 +11,7 @@ body {
 </style>
 	<body>
 
-		<h4>Za djelatnika {{ $djelatnik->first_name . ' ' . $djelatnik->last_name }} potrebno je naručiti slijedeću opremu</h4>
+		<h4>Za djelatnika {{ $djelatnik->first_name . ' ' . $djelatnik->last_name }} naručena je slijedeća opremu</h4>
 		
 		@foreach($equipments as $equipment)
 			@foreach($input_oprema as $key => $value)

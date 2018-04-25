@@ -34,7 +34,7 @@
 						{!! ($errors->has('otkaz_id') ? $errors->first('otkaz_id', '<p class="text-danger">:message</p>') : '') !!}
 					</div>
 					<div class="form-group {{ ($errors->has('otkazni_rok')) ? 'has-error' : '' }}">
-						<label>Otkazni rok (dana):</label>
+						<label>Otkazni rok:</label>
 						<input name="otkazni_rok" type="text" class="form-control" value="{{ $employee_termination->otkazni_rok }}">
 					{!! ($errors->has('otkazni_rok') ? $errors->first('otkazni_rok', '<p class="text-danger">:message</p>') : '') !!}
 					</div>

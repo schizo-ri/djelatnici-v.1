@@ -11,6 +11,7 @@ use Sentinel;
 use DB;
 use Session;
 use PDF;
+use DateTime;
 
 class RegistrationController extends Controller
 {
@@ -58,13 +59,15 @@ class RegistrationController extends Controller
     public function store(RegistrationRequest $request)
     {
         $input = $request->except(['_token']);
+		//dd($input);
+		
 		
 		$data = array(
 			'employee_id'  		=> $input['employee_id'],
 			'radnoMjesto_id'    => $input['radnoMjesto_id'],
 			'datum_prijave'		=> date("Y-m-d", strtotime($input['datum_prijave'])),
 			'probni_rok'  		=> $input['probni_rok'],
-			'staz'   			=> $input['staz'],
+			'staz'   			=> $input['stazY'].'-'.$input['stazM'].'-'.$input['stazD'],
 			'lijecn_pregled'    => date("Y-m-d", strtotime($input['lijecn_pregled'])),
 			'ZNR'      			=> date("Y-m-d", strtotime($input['ZNR'])),
 			'napomena'  	    => $input['napomena']
@@ -87,7 +90,7 @@ class RegistrationController extends Controller
      */
     public function show($id)
     {
-        $registration = Registration::find($id);
+		$registration = Registration::find($id);
 		
 		return view('admin.registrations.show', ['registration' => $registration]);
     }
@@ -99,9 +102,21 @@ class RegistrationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
+    {	
         $registration = Registration::find($id);
-		return view('admin.registrations.edit', ['registration' => $registration]);
+		$stažY = 0;
+		$stažM = 0;
+		$stažD = 0;
+		if($registration->staz) {
+			$staž = $registration->staz;
+		$staž = explode('-',$registration->staz);
+		$stažY = $staž[0];
+		$stažM = $staž[1];
+		$stažD = $staž[2];
+		}
+		
+		//dd($stažD);
+		return view('admin.registrations.edit', ['registration' => $registration])->with('stažY', $stažY)->with('stažM', $stažM)->with('stažD', $stažD);
     }
 
     /**
@@ -123,7 +138,7 @@ class RegistrationController extends Controller
 				'radnoMjesto_id'    => $input['radnoMjesto_id'],
 				'datum_prijave'		=> date("Y-m-d", strtotime($input['datum_prijave'])),
 				'probni_rok'  		=> $input['probni_rok'],
-				'staz'   			=> $input['staz'],
+				'staz'   			=> $input['stazY'].'-'.$input['stazM'].'-'.$input['stazD'],
 				'lijecn_pregled'    => date("Y-m-d", strtotime($input['lijecn_pregled'])),
 				'ZNR'      			=> date("Y-m-d", strtotime($input['ZNR'])),
 				'napomena'  	    => $input['napomena']

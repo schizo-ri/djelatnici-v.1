@@ -55,7 +55,7 @@ table, td, th, tr {
 								<td>{{ $equipment->napomena }}</td>
 								<td>{{ $equipment->količina_monter }}</td>
 								<td>{{ $equipment->količina_inženjer }}</td>
-								<td>{{ $equipment->user['first_name'] . ' ' . $equipment->user['last_name'] }}</td>
+								<td>{{ $equipment->users['first_name'] . ' ' . $equipment->users['last_name'] }}</td>
 								<td>
                                     <a href="{{ route('admin.equipments.edit', $equipment->id) }}" class="btn btn-default">
                                         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>

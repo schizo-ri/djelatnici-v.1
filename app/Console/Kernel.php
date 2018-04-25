@@ -20,7 +20,12 @@ class Kernel extends ConsoleKernel
 		\App\Console\Commands\Rodjendan::class,
 		\App\Console\Commands\Godisnjica::class,
 		\App\Console\Commands\Probni::class,
+		\App\Console\Commands\Probni1::class,
+		\App\Console\Commands\Probni2::class,
 		\App\Console\Commands\Lijecnicki::class,
+		\App\Console\Commands\Lijecnicki1::class,
+		\App\Console\Commands\Lijecnicki2::class,
+		\App\Console\Commands\Odjava::class,
     ];
 
     /**
@@ -32,13 +37,31 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('email:Rodjendan')
-				  ->dailyAt('8:00');
+				  ->dailyAt('8:00')
 				  ->evenInMaintenanceMode();
 		$schedule->command('email:Godisnjica')
-				  ->dailyAt('8:00');
+				  ->dailyAt('8:00')
 				  ->evenInMaintenanceMode();
 		$schedule->command('email:Lijecnicki')
-				  ->dailyAt('8:00');
+				  ->dailyAt('8:00')
+				  ->evenInMaintenanceMode();
+		$schedule->command('email:Lijecnicki1')
+				  ->dailyAt('8:00')
+				  ->evenInMaintenanceMode();
+		$schedule->command('email:Lijecnicki2')
+				  ->dailyAt('8:00')
+				  ->evenInMaintenanceMode();
+		$schedule->command('email:Probni')
+				  ->dailyAt('8:00')
+				  ->evenInMaintenanceMode();
+		$schedule->command('email:Probni1')
+				  ->dailyAt('8:00')
+				  ->evenInMaintenanceMode();
+		$schedule->command('email:Probni2')
+				  ->dailyAt('8:00')
+				  ->evenInMaintenanceMode();
+		$schedule->command('email:Odjava')
+				  ->dailyAt('16:00')
 				  ->evenInMaintenanceMode();
     }
 

@@ -11,7 +11,7 @@ class Employee extends Model
 	*
 	* @var array
 	*/
-	protected $fillable = ['first_name','last_name','ime_oca','ime_majke','oib','oi','datum_rodjenja','mjesto_rodjenja','mobitel','email','prebivaliste_adresa','prebivaliste_grad','boraviste_adresa','boraviste_grad','zvanje','bracno_stanje','radnoMjesto_id','lijecn_pregled','ZNR','konf_velicina','broj_cipela','napomena'];
+	protected $fillable = ['first_name','last_name','ime_oca','ime_majke','oib','oi','datum_rodjenja','mjesto_rodjenja','mobitel','email','prebivaliste_adresa','prebivaliste_grad','boraviste_adresa','boraviste_grad','zvanje','sprema','bracno_stanje','radnoMjesto_id','lijecn_pregled','ZNR','konf_velicina','broj_cipela','napomena'];
 	
 	/*
 	* The Eloquent works model name

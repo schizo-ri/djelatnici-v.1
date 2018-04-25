@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => 'jelena.juras@duplico.hr',
-        'name' => 'Jelena Juras',
+        'address' => 'petrapaola.bockor@duplico.hr',
+        'name' => 'Petra Paula Bočkor',
     ],
 
     /*

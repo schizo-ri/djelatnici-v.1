@@ -9,14 +9,9 @@
 		font-size: 10px;
 	}
 	</style>
-	<?php 
-	$date1 = new DateTime($djelatnik->datum_prijave); 
-    $date2 = new DateTime("now"); 
-    $interval = $date1->diff($date2); 
-    $years = $interval->format('%y'); 
-	?>
+
 	<body>
-		<h3>Djelatnik {{ $djelatnik->first_name . ' ' . $djelatnik->last_name }} ima {{ $years }}. godišnjicu rada u firmi za 5 dana!</h3>
+		<h3>Djelatnik {{ $djelatnik->first_name . ' ' . $djelatnik->last_name }} ima {{ $dana }} {{ $years }}. godišnjicu rada u firmi!</h3>
 
 		<div>
 		Datum prijave: {{ date("d.m.Y", strtotime($djelatnik->datum_prijave)) }}

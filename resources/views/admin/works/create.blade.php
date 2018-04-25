@@ -17,16 +17,16 @@
 			<div class="panel-body">
 				 <form accept-charset="UTF-8" role="form" method="post" action="{{ route('admin.works.store') }}">
 				 
-					<div class="form-group {{ ($errors->has('employee_id'))  ? 'has-error' : '' }}">
+					<div class="form-group {{ ($errors->has('odjel'))  ? 'has-error' : '' }}">
                         <label>Odjel</label>
 						<select class="form-control" name="odjel" id="sel1" value="{{ old('odjel') }}">
 							<option name="odjel">{{ 'Zajednički poslovi' }}</option>
 							<option name="odjel">{{ 'Odjel informatičkih tehnologija' }}</option>
 							<option name="odjel">{{ 'Inženjering'  }}</option>
 						</select>
-						{!! ($errors->has('employee_id') ? $errors->first('employee_id', '<p class="text-danger">:message</p>') : '') !!}
+						{!! ($errors->has('odjel') ? $errors->first('odjel', '<p class="text-danger">:message</p>') : '') !!}
                     </div>
-					<div class="form-group {{ ($errors->has('ime')) ? 'has-error' : '' }}">
+					<div class="form-group {{ ($errors->has('naziv')) ? 'has-error' : '' }}">
 						<label>Naziv radnog mjesta:</label>
 						<input name="naziv" type="text" class="form-control" value="{{ old('naziv') }}">
 						{!! ($errors->has('naziv') ? $errors->first('naziv', '<p class="text-danger">:message</p>') : '') !!}

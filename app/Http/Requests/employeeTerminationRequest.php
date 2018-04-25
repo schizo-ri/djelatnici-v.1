@@ -26,7 +26,7 @@ class EmployeeTerminationRequest extends FormRequest
         return [
             'employee_id'     =>'required',
 			'otkaz_id'     =>'required',
-			'otkazni_rok'  =>'required|numeric',
+			'otkazni_rok'  =>'required',
 			'datum_odjave'  =>'required'
 			
         ];
@@ -43,7 +43,6 @@ class EmployeeTerminationRequest extends FormRequest
 			'employee_id.required'   => 'Unos djelatnika je obavezan',
 			'otkaz_id.required'   => 'Unos vrste otkaza je obavezan',
 			'otkazni_rok.required'   => 'Unos otkaznog roka je obavezan',
-			'otkazni_rok.numeric'   => 'Dozvoljen je samo upis broja',
 			'datum_odjave.required'   => 'Unos datuma otkaza je obavezan'
 		];
 	}

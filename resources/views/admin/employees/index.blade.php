@@ -5,7 +5,6 @@
 <style>
 #padding1 {
     padding-left: 30px;
-
 }
 th {
     font-size: 12px;
@@ -42,11 +41,11 @@ table, td, th, tr {
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th width="150">Radno mjesto</th>
-							<th width="100">Ime i prezime</th>
-                            <th width="80">Datum rođenja</th>
-                            <th width="100">Opcije</th>
-							<th width="70">Prijava</th>
+                            <th >Radno mjesto</th>
+							<th >Ime i prezime</th>
+                            <th >Datum rođenja</th>
+                            <th >Opcije</th>
+							<th >Prijava</th>
                         </tr>
                     </thead>
                     <tbody id="myTable">
@@ -71,14 +70,24 @@ table, td, th, tr {
 									  Opcije
 									</a>
 									<div class="collapse" id="collapseExample{{$i}}">
+										<a href="{{action('Admin\EmployeeController@prijava_pdf', $employee->id) }}" class="btn btn-default btn-md btn-block">
+											Podaci PDF
+										</a>
 										<a href="{{action('Admin\EmployeeController@generate_pdf', $employee->id) }}" class="btn btn-default btn-md btn-block">
 											Upute prijava
 										</a>
-										<a href="{{action('Admin\EmployeeController@lijecnicki_pdf', $employee->id) }}" class="btn btn-default btn-md btn-block">
+										<a href="{{action('Admin\EmployeeController@lijecnicki', $employee->id) }}" class="btn btn-default btn-md btn-block">
 											Uputnica za LP
 										</a>
-										<a href="{{action('Admin\EmployeeController@lijecnicki_pdf', $employee->id) }}" class="btn btn-default btn-md btn-block">
-											Uputnica za LP
+										<!--<a href="{{action('Admin\EmployeeController@lijecnicki_pdf', $employee->id) }}" class="btn btn-default btn-md btn-block">
+											Uputnica za LP PDF
+										</a>-->
+										<a href="{{ route('admin.employee_equipments.create', $employee->id) }}" class="btn btn-default btn-md btn-block">
+											Zaduži opremu
+										</a>
+										<a href="{{ route('admin.employee_equipments.show', $employee->id)}}" class="btn btn-default btn-md btn-block  {{ ! Sentinel::inRole('administrator') && Sentinel::getUser()->id != $offer->user_id ? 'disabled' : '' }}">
+											<span class="glyphicon glyphicon-print" aria-hidden="true"></span>
+											Zaduženje
 										</a>
 										<a href="{{ route('admin.employees.edit', $employee->id ) }}" class="btn btn-default btn-md btn-block">
 											<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>

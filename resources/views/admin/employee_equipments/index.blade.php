@@ -42,13 +42,13 @@ table, td, th, tr {
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th width="100">Zaduženi djelatnik</th>
-							<th width="100">Radna oprema</th>
-                            <th width="50">Količina</th>
-							<th width="70">Datum zaduženja</th>
-							<th width="70">Datum razduženja</th>
-							<th width="100">Napomena</th>
-                            <th width="80">Opcije</th>
+                            <th >Zaduženi djelatnik</th>
+							<th >Radna oprema</th>
+                            <th >Količina</th>
+							<th>Datum zaduženja</th>
+							<th >Datum razduženja</th>
+							<th >Napomena</th>
+                            <th >Opcije</th>
                         </tr>
                     </thead>
                     <tbody id="myTable">
@@ -72,8 +72,7 @@ table, td, th, tr {
 											Obriši
 									</a>
 									<a href="{{ route('admin.employee_equipments.edit', $employeeEquipment->id) }}" class="btn btn-default btn-block {{  $employeeEquipment->datum_povrata ? 'disabled' : '' }}" id="btn">
-                                        
-                                        Vrati zaduženo
+											Razduži
                                     </a>
 
                                 </td>

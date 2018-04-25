@@ -89,29 +89,29 @@ class EmployeeEquipmentController extends Controller
 		}
 		
 		/***************send email************/
-		$input_oprema = $request->only('equipment_id1','equipment_id2');
+		/*$input_oprema = $request->only('equipment_id1','equipment_id2');
 		$equipments = Equipment::get();
 		$zaduzene_osobe = Equipment::distinct()->get(['User_id']);
 		
-		$djelatnik = Employee::where('id',$input['employee_id'])->first();
+		$djelatnik = Employee::where('id',$input['employee_id'])->first();*/
 		
 		/*********privremeno za probu ***************/
-		$email = $djelatnik->email; 
-		$email_proba = 'jelena.juras@duplico.hr'; 
+		/*$email = $djelatnik->email; 
+		$email_proba = 'jelena.juras@duplico.hr'; */
 		/*******email zadužene osobe ******************/
 
 		
-		foreach($zaduzene_osobe as $zaduzena_osoba){
+		/*foreach($zaduzene_osobe as $zaduzena_osoba){
 			$user_mail = Users::select('id','email')->where('id',$zaduzena_osoba->User_id)->value('email');
 				Mail::queue(
 					'email.oprema',
 					['djelatnik' => $djelatnik,'input_oprema' => $input_oprema,'equipments' => $equipments,'user_mail' => $user_mail,'napomena' => $input['napomena']],
-					function ($message) use ($email_proba) {
-						$message->to($email_proba)
+					function ($message) use ($user_mail) {
+						$message->to($user_mail)
 							->subject('Novi djelatnik - radna oprema');
 					}
 				);
-			}
+			}*/
 		
 		$message = session()->flash('success', 'Oprema je zadužena');
 		
@@ -128,15 +128,14 @@ class EmployeeEquipmentController extends Controller
     {
 		$datum = EmployeeEquipment::orderBy('datum_zaduzenja', 'desc')->value('datum_zaduzenja');
 		
-        $registration = Registration::find($id);
-		$employee = Employee::where('id',$registration->employee_id)->first();
+		$employee = Employee::find($id);
 		$employeeEquipment = EmployeeEquipment::where('datum_zaduzenja',$datum)->get();
 		$equipments = Equipment::get();
-		$radnoMjesto = Work::where('id',$registration->radnoMjesto_id)->first();
+		$radnoMjesto = Work::where('id',$employee->radnoMjesto_id)->first();
 		
 		//dd($employeeEquipment);
 		
-		return view('admin.employee_equipments.show', ['registration' => $registration])->with('registration', $registration)->with('equipments', $equipments)->with('employee', $employee)->with('employeeEquipment', $employeeEquipment)->with('radnoMjesto', $radnoMjesto);
+		return view('admin.employee_equipments.show', ['employee' => $employee])->with('employee', $employee)->with('equipments', $equipments)->with('employeeEquipment', $employeeEquipment)->with('radnoMjesto', $radnoMjesto);
     }
 
     /**

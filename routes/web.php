@@ -128,6 +128,24 @@ Route::group(['prefix' => 'admin'], function () {
   'update'		=> 'admin.employee_equipments.update', 
   'destroy'		=> 'admin.employee_equipments.destroy'
   ]]);
+  Route::resource('workingTags', 'Admin\Working_TagController', ['names' => [
+  'index' 		=> 'admin.workingTags.index', 
+  'create' 		=> 'admin.workingTags.create', 
+  'store' 		=> 'admin.workingTags.store', 
+  'show' 		=> 'admin.workingTags.show', 
+  'edit' 		=> 'admin.workingTags.edit', 
+  'update'		=> 'admin.workingTags.update', 
+  'destroy'		=> 'admin.workingTags.destroy'
+  ]]);
+  Route::resource('workingHours', 'Admin\Working_hourController', ['names' => [
+  'index' 		=> 'admin.workingHours.index', 
+  'create' 		=> 'admin.workingHours.create', 
+  'store' 		=> 'admin.workingHours.store', 
+  'show' 		=> 'admin.workingHours.show', 
+  'edit' 		=> 'admin.workingHours.edit', 
+  'update'		=> 'admin.workingHours.update', 
+  'destroy'		=> 'admin.workingHours.destroy'
+  ]]);
 });
 
 // Post page
@@ -141,8 +159,11 @@ Route::get('/generate_pdf/{employee_id}','Admin\RegistrationController@generate_
 Route::get('/generate_pdf/{employee_id}','Admin\EmployeeController@generate_pdf');
 //pdf_Liječnički
 Route::get('/lijecnicki_pdf/{employee_id}','Admin\EmployeeController@lijecnicki_pdf');
+Route::get('/lijecnicki/{employee_id}','Admin\EmployeeController@lijecnicki');
 //pdf_Zaduženje
 Route::get('/zaduzenje_pdf/{employee_id}','Admin\EmployeeEquipmentController@zaduzenje_pdf');
+//pdf_Prijava
+Route::get('/prijava_pdf/{employee_id}','Admin\EmployeeController@prijava_pdf');
 
 //excel - ne radi
 Route::get('/getExport','ExcelController@getExport');

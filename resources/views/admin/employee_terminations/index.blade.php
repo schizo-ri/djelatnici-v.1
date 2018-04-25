@@ -55,7 +55,7 @@ table, td, th, tr {
                             <tr>
                                 <td>{{ $employee_termination->employee['first_name'] . ' ' . $employee_termination->employee['last_name'] }}</td>
 								<td>{{ $employee_termination->termination['naziv'] }}</td>
-								<td>{{ $employee_termination->otkazni_rok . ' dana' }}</td>
+								<td>{{ $employee_termination->otkazni_rok }}</td>
 								<td>{{ date('d.m.Y.', strtotime($employee_termination->datum_odjave)) }}
 								<td>{{ $employee_termination->napomena }}</td>
 								<td>
