@@ -21,13 +21,24 @@ class Working_hourController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $working_hours = Working_hour::get();
+ 		$working_hours = Working_hour::get();
 		$djelatnici = Registration::join('employees','employee_id','employees.id')->select('registrations.*','employees.first_name', 'employees.last_name')->orderBy('employees.last_name','ASC')->get();
-		
-		//dd($djelatnici);
-		return view('admin.workingHours.index')->with('working_hours',$working_hours)->with('djelatnici', $djelatnici);
+
+		$list = array();
+			$month= 5;
+			$year = 2018;
+
+			for($d=1; $d<=31; $d++)
+			{
+				$time=mktime(12, 0, 0, $month, $d, $year);  
+				if (date('m', $time)==$month){   
+						$list[]=date('Y/m/d/D', $time);
+				}
+			}
+
+		return view('admin.workingHours.index')->with('working_hours',$working_hours)->with('djelatnici', $djelatnici)->with('list', $list);
     }
 
     /**
@@ -35,9 +46,26 @@ class Working_hourController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+      $input = $request->except(['_token']);
+	  $working_hours = Working_hour::get();
+		$djelatnici = Registration::join('employees','employee_id','employees.id')->select('registrations.*','employees.first_name', 'employees.last_name')->orderBy('employees.last_name','ASC')->get();
+		
+		
+		$list = array();
+			$mjesec= strstr( $input['mjesec'],'-',true);
+			$godina = substr( $input['mjesec'],'-4');
+
+			for($d=1; $d<=31; $d++)
+			{
+				$time=mktime(12, 0, 0, $mjesec, $d, $godina);  
+				if (date('m', $time)==$mjesec){   
+						$list[]=date('Y/m/d/D', $time);
+				}
+			}
+
+	  return view('admin.workingHours.create')->with('working_hours',$working_hours)->with('djelatnici', $djelatnici)->with('mjesec', $mjesec)->with('godina', $godina)->with('list', $list);
     }
 
     /**
@@ -48,7 +76,35 @@ class Working_hourController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->except(['_token']);
+		
+	/*	$i=1;
+		$data=array();
+		foreach($input as $key => $value){
+			if($key == 'dan_'.$i) {
+				
+				array_push($data, $value);
+				
+			}
+			if($key == 'ime'.$i) {
+				$user = $value;
+				array_push($data, $user);
+			}
+			if($key ==  'ozn'.$i) {
+				$status = $value;
+				array_push($data, $status);
+			}
+		}
+		
+		dd($array);*/
+		
+		
+		/*$data = array( $data
+					'user_id'  => $user,
+					'status'   => $status
+					);	
+				array_push($array, $data);
+				$i++;*/
     }
 
     /**
