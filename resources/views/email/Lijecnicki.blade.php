@@ -16,7 +16,7 @@
     $days = $interval->format('%a');
 	?>
 	<body>
-		<h3>Djelatnik {{ $djelatnik->first_name . ' ' . $djelatnik->last_name }} treba na liječnički pregled za  {{ $days }} dana!</h3>
+		<h3>Djelatnik {{ $ime . ' ' . $prezime }} treba na liječnički pregled za  {{ $days }} dana!</h3>
 
 		<div>
 		Datum isteka liječničkog uvjerenja: {{ date("d.m.Y", strtotime($djelatnik->lijecn_pregled)) }}

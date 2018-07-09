@@ -15,7 +15,7 @@
 	<div class="col-md-6 col-md-offset-3">
 		<div class="panel panel-default">
 			<div class="panel-body">
-				 <form accept-charset="UTF-8" role="form" method="post" action="{{ route('admin.works.update', $work->id) }}">
+				 <form accept-charset="UTF-8" role="form" method="post" action="{{ route('admin.works.update', $work1->id) }}">
 				 
 					<div class="form-group {{ ($errors->has('employee_id'))  ? 'has-error' : '' }}">
                         <label>Odjel</label>
@@ -44,6 +44,21 @@
 						<label>Prema točkama:</label>
 						<input name="tocke" type="text" class="form-control" value="{{ $work->tocke }}">
 					</div>
+					<div class="form-group {{ ($errors->has('user_id'))  ? 'has-error' : '' }}">
+					<?php
+					
+					?>
+					
+                        <label>Nadređen djelatnik</label>
+						<select class="form-control" name="user_id" id="sel1" value="{{ old('user_id') }}"required>
+							<option selected="selected" name="pravilnik" value="{{  $work->user_id }}">{{  $work->last_name . ' ' . $work->first_name }}</option>
+						@foreach($users as $user)
+							<option name="user_id" value="{{ $user->id }}">{{ $user->last_name . ' ' . $user->first_name }} </option>
+						@endforeach
+						</select>
+						{!! ($errors->has('user_id') ? $errors->first('user_id', '<p class="text-danger">:message</p>') : '') !!}
+					</div>
+					
 					{{ csrf_field() }}
 					{{ method_field('PUT') }}
 					<input name="_token" value="{{ csrf_token() }}" type="hidden">

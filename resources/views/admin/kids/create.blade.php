@@ -22,7 +22,7 @@
                         <label>Roditelj</label>
 						<select class="form-control" name="employee_id" id="sel1" value="{{ old('employee_id') }}">
 							@foreach (DB::table('employees')->orderBy('last_name','ASC')->get() as $employee)
-								<option name="employee_id" value="{{ $employee->id }}">{{ $employee->first_name . ' ' . $employee->last_name }}</option>
+								<option name="employee_id" value="{{ $employee->id }}">{{ $employee->last_name  . ' ' . $employee->first_name }}</option>
 							@endforeach	
 							<option selected="selected" value=""></option>
 						</select>

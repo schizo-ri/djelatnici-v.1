@@ -41,7 +41,7 @@
 				 }
 				?>
 					<th>{{ date('d', strtotime($value)) .' '. $dan }}</th>
-					<input type="hidden" name="dan{{'_'.$i}}" value="{{ date('d', strtotime($value)) }}.{{ date('m', strtotime($value)) }}." >
+					<input type="hidden" name="dan{{'_'.$i}}" value="{{ date('d', strtotime($value)) }}.{{ date('m', strtotime($value)) }}." />
 					<?php $i++; ?>
 				@endforeach
 			</tr>
@@ -51,18 +51,15 @@
 				<td>{{ $djelatnik->employee['last_name'] . ' ' . $djelatnik->employee['first_name'] }}</td>
 				<input type="hidden" class="ime" name="ime{{'_'.$i}}" value="{{ $djelatnik->id }}">
 				@for($a = 0; $a < 10; $a++)
-					
-				
-				<td class="evid">
-					<select name="oznaka_id{{'_'.$i}}">
-						<option class="rad" value="R">R</option>
-						<option class="go" value="G">G</option>
-						<option class="bol" value="B">B</option>
-						<option class="sl" value="S">S</option>
-					</select>
-				</td>
+					<td class="evid">
+						<select name="oznaka_id{{'_'.$i}}">
+							<option value="R">R</option>
+							<option value="G">G</option>
+							<option value="B">B</option>
+							<option value="S">S</option>
+						</select>
+					</td>
 				@endfor
-				
 			</tr>
 			<?php $i++; ?>
 			@endforeach

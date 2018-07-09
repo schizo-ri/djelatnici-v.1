@@ -9,6 +9,7 @@ use App\Http\Requests\EmployeeTerminationRequest;
 use App\Http\Controllers\Controller;
 use Sentinel;
 use Session;
+use Mail;
 
 class EmployeeTerminationController extends Controller
 {
@@ -41,7 +42,7 @@ class EmployeeTerminationController extends Controller
      */
     public function create()
     {
-        $employees = Employee::get();
+        $employees = Employee::orderBy('last_name','ASC')->get();
 		return view('admin.employee_terminations.create')->with('employees', $employees);
     }
 
@@ -64,6 +65,31 @@ class EmployeeTerminationController extends Controller
 		);
 		$employee_terminations = new EmployeeTermination();
 		$employee_terminations->saveEmployeeTermination($data);
+		
+		
+		$employee = $input['employee_id'];
+		$djelatnik = EmployeeTermination::join('employees','employee_terminations.employee_id', '=', 'employees.id')->join('registrations','employee_terminations.employee_id', '=', 'registrations.employee_id')->join('works','registrations.radnoMjesto_id', '=', 'works.id')->select('employee_terminations.*','employees.first_name','employees.last_name','works.odjel','works.naziv')->where('employee_terminations.employee_id', $employee)->first();
+
+		$ime = $djelatnik->first_name;
+		$prezime = $djelatnik->last_name;
+		$radno_mj = $djelatnik->naziv;
+				
+		$zaduzene_osobe = array('andrea.glivarec@duplico.hr','petrapaola.bockor@duplico.hr','jelena.juras@duplico.hr','uprava@duplico.hr','tomislav.novosel@duplico.hr','matija.barberic@duplico.hr');
+		//$zaduzene_osobe = array('jelena.juras@duplico.hr','jelena.juras@duplico.hr');
+		
+		foreach($zaduzene_osobe as $key => $zaduzena_osoba){
+			Mail::queue(
+			'email.odjava',
+			['djelatnik' => $djelatnik,'zaduzena_osoba' => $zaduzena_osoba,'napomena' => $input['napomena'], 'radno_mj' => $radno_mj, 'ime' => $ime, 'prezime' => $prezime ],
+			function ($message) use ($zaduzena_osoba, $ime, $prezime ) {
+				$message->to($zaduzena_osoba)
+					->subject('Odjava djelatnika ' . ' - ' . $ime . ' ' .  $prezime);
+			}
+			);
+		}	
+		
+		
+		
 		
 		$message = session()->flash('success', 'Djelatnik je odjavljen.');
 		

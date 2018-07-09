@@ -27,6 +27,7 @@ body {
 				<p><b>Ime oca, majke: </b>{{ $registration->employee['ime_oca']. ', ' . $registration->employee['ime_majke'] }}</p>
 				<p><b>OIB: </b>{{ $registration->employee['oib'] }}</p>
 				<p><b>Osobna iskaznica: </b>{{ $registration->employee['oi'] }}</p>
+				<p><b>Datum isteka osobne iskaznice: </b>{{ date('d.m.Y', strtotime( $registration->employee['oi_istek'] )) }}</p>
 				<p><b>Datum rođenja: </b>{{ date('d.m.Y', strtotime($registration->employee['datum_rodjenja'])) }}</p>
 				<p><b>Mjesto rođenja: </b>{{ $registration->employee['mjesto_rodjenja']  }}</p>
 				<p><b>Mobitel: </b>{{ $registration->employee['mobitel'] }}</p>

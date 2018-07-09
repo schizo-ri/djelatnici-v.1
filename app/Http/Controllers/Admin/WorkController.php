@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Work;
+use App\Models\Users;
 use Illuminate\Http\Request;
-use App\Http\Requests\WorkRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\WorkRequest;
 use Sentinel;
 
 class WorkController extends Controller
@@ -22,7 +23,7 @@ class WorkController extends Controller
      */
     public function index()
     {
-        $works = Work::orderBy('odjel','ASC')->orderBy('naziv','ASC')->paginate(100);
+        $works = Work::leftjoin('users','works.user_id','users.id')->orderBy('odjel','ASC')->select('works.*','users.first_name','users.last_name')->orderBy('naziv','ASC')->paginate(100);
 		
 		return view('admin.works.index',['works'=>$works]);
     }
@@ -34,7 +35,8 @@ class WorkController extends Controller
      */
     public function create()
     {
-       return view('admin.works.create');
+       $users = Users::orderBy('last_name','ASC')->get();
+	   return view('admin.works.create',['users'=>$users]);
     }
 
     /**
@@ -43,7 +45,7 @@ class WorkController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(WorkRequest $request)
+    public function store(Request $request)
     {
 		$input = $request->except(['_token']);
 
@@ -51,7 +53,8 @@ class WorkController extends Controller
 			'odjel'  => $input['odjel'],
 			'naziv'  => $input['naziv'],
 			'pravilnik'  => $input['pravilnik'],
-			'tocke'  => $input['tocke']
+			'tocke'  => $input['tocke'],
+			'user_id'  => $input['user_id']
 		);
 		
 		$work = new Work();
@@ -84,9 +87,12 @@ class WorkController extends Controller
      */
     public function edit($id)
     {
-        $work = Work::find($id);
+		$work1 = Work::find($id);
 		
-		return view('admin.works.edit', ['work' => $work]);
+		$work = Work::leftjoin('users','users.id','works.user_id')->find($id);
+		$users = Users::orderBy('last_name','ASC')->get();
+
+		return view('admin.works.edit',['work' => $work], ['work1' => $work1])->with('users', $users);
     }
 
     /**
@@ -96,7 +102,7 @@ class WorkController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(WorkRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $work = Work::find($id);
 		$input = $request->except(['_token']);
@@ -105,7 +111,8 @@ class WorkController extends Controller
 			'odjel'  => $input['odjel'],
 			'naziv'  => $input['naziv'],
 			'pravilnik'  => $input['pravilnik'],
-			'tocke'  => $input['tocke']
+			'tocke'  => $input['tocke'],
+			'user_id'  => $input['user_id']
 		);
 		
 		$work->updateWork($data);

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Work extends Model
 {
-    protected $fillable = ['odjel','naziv','pravilnik','tocke'];
+    protected $fillable = ['odjel','naziv','pravilnik','tocke','user_id'];
 	
 	/*
 	* The Eloquent employees model names
@@ -14,6 +14,13 @@ class Work extends Model
 	* @var string
 	*/
 	protected static $employeesModel = 'App\Models\Employee';
+	
+	/*
+	* The Eloquent users model names
+	* 
+	* @var string
+	*/
+	protected static $usersModel = 'App\Models\Users';
 	
 	/*
 	* Returns the employee relationship
@@ -25,6 +32,16 @@ class Work extends Model
 	{
 		return $this->hasMany(static::$employeesModel,'radnoMjesto_id');
 	}	
+	
+	/*
+	* Returns the user relationship
+	* 
+	* @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	*/
+	public function user()
+	{
+		return $this->belongsTo(static::$usersModel,'user_id');
+	}
 	
 	/*
 	* Save Work

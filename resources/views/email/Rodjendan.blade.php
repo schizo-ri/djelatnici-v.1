@@ -10,10 +10,10 @@
 	}
 	</style>
 	<body>
-		<h3>Djelatnik {{ $djelatnik->first_name . ' ' . $djelatnik->last_name }} slavi rođendan!</h3>
+		<h3>Djelatnik {{ $ime . ' ' . $prezime }} slavi rođendan!</h3>
 
 		<div>
-		Datum rođenja: {{ date("d.m.Y", strtotime($djelatnik->datum_rodjenja)) }}
+		Datum rođenja: {{ date("d.m.Y", strtotime($datum_rodjenja)) }}
 		</div>
 	</body>
 </html>

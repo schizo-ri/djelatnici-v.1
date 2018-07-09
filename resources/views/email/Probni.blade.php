@@ -17,7 +17,7 @@
     $days = $interval->format('%a');
 	?>
 	<body>
-		<h3>Djelatniku {{ $djelatnik->first_name . ' ' . $djelatnik->last_name }} ističe probni rok za  {{ $days }} dana!</h3>
+		<h3>Djelatniku {{ $ime . ' ' . $prezime }} ističe probni rok za  {{ $days }} dana!</h3>
 
 		<div>
 		Datum prijave: {{ date("d.m.Y", strtotime($djelatnik->datum_prijave)) }}

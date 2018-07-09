@@ -37,7 +37,7 @@
 						<input name="količina_inženjer" type="text" class="form-control" value="{{ old('količina_inženjer') }}">
 						{!! ($errors->has('količina_inženjer') ? $errors->first('količina_inženjer', '<p class="text-danger">:message</p>') : '') !!}
 					</div>
-					<div class="form-group {{ ($errors->has('User_id'))  ? 'has-error' : '' }}"">
+					<div class="form-group {{ ($errors->has('User_id'))  ? 'has-error' : '' }}">
                         <label>Zadužen djelatnik</label>
 						<select class="form-control" name="User_id" id="sel1" value="{{ old('User_id') }}">
 							<option selected="selected"></option>

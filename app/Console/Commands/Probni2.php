@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Models\Registration;
+use App\Models\EmployeeTermination;
 Use Mail;
 use DateTime;
 
@@ -50,15 +51,18 @@ class Probni2 extends Command
 		$djelatnici = Registration::join('employees','registrations.employee_id', '=', 'employees.id')->select('registrations.*','employees.first_name','employees.last_name')->whereYear('registrations.datum_prijave', '=', $godina)->whereMonth('registrations.datum_prijave', '=', $mjesec)->whereDay('registrations.datum_prijave', '=', $dan)->get();
 		
 		foreach($djelatnici as $djelatnik) {
+			$otkaz = EmployeeTermination::where('employee_terminations.employee_id','=',$djelatnik->employee_id)->first();
+			if(!$otkaz){
 			// Send the email to user
-				Mail::queue('email.Probni', ['djelatnik' => $djelatnik], function ($mail) use ($djelatnik ) {
+				Mail::queue('email.Probni', ['djelatnik' => $djelatnik, 'ime' => $ime, 'prezime' => $prezime], function ($mail) use ($djelatnik ) {
 					$mail->to('uprava@duplico.hr')
 						->cc('andrea.glivarec@duplico.hr')
 						->cc('petrapaola.bockor@duplico.hr')
 						->cc('jelena.juras@duplico.hr')
 						->from('info@duplico.hr', 'Duplico')
-						->subject('Probni' . ' ' . 'rok' . $djelatnik->first_name . ' '. $djelatnik->last_name);
+						->subject('Probni ' . ' ' . ' rok' . $djelatnik->first_name . ' ' . $djelatnik->last_name);
 				});
+			}
 		}
 
 		$this->info('Obavijest je poslana!');

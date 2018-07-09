@@ -45,6 +45,11 @@
 						<input name="oi" type="text" class="form-control" value="{{ $employee->oi }}">
 					</div>
 					<div class="form-group">
+						<label>Datum isteka OI: </label>
+						<input name="oi_istek" class="date form-control" type="text" value = "{{ date('d-m-Y', strtotime($employee->oi_istek)) }}">
+						{!! ($errors->has('oi_istek') ? $errors->first('oi_istek', '<p class="text-danger">:message</p>') : '') !!}
+					</div>
+					<div class="form-group">
 						<label>Datum rođenja</label>
 						<input name="datum_rodjenja" class="date form-control" type="text" value ="{{ date('d-m-Y', strtotime($employee->datum_rodjenja)) }}">
 						{!! ($errors->has('datum_rodjenja') ? $errors->first('datum_rodjenja', '<p class="text-danger">:message</p>') : '') !!}

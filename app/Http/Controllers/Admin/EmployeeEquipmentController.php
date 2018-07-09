@@ -42,11 +42,12 @@ class EmployeeEquipmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $employees = Employee::get();
+        $employee = $request->id;
+		$employees = Employee::get();
 		
-		return view('admin.employee_equipments.create')->with('employees', $employees);
+		return view('admin.employee_equipments.create')->with('employees', $employees)->with('employee', $employee);
     }
 		
     /**

@@ -5,8 +5,7 @@
 @section('content')
 
 <?php 
-$employee_id = substr(URL::full(),strpos(URL::full(),'?')+1);
-$employee = $employees->where('id', $employee_id)->first();
+$employee = $employees->where('id', $employee)->first();
 ?>
 <div class="row">
 </br>

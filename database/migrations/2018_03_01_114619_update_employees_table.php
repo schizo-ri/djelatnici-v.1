@@ -20,6 +20,7 @@ class UpdateEmployeesTable extends Migration
 		$table->string('mjesto_rodjenja')->after('datum_rodjenja');
 		$table->string('konf_velicina')->after('ZNR');
 		$table->string('broj_cipela')->after('konf_velicina');
+		$table->date('oi_istek')->nullable();
 	});
     }
 

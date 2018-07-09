@@ -65,6 +65,7 @@ class EmployeeController extends Controller
 			'ime_majke'     		=> $input['ime_majke'],
 			'oib'           		=> $input['oib'],
 			'oi'           			=> $input['oi'],
+			'oi_istek'           	=> date("Y-m-d", strtotime($input['oi_istek'])),
 			'datum_rodjenja'		=> date("Y-m-d", strtotime($input['datum_rodjenja'])),
 			'mjesto_rodjenja'       => $input['mjesto_rodjenja'],
 			'mobitel'  				=> $input['mobitel'],
@@ -92,21 +93,45 @@ class EmployeeController extends Controller
 		
 		//dd($radno_mj);
 		
-		$zaduzene_osobe = Equipment::distinct()->get(['User_id']);
+		//	$zaduzene_osobe = Equipment::distinct()->get(['User_id']);
 		$email_proba = 'jelena.juras@duplico.hr'; 
 		
-		foreach($zaduzene_osobe as $zaduzena_osoba){
-			$user_mail = Users::select('id','email')->where('id',$zaduzena_osoba->User_id)->value('email');
-			Mail::queue(
-				'email.prijava',
-				['djelatnik' => $djelatnik,'user_mail' => $user_mail,'napomena' => $input['napomena'], 'radno_mj' => $radno_mj ],
-				function ($message) use ($user_mail) {
-					$message->to($user_mail)
-						->subject('Novi djelatnik - prijava');
-				}
-			);
-		}		
+		//foreach($zaduzene_osobe as $zaduzena_osoba){
+		//	$user_mail = Users::select('id','email')->where('id',$zaduzena_osoba->User_id)->value('email');
 		
+		$nabava = 'marica.posaric@duplico.hr';
+		Mail::queue(
+			'email.prijava',
+			['djelatnik' => $djelatnik,'nabava' => $nabava,'napomena' => $input['napomena'], 'radno_mj' => $radno_mj ],
+			function ($message) use ($nabava) {
+				$message->to($nabava)
+					->subject('Novi djelatnik - prijava');
+			}
+		);
+		
+		$administracija = 'andrea.glivarec@duplico.hr';
+		Mail::queue(
+			'email.prijava1',
+			['djelatnik' => $djelatnik,'administracija' => $administracija,'napomena' => $input['napomena'], 'radno_mj' => $radno_mj ],
+			function ($message) use ($administracija) {
+				$message->to($administracija)
+					->subject('Novi djelatnik - prijava');
+			}
+		);
+		
+		$zaduzene_osobe = array('petrapaola.bockor@duplico.hr','jelena.juras@duplico.hr','tomislav.novosel@duplico.hr','uprava@duplico.hr','matija.barberic@duplico.hr');
+		
+		foreach($zaduzene_osobe as $key => $zaduzena_osoba){
+			Mail::queue(
+			'email.prijava2',
+			['djelatnik' => $djelatnik,'zaduzena_osoba' => $zaduzena_osoba,'napomena' => $input['napomena'], 'radno_mj' => $radno_mj ],
+			function ($message) use ($zaduzena_osoba) {
+				$message->to($zaduzena_osoba)
+					->subject('Novi djelatnik - prijava');
+			}
+			);
+		}	
+
 		$message = session()->flash('success', 'Novi kandidat je snimljen');
 		
 		//return redirect()->back()->withFlashMessage($messange);
@@ -152,29 +177,30 @@ class EmployeeController extends Controller
 		$input = $request->except(['_token']);
 
 		$data = array(
-			'first_name'  => $input['first_name'],
-			'last_name'    => $input['last_name'],
-			'ime_oca'     			=> $input['ime_oca'],
-			'ime_majke'     		=> $input['ime_majke'],
-			'oib'  => $input['oib'],
-			'oi'           			=> $input['oi'],
-			'datum_rodjenja'  => date("Y-m-d", strtotime($input['datum_rodjenja'])),
-			'mjesto_rodjenja'       => $input['mjesto_rodjenja'],
-			'mobitel'  => $input['mobitel'],
-			'email'  => $input['email'],
+			'first_name'  		   => $input['first_name'],
+			'last_name'   		   => $input['last_name'],
+			'ime_oca'     		   => $input['ime_oca'],
+			'ime_majke'   		   => $input['ime_majke'],
+			'oib'  		           => $input['oib'],
+			'oi'          		   => $input['oi'],
+			'oi_istek'    		   => date("Y-m-d", strtotime($input['oi_istek'])),
+			'datum_rodjenja'  	   => date("Y-m-d", strtotime($input['datum_rodjenja'])),
+			'mjesto_rodjenja' 	   => $input['mjesto_rodjenja'],
+			'mobitel'  	  		   => $input['mobitel'],
+			'email'  	 		   => $input['email'],
 			'prebivaliste_adresa'  => $input['prebivaliste_adresa'],
-			'prebivaliste_grad'  => $input['prebivaliste_grad'],
-			'boraviste_adresa'  => $input['boraviste_adresa'],
-			'boraviste_grad'  => $input['boraviste_grad'],
-			'zvanje'  => $input['zvanje'],
-			'sprema'  => $input['sprema'],
-			'konf_velicina'         => $input['konf_velicina'],
-			'broj_cipela'         	=> $input['broj_cipela'],
-			'bracno_stanje'  => $input['bracno_stanje'],
-			'radnoMjesto_id'  => $input['radnoMjesto_id'],
-			'lijecn_pregled' 	    => date("Y-m-d", strtotime($input['lijecn_pregled'])),
-			'ZNR' 	   			    => date("Y-m-d", strtotime($input['ZNR'])),
-			'napomena' 	   		    => $input['napomena']
+			'prebivaliste_grad'    => $input['prebivaliste_grad'],
+			'boraviste_adresa'     => $input['boraviste_adresa'],
+			'boraviste_grad'  	   => $input['boraviste_grad'],
+			'zvanje'			   => $input['zvanje'],
+			'sprema'			   => $input['sprema'],
+			'konf_velicina'        => $input['konf_velicina'],
+			'broj_cipela'          => $input['broj_cipela'],
+			'bracno_stanje'  	   => $input['bracno_stanje'],
+			'radnoMjesto_id'  	   => $input['radnoMjesto_id'],
+			'lijecn_pregled' 	   => date("Y-m-d", strtotime($input['lijecn_pregled'])),
+			'ZNR' 	   			   => date("Y-m-d", strtotime($input['ZNR'])),
+			'napomena' 	   		   => $input['napomena']
 		);
 		
 		$employee->updateEmployee($data);

@@ -78,6 +78,13 @@ input {
 											<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
 											Ispravi podatke o prijavi
 										</a>
+										<a href="{{ route('admin.employee_equipments.create', ['id' => $registration->employee_id]) }}" class="btn btn-default btn-md btn-block">
+											Zaduži opremu
+										</a>
+										<a href="{{ route('admin.employee_equipments.show', ['id' => $registration->employee_id]) }}" class="btn btn-default btn-md btn-block  {{ ! Sentinel::inRole('administrator') && Sentinel::getUser()->id != $offer->user_id ? 'disabled' : '' }}">
+											<span class="glyphicon glyphicon-print" aria-hidden="true"></span>
+											Zaduženje
+										</a>
 										<!--<a href="{{action('Admin\RegistrationController@generate_pdf', $registration->id)}}" class="btn btn-default btn-md btn-block  {{ ! Sentinel::inRole('administrator') && Sentinel::getUser()->id != $offer->user_id ? 'disabled' : '' }}">
 											<span class="glyphicon glyphicon-print" aria-hidden="true"></span>
 											Dokumenti-prijava

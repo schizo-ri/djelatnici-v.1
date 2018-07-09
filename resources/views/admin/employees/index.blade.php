@@ -82,10 +82,10 @@ table, td, th, tr {
 										<!--<a href="{{action('Admin\EmployeeController@lijecnicki_pdf', $employee->id) }}" class="btn btn-default btn-md btn-block">
 											Uputnica za LP PDF
 										</a>-->
-										<a href="{{ route('admin.employee_equipments.create', $employee->id) }}" class="btn btn-default btn-md btn-block">
+										<a href="{{ route('admin.employee_equipments.create', ['id' => $employee->id ]) }}" class="btn btn-default btn-md btn-block">
 											Zaduži opremu
 										</a>
-										<a href="{{ route('admin.employee_equipments.show', $employee->id)}}" class="btn btn-default btn-md btn-block  {{ ! Sentinel::inRole('administrator') && Sentinel::getUser()->id != $offer->user_id ? 'disabled' : '' }}">
+										<a href="{{ route('admin.employee_equipments.show', ['id' => $employee->id ]) }}" class="btn btn-default btn-md btn-block  {{ ! Sentinel::inRole('administrator') && Sentinel::getUser()->id != $offer->user_id ? 'disabled' : '' }}">
 											<span class="glyphicon glyphicon-print" aria-hidden="true"></span>
 											Zaduženje
 										</a>

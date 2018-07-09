@@ -164,7 +164,3 @@ Route::get('/lijecnicki/{employee_id}','Admin\EmployeeController@lijecnicki');
 Route::get('/zaduzenje_pdf/{employee_id}','Admin\EmployeeEquipmentController@zaduzenje_pdf');
 //pdf_Prijava
 Route::get('/prijava_pdf/{employee_id}','Admin\EmployeeController@prijava_pdf');
-
-//excel - ne radi
-Route::get('/getExport','ExcelController@getExport');
-

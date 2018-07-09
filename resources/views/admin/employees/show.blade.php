@@ -27,6 +27,7 @@
 				<p><b>Ime oca, majke: </b>{{ $employee->ime_oca . ', ' . $employee->ime_majke}}</p>
 				<p><b>OIB: </b>{{ $employee->oib }}</p>
 				<p><b>Osobna iskaznica: </b>{{ $employee->oi }}</p>
+				<p><b>Datum isteka OI: </b>{{ $employee->oi_istek }}</p>
 				<p><b>Datum rođenja: </b>{{ date('d.m.Y', strtotime($employee->datum_rodjenja)) }}</p>
 				<p><b>Mjesto rođenja: </b>{{ $employee->mjesto_rodjenja }}</p>
 				<p><b>Mobitel: </b>{{ $employee->mobitel }}</p>

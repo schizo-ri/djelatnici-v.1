@@ -28,6 +28,7 @@
                             <th>Naziv</th>
 							<th>Pravilnik</th>
 							<th>Točke</th>
+							<th>Nadređeni djelatnik</th>
                             <th>Opcije</th>
                         </tr>
                     </thead>
@@ -38,6 +39,7 @@
                                 <td>{{ $work->naziv }}</td>
 								<td>{{ $work->pravilnik }}</td>
 								<td>{{ $work->tocke }}</td>
+								<td>{{ $work->first_name . ' ' . $work->last_name }}</td>
                                   <td>
                                     <a href="{{ route('admin.works.edit', $work->id) }}" class="btn btn-default">
                                         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>

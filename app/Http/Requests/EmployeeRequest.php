@@ -26,7 +26,9 @@ class EmployeeRequest extends FormRequest
         return [
             'first_name'  =>'required',
 			'last_name'  =>'required',
-			'oib'  =>'required|unique:employees,oib',
+			'oib'  =>'required',
+			'oi'=>'required',
+			'oi_istek'=>'required',
 			'datum_rodjenja'  =>'required',
 			'prebivaliste_adresa'  =>'required',
 			'prebivaliste_grad'  =>'required',
@@ -48,7 +50,8 @@ class EmployeeRequest extends FormRequest
 			'first_name.required' => 'Unos imena je obavezan', //max.required
 			'last_name.required'  => 'Unos prezimena je obavezan',
 			'oib.required'  => 'Unos OIB-a je obavezan',
-			'oib.unique'  => 'Postoji djelatnik ili kandidat s tim OIB-om',
+			'oi.required'  => 'Unos broja osobne iskaznice je obavezan',
+			'oi_istek.required'  => 'Unos datuma isteka osobne iskaznice je obavezan',
 			'datum_rodjenja.required'  => 'Unos datuma rođenja je obavezan',
 			'prebivaliste_adresa.required'  => 'Unos adrese je obavezan',
 			'prebivaliste_grad.required'  => 'Unos grada je obavezan',

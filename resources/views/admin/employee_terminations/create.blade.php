@@ -23,7 +23,7 @@
 							@foreach($employees as $employee)
 							@if(!DB::table('employee_terminations')->where('employee_id',$employee->id)->first() )
 								@if(DB::table('registrations')->where('employee_id',$employee->id)->first() )
-								<option name="employee_id" value="{{ $employee->id }}">{{ $employee->first_name . ' ' . $employee->last_name }}</option>
+								<option name="employee_id" value="{{ $employee->id }}">{{ $employee->last_name . ' ' . $employee->first_name }}</option>
 							@endif
 							@endif
 							@endforeach	
