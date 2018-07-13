@@ -57,7 +57,7 @@ return [
 
     'from' => [
         'address' => 'matija.barberic@duplico.hr',
-        'name' => 'Batija Barberić',
+        'name' => 'Matija Barberić',
     ],
 
     /*
