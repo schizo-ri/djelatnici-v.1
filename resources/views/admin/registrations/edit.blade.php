@@ -11,24 +11,20 @@
 }
 </style>
 @section('content')
-</br>
-</br>
-</br>
-<div class="row">
-  <h1>Ispravak prijave radnika</h1>
+<div class="page-header">
+  <h2>Ispravak prijave radnika</h2>
 </div> 
-<div class="container">
-
-
+<div class="">
 	<div class="col-md-6 col-md-offset-3">
 		<div class="panel panel-default">
 			<div class="panel-body">
 				 <form accept-charset="UTF-8" role="form" method="post" action="{{ route('admin.registrations.update', $registration->id ) }}">
-					<div class="form-group">
+					<div class="form-group {{ ($errors->has('employee_id'))  ? 'has-error' : '' }}">
 						<span><b>Ime i prezime:</b></span>
 						<h3>{{ $registration->employee['first_name'] . ' ' . $registration->employee['last_name'] }}</h3>
-						<input type="hidden" name="employee_id" type="text" class="form-control" value="{{ $registration->employee_id }}">
+						<input type="text" name="employee_id" type="text" class="form-control" value="{{ $registration->employee_id }}">
 					</div>
+					{!! ($errors->has('employee_id') ? $errors->first('employee_id', '<p class="text-danger">:message</p>') : '') !!}
 					<div class="form-group {{ ($errors->has('radnoMjesto_id'))  ? 'has-error' : '' }}">
 						<span><b>Radno mjesto:</b></span>
 						<select class="form-control" name="radnoMjesto_id" id="sel1" value="{{ $registration->radnoMjesto_id }}">
@@ -76,30 +72,7 @@
 						<label>Napomena: </label>
 						<textarea class="form-control" name="napomena">{{ $registration->napomena }}</textarea>
 					</div>
-					<?php 
-						$i = 0;
-					?>
-					<!--<label role="button" data-toggle="collapse" href="#collapseExample{{$i}}" aria-expanded="false" aria-controls="collapseExample{{$i}}">Odjava radnika<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></label>
-					<div class="collapse" id="collapseExample{{$i}}">
-						<div class="form-group">
-							<span><b>Datum odjave:</b></span>
-							<input name="datum_odjave" class="date form-control" type="text" value = "">
-						</div>
-						
-						<div class="form-group">
-                        <label>Vrsta otkaza:</label>
-						<select class="form-control" name="otkaz_id" id="sel1" value="{{ old('otkaz_id') }}">
-							<option selected="selected" value=""></option>@foreach(DB::table('terminations')->orderBy('naziv','ASC')->orderBy('naziv','ASC')->get() as $termination)
-								<option name="otkaz_id" value="{{ $termination->id }}">{{ $termination->naziv }}</option>
-							@endforeach	
-							
-						</select>
-						<div class="form-group">
-						<span><b>Otkazni rok</b></span>
-						<input name="otkazni_rok" type="text" class="form-control" value="{{ old('otkazni_rok') }}"> 
-						</div>
-						</div>
-					</div>-->
+					
 					{{ csrf_field() }}
 					{{ method_field('PUT') }}
 					<input name="_token" value="{{ csrf_token() }}" type="hidden">

@@ -15,6 +15,7 @@ class UpdateWorksTable extends Migration
     {
          Schema::table('works', function (Blueprint $table) {
 			 $table->integer('user_id');
+			 $table->integer('prvi_userId');
 		 });
     }
 

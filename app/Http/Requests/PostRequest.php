@@ -25,7 +25,8 @@ class PostRequest extends FormRequest
     {
         return [
 			'title'  =>'required',
-			'content'=>'required'
+			'content'=>'required',
+			'to_employee_id'=>'required'
         ];
     }
 	
@@ -37,8 +38,9 @@ class PostRequest extends FormRequest
 	public function messages()
 	{
 		return [
-			'title.required' => 'A post title is required', //max.required
-			'content.required'  => 'A post content is required',
+			'title.required' => 'Unos naslova poruke je obavenzan', //max.required
+			'content.required'  => 'Unos poruke je obavenzan',
+			'to_employee_id.required'  => 'Unos osobe je obavenzan',
 		];
 	}
 }

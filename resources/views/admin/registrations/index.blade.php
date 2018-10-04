@@ -25,26 +25,21 @@ input {
 </style>
 
 @section('content')
-</br>
-</br>
-<div class="container">
-    <div class="page-header">
 
+<div class="">
         <h1>Prijavljeni radnici</h1>
-
-    </div>
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="table-responsive" id="tblData">
 			@if(count($registrations) > 0)
-                <table id="table_id" class="display">
+                 <table id="table_id" class="display" style="width: 100%;">
                     <thead>
                         <tr>
 							<th width="100" onclick="sortTable(0)">Ime i prezime</th>
 							<th width="80" onclick="sortTable(1)">Datum prijave</th>
                             <th width="80" onclick="sortTable(2)">Datum rođenja</th>
 							<th width="150" onclick="sortTable(3)">Radno mjesto</th>
-                            <th width="150">Opcije</th>
+                            <th width="150" class="not-export-column">Opcije</th>
                         </tr>
                     </thead>
                     <tbody id="myTable">
@@ -61,46 +56,31 @@ input {
 									</a>
 								</td>
                                 <td>{{ date('d.m.Y.', strtotime($registration->datum_prijave)) }}</td>
-                                
 								<td>{{ date('d.m.Y.', strtotime($registration->employee['datum_rodjenja'])) }}</td>
 								<td>{{ $registration->work['odjel'] . ' - ' . $registration->work['naziv'] }}</td>
+								
 								<td>
-									<a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseExample{{$i}}" aria-expanded="false" aria-controls="collapseExample{{$i}}" id="style1">
+									<a class="btn btn-block" role="button" data-toggle="collapse" href="#collapseExample{{$i}}" aria-expanded="false" aria-controls="collapseExample{{$i}}" id="stil1">
 									  Opcije
 									</a>
 									
 									<div class="collapse" id="collapseExample{{$i}}">
-										<a href="{{ route('admin.employees.edit', $registration->employee_id) }}" class="btn btn-default btn-block">
+										<a href="{{ route('admin.employees.edit', $registration->employee_id) }}" class="btn btn-block">
 											<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
 											Ispravi opće podatke
 										</a>
-										<a href="{{ route('admin.registrations.edit', $registration->id) }}" class="btn btn-default btn-block">
+										<a href="{{ route('admin.registrations.edit', $registration->id) }}" class="btn  btn-block">
 											<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
 											Ispravi podatke o prijavi
 										</a>
-										<a href="{{ route('admin.employee_equipments.create', ['id' => $registration->employee_id]) }}" class="btn btn-default btn-md btn-block">
+										<a href="{{ route('admin.employee_equipments.create', ['id' => $registration->employee_id]) }}" class="btn  btn-md btn-block">
 											Zaduži opremu
 										</a>
-										<a href="{{ route('admin.employee_equipments.show', ['id' => $registration->employee_id]) }}" class="btn btn-default btn-md btn-block  {{ ! Sentinel::inRole('administrator') && Sentinel::getUser()->id != $offer->user_id ? 'disabled' : '' }}">
+										<a href="{{ route('admin.employee_equipments.show', ['id' => $registration->employee_id]) }}" class="btn btn-md btn-block  {{ ! Sentinel::inRole('administrator') ? 'disabled' : '' }}">
 											<span class="glyphicon glyphicon-print" aria-hidden="true"></span>
 											Zaduženje
 										</a>
-										<!--<a href="{{action('Admin\RegistrationController@generate_pdf', $registration->id)}}" class="btn btn-default btn-md btn-block  {{ ! Sentinel::inRole('administrator') && Sentinel::getUser()->id != $offer->user_id ? 'disabled' : '' }}">
-											<span class="glyphicon glyphicon-print" aria-hidden="true"></span>
-											Dokumenti-prijava
-										</a>
-										<a href="{{ route('admin.employee_equipments.create', $registration->employee_id) }}" class="btn btn-default btn-md btn-block">
-											Zaduži opremu
-										</a>
-										<a href="{{ route('admin.employee_equipments.show', $registration->id)}}" class="btn btn-default btn-md btn-block  {{ ! Sentinel::inRole('administrator') && Sentinel::getUser()->id != $offer->user_id ? 'disabled' : '' }}">
-											<span class="glyphicon glyphicon-print" aria-hidden="true"></span>
-											Zaduženje
-										</a>
-
-										<a href="{{ route('admin.registrations.destroy', $registration->id) }}" class="btn btn-danger action_confirm  btn-block" data-method="delete" data-token="{{ csrf_token() }}">
-											<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-											Obriši
-										</a>-->
+										
                                     </div>
 								</td>	
 							</tr>

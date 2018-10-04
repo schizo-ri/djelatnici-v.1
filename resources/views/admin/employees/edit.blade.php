@@ -3,17 +3,12 @@
 @section('title', 'Kandidat - ispravak')
 
 @section('content')
-</br>
-</br>
-</br>
-<div class="row">
-  <h1>Ispravi podatke kandidata</h1>
+<div class="page-header">
+  <h2>Ispravi podatke kandidata</h2>
   <h2 align="center">{{ $employee->first_name . ' '. $employee->last_name }}</h2>
-
 </div> 
-<div class="container">
-
-	<div class="col-md-6 col-md-offset-3">
+<div class="">
+	<div class="col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
 		<div class="panel panel-default">
 			<div class="panel-body">
 				 <form accept-charset="UTF-8" role="form" method="post" action="{{ route('admin.employees.update', $employee->id) }}">
@@ -38,18 +33,20 @@
 					<div class="form-group {{ ($errors->has('oib')) ? 'has-error' : '' }}">
 						<label>OIB</label>
 						<input name="oib" type="text" class="form-control" value="{{ $employee->oib }}">
+						{!! ($errors->has('oib') ? $errors->first('oib', '<p class="text-danger">:message</p>') : '') !!}
 					</div>
-					{!! ($errors->has('oib') ? $errors->first('oib', '<p class="text-danger">:message</p>') : '') !!}
-					<div class="form-group">
+					
+					<div class="form-group {{ ($errors->has('oi')) ? 'has-error' : '' }}">
 						<label>Broj osobne iskaznice:</label>
 						<input name="oi" type="text" class="form-control" value="{{ $employee->oi }}">
+						{!! ($errors->has('oi') ? $errors->first('oi', '<p class="text-danger">:message</p>') : '') !!}
 					</div>
-					<div class="form-group">
+					<div class="form-group {{ ($errors->has('oi_istek')) ? 'has-error' : '' }}">
 						<label>Datum isteka OI: </label>
 						<input name="oi_istek" class="date form-control" type="text" value = "{{ date('d-m-Y', strtotime($employee->oi_istek)) }}">
 						{!! ($errors->has('oi_istek') ? $errors->first('oi_istek', '<p class="text-danger">:message</p>') : '') !!}
 					</div>
-					<div class="form-group">
+					<div class="form-group {{ ($errors->has('datum_rodjenja')) ? 'has-error' : '' }}">
 						<label>Datum rođenja</label>
 						<input name="datum_rodjenja" class="date form-control" type="text" value ="{{ date('d-m-Y', strtotime($employee->datum_rodjenja)) }}">
 						{!! ($errors->has('datum_rodjenja') ? $errors->first('datum_rodjenja', '<p class="text-danger">:message</p>') : '') !!}
@@ -68,8 +65,16 @@
 						<input name="mobitel" type="text" class="form-control" value="{{ $employee->mobitel }}">
 					</div>
 					<div class="form-group">
+						<label>Privatan mobitel</label>
+						<input name="priv_mobitel" type="text" class="form-control" value="{{ $employee->priv_mobitel }}">
+					</div>
+					<div class="form-group">
 						<label>E-mail</label>
 						<input name="email" type="text" class="form-control" value="{{ $employee->email }}">
+					</div>
+					<div class="form-group">
+						<label>Privatan e-mail</label>
+						<input name="priv_email" type="text" class="form-control" value="{{ $employee->priv_email }}">
 					</div>
 					<div class="form-group {{ ($errors->has('prebivaliste_adresa')) ? 'has-error' : '' }}">
 						<label>Prebivalište - adresa:</label>
@@ -107,12 +112,13 @@
 						<input name="sprema" type="text" class="form-control" value="{{ $employee->sprema }}">
 					</div>
 					{!! ($errors->has('sprema') ? $errors->first('sprema', '<p class="text-danger">:message</p>') : '') !!}
-					<div class="form-group">
+					<div class="form-group {{ ($errors->has('bracno_stanje')) ? 'has-error' : '' }}">
 						<label>Bračno stanje:</label>
 						<select class="form-control" name="bracno_stanje">
 							<option {!! ($employee->bracno_stanje == 'U braku' ? 'selected ': '') !!}  >U braku</option>
 							<option {!! ($employee->bracno_stanje == 'nije u braku' ? 'selected' : '') !!} >nije u braku</option>
 						</select>
+						{!! ($errors->has('bracno_stanje') ? $errors->first('bracno_stanje', '<p class="text-danger">:message</p>') : '') !!}
 					</div>
 					<div class="form-group {{ ($errors->has('radnoMjesto_id'))  ? 'has-error' : '' }}">
                         <label>Radno mjesto:</label>
@@ -124,21 +130,15 @@
 						</select>
 						{!! ($errors->has('radnoMjesto_id') ? $errors->first('radnoMjesto_id', '<p class="text-danger">:message</p>') : '') !!}
                     </div>
-					<div class="form-group">
+					<div class="form-group {{ ($errors->has('lijecn_pregled'))  ? 'has-error' : '' }}">
 						<label>Datum liječničkog pregleda: </label>
-						@if($employee->lijecn_pregled)
 						<input name="lijecn_pregled" class="date form-control" type="text" value="{{ date('d-m-Y', strtotime($employee->lijecn_pregled)) }}">
-						@else
-							<input name="lijecn_pregled" class="date form-control" type="text">
-						@endif
+						{!! ($errors->has('lijecn_pregled') ? $errors->first('lijecn_pregled', '<p class="text-danger">:message</p>') : '') !!}
 					</div>
-					<div class="form-group">
+					<div class="form-group {{ ($errors->has('ZNR'))  ? 'has-error' : '' }}">
 						<label>Datum obuke zaštite na radu: </label>
-						@if($employee->ZNR)
-							<input name="ZNR" class="date form-control" type="text" value ="{{ date('d-m-Y', strtotime($employee->ZNR)) }}">
-						@else
-							<input name="ZNR" class="date form-control" type="text" >
-						@endif
+						<input name="ZNR" class="date form-control" type="text" value ="{{ date('d-m-Y', strtotime($employee->ZNR)) }}">
+						{!! ($errors->has('ZNR') ? $errors->first('ZNR', '<p class="text-danger">:message</p>') : '') !!}
 					</div>
 					<script type="text/javascript">
 								$('.date').datepicker({  

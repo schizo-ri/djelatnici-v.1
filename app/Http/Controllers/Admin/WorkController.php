@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Work;
 use App\Models\Users;
+use App\Models\Employee;
+use App\Models\Registration;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\WorkRequest;
@@ -23,8 +25,8 @@ class WorkController extends Controller
      */
     public function index()
     {
-        $works = Work::leftjoin('users','works.user_id','users.id')->orderBy('odjel','ASC')->select('works.*','users.first_name','users.last_name')->orderBy('naziv','ASC')->paginate(100);
-		
+        $works = Work::orderBy('odjel','ASC')->orderBy('naziv','ASC')->paginate(100);
+				
 		return view('admin.works.index',['works'=>$works]);
     }
 
@@ -35,7 +37,8 @@ class WorkController extends Controller
      */
     public function create()
     {
-       $users = Users::orderBy('last_name','ASC')->get();
+      $users = Registration::get();
+	   
 	   return view('admin.works.create',['users'=>$users]);
     }
 
@@ -56,6 +59,11 @@ class WorkController extends Controller
 			'tocke'  => $input['tocke'],
 			'user_id'  => $input['user_id']
 		);
+		
+		if($input['prvi_userId']){
+			$data += ['prvi_userId' => $input['prvi_userId']];
+		}
+		
 		
 		$work = new Work();
 		$work->saveWork($data);
@@ -89,8 +97,8 @@ class WorkController extends Controller
     {
 		$work1 = Work::find($id);
 		
-		$work = Work::leftjoin('users','users.id','works.user_id')->find($id);
-		$users = Users::orderBy('last_name','ASC')->get();
+		$work = Work::leftjoin('employees','employees.id','works.user_id')->find($id);
+		$users = Registration::join('employees','registrations.employee_id','employees.id')->select('registrations.*','employees.last_name','employees.first_name')->orderBy('last_name','ASC')->get();
 
 		return view('admin.works.edit',['work' => $work], ['work1' => $work1])->with('users', $users);
     }
@@ -114,6 +122,10 @@ class WorkController extends Controller
 			'tocke'  => $input['tocke'],
 			'user_id'  => $input['user_id']
 		);
+		
+		if($input['prvi_userId']){
+			$data += ['prvi_userId' => $input['prvi_userId']];
+		}
 		
 		$work->updateWork($data);
 		

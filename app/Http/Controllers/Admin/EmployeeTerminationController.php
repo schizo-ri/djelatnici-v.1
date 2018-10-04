@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\EmployeeTermination;
 use App\Models\Employee;
+use App\Models\Registration;
 use Illuminate\Http\Request;
 use App\Http\Requests\EmployeeTerminationRequest;
 use App\Http\Controllers\Controller;
@@ -55,7 +56,7 @@ class EmployeeTerminationController extends Controller
     public function store(EmployeeTerminationRequest $request)
     {
         $input = $request->except(['_token']);
-		
+		//dd($input);
 		$data = array(
 			'employee_id'  	 => $input['employee_id'],
 			'otkaz_id'   	 => $input['otkaz_id'],
@@ -66,6 +67,14 @@ class EmployeeTerminationController extends Controller
 		$employee_terminations = new EmployeeTermination();
 		$employee_terminations->saveEmployeeTermination($data);
 		
+		$odjava = array(
+			'odjava'  => 'DA'
+		);
+		
+		$djelatnik = Registration::where('employee_id', $input['employee_id']);
+		$djelatnik->update($odjava);
+		
+		
 		
 		$employee = $input['employee_id'];
 		$djelatnik = EmployeeTermination::join('employees','employee_terminations.employee_id', '=', 'employees.id')->join('registrations','employee_terminations.employee_id', '=', 'registrations.employee_id')->join('works','registrations.radnoMjesto_id', '=', 'works.id')->select('employee_terminations.*','employees.first_name','employees.last_name','works.odjel','works.naziv')->where('employee_terminations.employee_id', $employee)->first();
@@ -74,22 +83,20 @@ class EmployeeTerminationController extends Controller
 		$prezime = $djelatnik->last_name;
 		$radno_mj = $djelatnik->naziv;
 				
-		$zaduzene_osobe = array('andrea.glivarec@duplico.hr','petrapaola.bockor@duplico.hr','jelena.juras@duplico.hr','uprava@duplico.hr','tomislav.novosel@duplico.hr','matija.barberic@duplico.hr');
+		$zaduzene_osobe = array('pravni@duplico.hr','petrapaola.bockor@duplico.hr','jelena.juras@duplico.hr','uprava@duplico.hr','tomislav.novosel@duplico.hr','matija.barberic@duplico.hr', 'marica.posaric@duplico.hr');
+		
 		//$zaduzene_osobe = array('jelena.juras@duplico.hr','jelena.juras@duplico.hr');
 		
-		foreach($zaduzene_osobe as $key => $zaduzena_osoba){
+		/*foreach($zaduzene_osobe as $key => $zaduzena_osoba){
 			Mail::queue(
-			'email.odjava',
+			'email.Odjava',
 			['djelatnik' => $djelatnik,'zaduzena_osoba' => $zaduzena_osoba,'napomena' => $input['napomena'], 'radno_mj' => $radno_mj, 'ime' => $ime, 'prezime' => $prezime ],
 			function ($message) use ($zaduzena_osoba, $ime, $prezime ) {
 				$message->to($zaduzena_osoba)
 					->subject('Odjava djelatnika ' . ' - ' . $ime . ' ' .  $prezime);
 			}
 			);
-		}	
-		
-		
-		
+		}*/
 		
 		$message = session()->flash('success', 'Djelatnik je odjavljen.');
 		
@@ -104,7 +111,11 @@ class EmployeeTerminationController extends Controller
      */
     public function show($id)
     {
-        //
+        $employee_termination = EmployeeTermination::find($id);
+		$registration = Registration::where('registrations.employee_id',$employee_termination->employee_id)->join('works','registrations.radnoMjesto_id', '=', 'works.id')->select('registrations.*','works.odjel','works.naziv')->first();
+		
+		
+		return view('admin.employee_terminations.show', ['employee_termination' => $employee_termination])->with('registration', $registration);
     }
 
     /**
@@ -127,7 +138,7 @@ class EmployeeTerminationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EmployeeTerminationRequest $request, $id)
     {
         $employee_termination = EmployeeTermination::find($id);
 		$input = $request->except(['_token']);

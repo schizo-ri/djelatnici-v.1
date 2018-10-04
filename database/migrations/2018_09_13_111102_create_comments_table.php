@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVacationsTable extends Migration
+class CreateCommentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateVacationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('vacations', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
-            $table->date('datum');
-			$table->integer('evidencija');
+			$table->unsignedInteger('user_id');
+			$table->unsignedInteger('post_id');
+			$table->text('content');
+			$table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateVacationsTable extends Migration
      */
     public function down()
     {
-       Schema::drop('vacations');
+        Schema::dropIfExists('comments');
     }
 }

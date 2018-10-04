@@ -4,14 +4,10 @@
 
 @section('content')
 
-<div class="row">
-</br>
-</br>
-</br>
-</br>
-  <h1>Upis novog radnog mjesta</h1>
+<div class="page-header">
+  <h2>Upis novog radnog mjesta</h2>
 </div> 
-<div class="container">
+<div class="">
 	<div class="col-md-6 col-md-offset-3">
 		<div class="panel panel-default">
 			<div class="panel-body">
@@ -39,7 +35,6 @@
 							<option name="pravilnik">{{ 'Pravilnik o sigurnosti i zaštiti zdravlja pri radu sa računalom' }}</option>
 						</select>
 					</div>
-					
 					<div class="form-group">
 						<label>Prema točkama:</label>
 						<input name="tocke" type="text" class="form-control" value="{{ old('tocke') }}">
@@ -49,11 +44,22 @@
 						<select class="form-control" name="user_id" id="sel1" value="{{ old('user_id') }}"required>
 							<option selected="selected"></option>
 						@foreach($users as $user)
-							<option name="user_id" value="{{ $user->id }}">{{ $user->last_name . ' ' . $user->first_name }} </option>
+							<option name="user_id" value="{{ $user->employee_id }}">{{ $user->employee['last_name'] . ' ' . $user->employee['first_name'] }} </option>
 						@endforeach
 						</select>
 						{!! ($errors->has('user_id') ? $errors->first('user_id', '<p class="text-danger">:message</p>') : '') !!}
 					</div>
+					<div class="form-group">
+                        <label>Prvi nadređen djelatnik</label>
+						<select class="form-control" name="prvi_userId" id="sel1" value="{{ old('prvi_userId') }}" >
+							<option selected="selected"></option>
+						@foreach($users as $user)
+							<option name="prvi_userId" value="{{ $user->employee_id }}">{{ $user->employee['last_name'] . ' ' . $user->employee['first_name'] }}</option>
+						@endforeach
+						</select>
+
+					</div>
+					
 					<input name="_token" value="{{ csrf_token() }}" type="hidden">
                     <input class="btn btn-lg btn-primary btn-block" type="submit" value="Upiši radno mjesto" id="stil1">
 				</form>

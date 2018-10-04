@@ -230,7 +230,6 @@ return [
         'Hashids' => Vinkla\Hashids\Facades\Hashids::class,
 		'PDF' => Barryvdh\DomPDF\Facade::class,
 		'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-
     ],
 
 ];

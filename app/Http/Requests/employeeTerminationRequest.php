@@ -24,7 +24,7 @@ class EmployeeTerminationRequest extends FormRequest
     public function rules()
     {
         return [
-            'employee_id'     =>'required',
+            'employee_id'  =>'required',
 			'otkaz_id'     =>'required',
 			'otkazni_rok'  =>'required',
 			'datum_odjave'  =>'required'

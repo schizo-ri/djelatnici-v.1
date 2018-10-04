@@ -1,0 +1,161 @@
+
+.forma {
+	
+	padding: 20px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	box-shadow: 5px 5px 10px #ddd;
+	text-align:left;
+}
+
+.forma h2:first-child{
+	text-align:center;
+	font-size: 30px;
+}
+
+.forma select{
+	width:95%;
+	height: 34px;
+	margin: 0 10px;
+	margin-bottom: 15px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding-left:10px;
+}
+
+#stil1 {
+	margin: auto;
+	width: 200px;
+	
+}
+.date {
+	min-width:130px;
+}
+.datum {
+	width:40%;
+	float:left;
+	padding: 10px;
+	position:relative;
+	margin:0 10px;
+}
+
+.do {
+	float:left;
+	padding: 6px 0px;
+    width: 10%;
+}
+
+.datum2{
+	width:100%;
+	float:left;
+	padding: 10px 0;
+	position:relative;
+}
+
+.datum input {
+	position:absolute;
+	top:0;
+	right:0;
+	text-align:center;
+	padding-right:15px;
+}
+
+.datum label {
+	width:10%;
+	float:left;
+}
+
+.form-group label {
+	width: 100%;
+	text-align:left;
+	margin-top:15px;
+}
+
+.iskorišteno {
+	border: 1px solid red;
+	padding: 5px;
+	margin:15px;
+	border-radius:5px;
+}
+
+.datum2 span {
+	float:left;
+	padding: 8px;
+}
+
+.vrijeme {
+	height: 34px;
+	float:left;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	margin: 0 10px;
+}
+
+.datum i {
+	left: 0;
+	top:10px;
+    position: absolute;
+	padding-left:15px;
+}
+
+.napomena { 
+	width:100%;
+	clear: left;
+}
+
+textarea {
+	display:block;
+	width:100%;
+	margin-bottom:15px;
+}
+
+.padd_10 {
+	padding: 0 10px;
+	
+}
+
+.padd_20b {
+	padding-bottom: 20px;
+}
+
+@media only screen and (max-width: 630px) {
+	.forma h2:first-child{
+		font-size: 20px;
+	}
+	.datum label {
+		font-size: 12px;
+	}
+}
+
+@media only screen and (max-width: 1200px){
+	.datum2{
+		clear:left;
+		width:100%;
+	}
+}
+@media only screen and (max-width: 500px) {
+	.datum {
+	clear:left;
+	}
+	.datum{
+		width:auto;
+	}
+	.do { 
+		padding-left:10px;
+	}
+	.form-group {
+		margin-bottom:0;
+	}
+	.forma, .form-control {
+		font-size:12px;
+	}
+}
+
+p {
+	text-align: left;
+}
+
+#myTable {
+	text-align: left;
+}

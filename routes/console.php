@@ -49,6 +49,10 @@ Artisan::command('email:Probni2', function () {
     $this->comment(Probni2::quote());
 })->describe('Display an Probni2 quote');
 
+Artisan::command('email:GO', function () {
+    $this->comment(GO::quote());
+})->describe('Display an GO quote');
+
 Artisan::command('email:Odjava', function () {
     $this->comment(Odjava::quote());
 })->describe('Display an Odjava quote');

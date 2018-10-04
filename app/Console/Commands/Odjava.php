@@ -51,9 +51,9 @@ class Odjava extends Command
 			
 			// Send the email to user
 				Mail::queue('email.Odjava', ['djelatnik' => $djelatnik, 'ime' => $ime, 'prezime' => $prezime, 'radno_mj' => $radno_mj], function ($mail) use ($djelatnik) {
-					$mail->to('andrea.glivarec@duplico.hr')
+					$mail->to('uprava@duplico.hr')
 						->cc('jelena.juras@duplico.hr')
-						->cc('uprava@duplico.hr')
+						->cc('pravni@duplico.hr')
 						->cc('petrapaola.bockor@duplico.hr')
 						->cc('tomislav.novosel@duplico.hr')
 						->cc('marica.posaric@duplico.hr')

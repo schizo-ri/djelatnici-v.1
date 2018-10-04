@@ -69,7 +69,9 @@ class EmployeeController extends Controller
 			'datum_rodjenja'		=> date("Y-m-d", strtotime($input['datum_rodjenja'])),
 			'mjesto_rodjenja'       => $input['mjesto_rodjenja'],
 			'mobitel'  				=> $input['mobitel'],
+			'priv_mobitel'  		=> $input['priv_mobitel'],
 			'email'  				=> $input['email'],
+			'priv_email'  			=> $input['priv_email'],
 			'prebivaliste_adresa'   => $input['prebivaliste_adresa'],
 			'prebivaliste_grad'     => $input['prebivaliste_grad'],
 			'boraviste_adresa'      => $input['boraviste_adresa'],
@@ -100,7 +102,7 @@ class EmployeeController extends Controller
 		//	$user_mail = Users::select('id','email')->where('id',$zaduzena_osoba->User_id)->value('email');
 		
 		$nabava = 'marica.posaric@duplico.hr';
-		Mail::queue(
+		 Mail::queue(
 			'email.prijava',
 			['djelatnik' => $djelatnik,'nabava' => $nabava,'napomena' => $input['napomena'], 'radno_mj' => $radno_mj ],
 			function ($message) use ($nabava) {
@@ -119,7 +121,7 @@ class EmployeeController extends Controller
 			}
 		);
 		
-		$zaduzene_osobe = array('petrapaola.bockor@duplico.hr','jelena.juras@duplico.hr','tomislav.novosel@duplico.hr','uprava@duplico.hr','matija.barberic@duplico.hr');
+			$zaduzene_osobe = array('petrapaola.bockor@duplico.hr','jelena.juras@duplico.hr','tomislav.novosel@duplico.hr','uprava@duplico.hr','matija.barberic@duplico.hr');
 		
 		foreach($zaduzene_osobe as $key => $zaduzena_osoba){
 			Mail::queue(
@@ -186,8 +188,10 @@ class EmployeeController extends Controller
 			'oi_istek'    		   => date("Y-m-d", strtotime($input['oi_istek'])),
 			'datum_rodjenja'  	   => date("Y-m-d", strtotime($input['datum_rodjenja'])),
 			'mjesto_rodjenja' 	   => $input['mjesto_rodjenja'],
-			'mobitel'  	  		   => $input['mobitel'],
-			'email'  	 		   => $input['email'],
+			'mobitel'  				=> $input['mobitel'],
+			'priv_mobitel'  		=> $input['priv_mobitel'],
+			'email'  				=> $input['email'],
+			'priv_email'  			=> $input['priv_email'],
 			'prebivaliste_adresa'  => $input['prebivaliste_adresa'],
 			'prebivaliste_grad'    => $input['prebivaliste_grad'],
 			'boraviste_adresa'     => $input['boraviste_adresa'],

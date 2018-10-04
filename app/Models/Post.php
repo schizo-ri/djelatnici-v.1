@@ -7,20 +7,27 @@ use Cviebrock\EloquentSluggable\Sluggable;
 
 class Post extends Model
 {
-	use Sluggable;
+	//use Sluggable;
     /**
 	* The attributes thet are mass assignable
 	*
 	* @var array
 	*/
-	protected $fillable = ['user_id','title','slug','content'];
+	protected $fillable = ['employee_id','to_employee_id','title','slug','content'];
 	
 	/*
-	* The Eloquent users model names
+	* The Eloquent employee model names
 	* 
 	* @var string
 	*/
-	protected static $usersModel = 'App\Models\Users'; /* putanja do modela user
+	protected static $employeeModel = 'App\Models\Employee'; /* putanja do modela employee
+	
+	/*
+	* The Eloquent employee model names
+	* 
+	* @var string
+	*/
+	protected static $userModel = 'App\Models\Users'; /* putanja do modela user
 	
 	/*
 	* The Eloquent comments model name
@@ -37,7 +44,12 @@ class Post extends Model
 	
 	public function user()
 	{
-		return $this->belongsTo(static::$usersModel,'user_id');
+		return $this->belongsTo(static::$userModel,'employee_id');
+	}
+	
+	public function to_employee()
+	{
+		return $this->belongsTo(static::$employeeModel,'to_employee_id');
 	}
 	
 	/*
@@ -48,7 +60,7 @@ class Post extends Model
 	
 	public function comments()
 	{
-		return $this->hasMany(static::$commentsModel,'post_id')->where('status',1)->orderBy('created_at','DESC')->paginate(10);
+		return $this->hasMany(static::$commentsModel,'post_id')->orderBy('created_at','DESC')->paginate(10);
 	}	
 	
 	/*
@@ -80,12 +92,12 @@ class Post extends Model
      *
      * @return array
      */
-    public function sluggable()
+   /* public function sluggable()
     {
         return [
             'slug' => [
                 'source' => 'title'
             ]
         ];
-    }
+    }*/
 }

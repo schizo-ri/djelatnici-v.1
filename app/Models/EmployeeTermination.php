@@ -21,6 +21,20 @@ class EmployeeTermination extends Model
 	protected static $employeeModel = 'App\Models\Employee'; 
 	
 	/*
+	* The Eloquent Registration model name
+	* 
+	* @var string
+	*/
+	protected static $registrationModel = 'App\Models\Registration'; 
+	
+	/*
+	* The Eloquent Work model name
+	* 
+	* @var string
+	*/
+	protected static $workModel = 'App\Models\Work'; 
+	
+	/*
 	* The Eloquent termination model name
 	* 
 	* @var string
@@ -47,6 +61,28 @@ class EmployeeTermination extends Model
 	public function termination()
 	{
 		return $this->belongsTo(static::$terminationModel,'otkaz_id');
+	}	
+	
+	/*
+	* Returns the work relationship
+	* 
+	* @return \Illuminate\Database\Eloquent\Relations\HasMany
+	*/
+	
+	public function work()
+	{
+		return $this->belongsTo(static::$workModel,'radnoMjesto_id');
+	}	
+	
+	/*
+	* Returns the termination relationship
+	* 
+	* @return \Illuminate\Database\Eloquent\Relations\HasMany
+	*/
+	
+	public function registration()
+	{
+		return $this->belongsTo(static::$registrationModel,'employee_id');
 	}	
 	
 	/*

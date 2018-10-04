@@ -1,11 +1,10 @@
 @extends('layouts.admin')
 
 @section('title', 'Radna mjesta')
-
+<link rel="stylesheet" href="{{ URL::asset('css/vacations.css') }}" type="text/css" >
 @section('content')
-</br>
-</br>
-<div class="container">
+
+<div class="">
     <div class="page-header">
         <div class='btn-toolbar pull-right' >
             <a class="btn btn-primary btn-lg" href="{{ route('admin.works.create') }}"  id="stil1" >
@@ -13,15 +12,15 @@
                 Unesi novo radno mjesto
             </a>
         </div>
-		</br>
+		
         <h1>Radna mjesta</h1>
-		<input class="form-control" id="myInput" type="text" placeholder="Traži..">
+		
     </div>
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="table-responsive">
 			@if(count($works) > 0)
-                <table class="table table-hover">
+                <table id="table_id" class="display" style="width: 100%;">
                     <thead>
                         <tr>
                             <th>Odjel</th>
@@ -29,7 +28,8 @@
 							<th>Pravilnik</th>
 							<th>Točke</th>
 							<th>Nadređeni djelatnik</th>
-                            <th>Opcije</th>
+							<th>Prvi nadređeni djelatnik</th>
+                            <th class="not-export-column">Opcije</th>
                         </tr>
                     </thead>
                     <tbody id="myTable">
@@ -39,15 +39,14 @@
                                 <td>{{ $work->naziv }}</td>
 								<td>{{ $work->pravilnik }}</td>
 								<td>{{ $work->tocke }}</td>
-								<td>{{ $work->first_name . ' ' . $work->last_name }}</td>
+								<td>{{ $work->nadredjeni['first_name'] . ' ' .$work->nadredjeni['last_name'] }}</td>
+								<td>{{ $work->prvi_nadredjeni['first_name'] . ' ' . $work->prvi_nadredjeni['last_name'] }}</td>
                                   <td>
-                                    <a href="{{ route('admin.works.edit', $work->id) }}" class="btn btn-default">
+                                    <a href="{{ route('admin.works.edit', $work->id) }}">
                                         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                        Ispravi
                                     </a>
-                                    <a href="{{ route('admin.works.destroy', $work->id) }}" class="btn btn-danger action_confirm" data-method="delete" data-token="{{ csrf_token() }}">
-                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                        Obriši
+                                    <a href="{{ route('admin.works.destroy', $work->id) }}" class="action_confirm" data-method="delete" data-token="{{ csrf_token() }}">
+                                        <i class="far fa-trash-alt"></i>
                                     </a>
                                 </td>
                             </tr>

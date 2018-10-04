@@ -3,23 +3,18 @@
 @section('title', 'Promjena odjave')
 
 @section('content')
-
-<div class="row">
-</br>
-</br>
-</br>
-</br>
-  <h1>Promjena odjave radnika</h1>
+<div class="page-header">
+  <h2>Promjena odjave radnika</h2>
 </div> 
-<div class="container">
-	<div class="col-md-8 col-md-offset-2">
+<div class="">
+	<div class="col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<form accept-charset="UTF-8" role="form" method="post" action="{{ route('admin.employee_terminations.update', $employee_termination->id ) }}">
 					<div class="form-group {{ ($errors->has('employee_id'))  ? 'has-error' : '' }}">
 						<label>Djelatnik:</label>
 						<select class="form-control" name="employee_id" id="sel1">
-							<option name="employee_id" value="{{ $employee_termination->employee_id }}">{{ $employee_termination->employee['first_name'] . ' ' . $employee_termination->employee['first_name'] }}</option>
+							<option name="employee_id" value="{{ $employee_termination->employee_id }}">{{ $employee_termination->employee['first_name'] . ' ' . $employee_termination->employee['last_name'] }}</option>
 						</select>
 						{!! ($errors->has('employee_id') ? $errors->first('employee_id', '<p class="text-danger">:message</p>') : '') !!}
 					</div>

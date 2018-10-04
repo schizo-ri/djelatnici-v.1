@@ -3,12 +3,13 @@
 @section('title', 'Edit User')
 
 @section('content')
-<div class="row" style="margin-top:80px">
-    <div class="col-md-4 col-md-offset-4">
+<div class="page-header">
+  <h2>Ispravi podatke korisnika</h2>
+</div> 
+<div class="">
+	<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
         <div class="panel panel-default">
-            <div class="panel-heading" id="stil1">
-                <h3 class="panel-title">Edit User</h3>
-            </div>
+            
             <div class="panel-body">
                 <form accept-charset="UTF-8" role="form" method="post" action="{{ route('users.update', $user->id) }}">
                 <fieldset>
@@ -44,7 +45,7 @@
                     </div>
                     <input name="_token" value="{{ csrf_token() }}" type="hidden">
                     <input name="_method" value="PUT" type="hidden">
-                    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Update" id="stil1">
+                    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Ispravi" id="stil1">
                 </fieldset>
                 </form>
             </div>

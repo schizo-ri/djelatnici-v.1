@@ -3,20 +3,11 @@
 @section('title', 'Povrat zadužene opreme')
 
 @section('content')
-
-<?php 
-//$employee_id = substr(URL::full(),strpos(URL::full(),'?')+1);
-//$employee = $employeeEquipments->id->where('id', $employee_id)->first();
-?>
-<div class="row">
-</br>
-</br>
-</br>
-</br>
-  <h1>Povrat zadužene opreme</h1>
+<div class="page-header">
+  <h2>Povrat zadužene opreme</h2>
 </div> 
-<div class="container">
-	<div class="col-md-8 col-md-offset-2">
+<div class="">
+	<div class="col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<form accept-charset="UTF-8" role="form" method="post" action="{{ route('admin.employee_equipments.update', $employeeEquipments->id ) }}">

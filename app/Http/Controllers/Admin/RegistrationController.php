@@ -33,9 +33,10 @@ class RegistrationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {	
+    {		
 		$registrations = Registration::join('employees','registrations.employee_id', '=', 'employees.id')->select('registrations.*','employees.first_name','employees.last_name')->orderBy('employees.last_name','ASC')->get();
-	   		
+		
+		//dd($registrations);
 		return view('admin.registrations.index',['registrations'=>$registrations]);
     }
 
@@ -67,7 +68,7 @@ class RegistrationController extends Controller
 			'radnoMjesto_id'    => $input['radnoMjesto_id'],
 			'datum_prijave'		=> date("Y-m-d", strtotime($input['datum_prijave'])),
 			'probni_rok'  		=> $input['probni_rok'],
-			//'staz'   			=> $input['stazY'].'-'.$input['stazM'].'-'.$input['stazD'],
+			'staz'   			=> $input['stazY'].'-'.$input['stazM'].'-'.$input['stazD'],
 			'lijecn_pregled'    => date("Y-m-d", strtotime($input['lijecn_pregled'])),
 			'ZNR'      			=> date("Y-m-d", strtotime($input['ZNR'])),
 			'napomena'  	    => $input['napomena']
@@ -77,7 +78,6 @@ class RegistrationController extends Controller
 		$registration = new Registration();
 		$registration->saveRegistration($data);
 
-
 		$employee = $input['employee_id'];
 		$djelatnik = Registration::join('employees','registrations.employee_id', '=', 'employees.id')->join('works','registrations.radnoMjesto_id', '=', 'works.id')->select('registrations.*','employees.first_name','employees.last_name','works.odjel','works.naziv')->where('registrations.employee_id', $employee)->first();
 		
@@ -86,7 +86,9 @@ class RegistrationController extends Controller
 		$prezime = $djelatnik->last_name;
 		$work = Work::leftjoin('users','users.id','works.user_id')->where('works.id',$djelatnik->radnoMjesto_id)->first();
 		
-		$zaduzene_osobe = array('andrea.glivarec@duplico.hr','petrapaola.bockor@duplico.hr','jelena.juras@duplico.hr','uprava@duplico.hr','matija.barberic@duplico.hr');
+		//$zaduzene_osobe = array('andrea.glivarec@duplico.hr','petrapaola.bockor@duplico.hr','jelena.juras@duplico.hr','uprava@duplico.hr','matija.barberic@duplico.hr');
+		
+		$zaduzene_osobe = array('jelena.juras@duplico.hr','jelena.juras@duplico.hr');
 		
 		foreach($zaduzene_osobe as $key => $zaduzena_osoba){
 			Mail::queue(
@@ -99,8 +101,7 @@ class RegistrationController extends Controller
 			);
 		}	
 		
-		$zaduzen = ('tomislav.novosel@duplico.hr');
-		//$zaduzen = ('jelena.juras@duplico.hr');
+	/*	$zaduzen = ('tomislav.novosel@duplico.hr');
 		$ime1 = $work->first_name;
 		$prezime1 = $work->last_name;
 		
@@ -111,7 +112,7 @@ class RegistrationController extends Controller
 			$message->to($zaduzen)
 				->subject('Novi djelatnik - prijava');
 		}
-		);
+		);*/
 
 		$message = session()->flash('success', 'Novi djelatnik je prijavljen');
 		
@@ -152,7 +153,7 @@ class RegistrationController extends Controller
 		$stažD = $staž[2];
 		}
 		
-		//dd($stažD);
+		
 		return view('admin.registrations.edit', ['registration' => $registration])->with('stažY', $stažY)->with('stažM', $stažM)->with('stažD', $stažD);
     }
 
@@ -167,7 +168,6 @@ class RegistrationController extends Controller
     {
         $registration = Registration::find($id);
 		$input = $request->except(['_token']);
-		//dd($input);
 		
 		//if(!$input['datum_odjave']){
 			$data = array(
@@ -175,7 +175,7 @@ class RegistrationController extends Controller
 				'radnoMjesto_id'    => $input['radnoMjesto_id'],
 				'datum_prijave'		=> date("Y-m-d", strtotime($input['datum_prijave'])),
 				'probni_rok'  		=> $input['probni_rok'],
-			//	'staz'   			=> $input['stazY'].'-'.$input['stazM'].'-'.$input['stazD'],
+				'staz'   			=> $input['stazY'].'-'.$input['stazM'].'-'.$input['stazD'],
 				'lijecn_pregled'    => date("Y-m-d", strtotime($input['lijecn_pregled'])),
 				'ZNR'      			=> date("Y-m-d", strtotime($input['ZNR'])),
 				'napomena'  	    => $input['napomena']

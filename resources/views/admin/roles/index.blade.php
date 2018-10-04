@@ -3,9 +3,9 @@
 @section('title', 'Roles')
 
 @section('content')
-    <div class="page-header" style="margin-top:80px">
+    <div class="page-header" >
         <div class='btn-toolbar pull-right'>
-            <a class="btn btn-primary btn-lg" href="{{ route('roles.create') }}">
+            <a class="btn btn-primary btn-lg" href="{{ route('roles.create') }}" id="stil1">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 Create Role
             </a>
@@ -31,13 +31,11 @@
                                 <td>{{ $role->slug }}</td>
                                 <td>{{ implode(", ", array_keys($role->permissions)) }}</td>
                                 <td>
-                                    <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-default">
+                                    <a href="{{ route('roles.edit', $role->id) }}">
                                         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                        Edit
                                     </a>
-                                    <a href="{{ route('roles.destroy', $role->id) }}" class="btn btn-danger action_confirm" data-method="delete" data-token="{{ csrf_token() }}">
-                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                        Delete
+                                    <a href="{{ route('roles.destroy', $role->id) }}" class="action_confirm" data-method="delete" data-token="{{ csrf_token() }}">
+                                        <i class="far fa-trash-alt"></i>
                                     </a>
                                 </td>
                             </tr>

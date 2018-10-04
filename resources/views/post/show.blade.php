@@ -7,9 +7,9 @@
 @section('content')
     <div class="page-header">
         <div class='btn-toolbar'>
-            <a class="btn btn-primary btn-lg" href="{{ url('/') }}">
+            <a class="btn btn-lg" href="{{ url('/') }}" id="stil1">
                 <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                Go Back
+                Natrag
             </a>
         </div>
     </div>

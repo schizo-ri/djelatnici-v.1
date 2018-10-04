@@ -8,7 +8,7 @@
 <div class="evidencija">
 	<h1>Evidencija radnog vremena za {{ $mjesec . '-' . $godina }}</h1>
 	<form accept-charset="UTF-8" role="form" method="post" action="{{ route('admin.workingHours.store') }}">
-	<?php $i=1; ?>
+
 	<table class="lista">
 			<tr>
 				<th class="ime">Prezime i ime</th>
@@ -41,32 +41,35 @@
 				 }
 				?>
 					<th>{{ date('d', strtotime($value)) .' '. $dan }}</th>
-					<input type="hidden" name="dan{{'_'.$i}}" value="{{ date('d', strtotime($value)) }}.{{ date('m', strtotime($value)) }}." />
-					<?php $i++; ?>
 				@endforeach
 			</tr>
-			<?php $i=1; ?>
+			
 			@foreach($djelatnici as $djelatnik)
-			<tr>
-				<td>{{ $djelatnik->employee['last_name'] . ' ' . $djelatnik->employee['first_name'] }}</td>
-				<input type="hidden" class="ime" name="ime{{'_'.$i}}" value="{{ $djelatnik->id }}">
-				@for($a = 0; $a < 10; $a++)
-					<td class="evid">
-						<select name="oznaka_id{{'_'.$i}}">
-							<option value="R">R</option>
-							<option value="G">G</option>
-							<option value="B">B</option>
-							<option value="S">S</option>
-						</select>
-					</td>
-				@endfor
-			</tr>
-			<?php $i++; ?>
+				<tr>
+					<td>{{ $djelatnik->employee['last_name'] . ' ' . $djelatnik->employee['first_name'] }}</td>
+					@for($a = 0; $a < 31; $a++)
+						<?php 
+							$go = '';
+							$zahtjev = DB::table('vacation_requests')->where('employee_id',$djelatnik->id)->where('zahtjev','GO')->where('GOpocetak','2018-09-17');
+							if($zahtjev){
+								$go='GO';
+							}else {
+								$go='nema';
+							}
+							
+						?>
+						<td class="evid">
+						
+							{{ $go }}
+
+						</td>
+					@endfor
+				</tr>
 			@endforeach
 
 	</table>
-	<input name="_token" value="{{ csrf_token() }}" type="hidden">
-    <input class="btn btn-lg btn-primaryk" type="submit" value="Upiši">
+	<!--<input name="_token" value="{{ csrf_token() }}" type="hidden">
+    <input class="btn btn-lg btn-primaryk" type="submit" value="Upiši">-->
 	</form>
 </div>
 

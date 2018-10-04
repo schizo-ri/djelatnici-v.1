@@ -7,9 +7,7 @@
 }
 </style>
 @section('content')
-</br>
-</br>
-</br>
+
     <div class="container">
         <div class='btn-toolbar'>
             <a class="btn btn-primary btn-lg" href="{{ url()->previous() }}"  id="stil1">
@@ -30,7 +28,9 @@
 				<p><b>Datum isteka OI: </b>{{ $employee->oi_istek }}</p>
 				<p><b>Datum rođenja: </b>{{ date('d.m.Y', strtotime($employee->datum_rodjenja)) }}</p>
 				<p><b>Mjesto rođenja: </b>{{ $employee->mjesto_rodjenja }}</p>
+				<p><b>Privatan mobitel: </b>{{ $employee->priv_mobitel }}</p>
 				<p><b>Mobitel: </b>{{ $employee->mobitel }}</p>
+				<p><b>Privatan e-mail: </b>{{ $employee->priv_email }}</p>
 				<p><b>E-mail: </b>{{ $employee->email }}</p>
 				</br>
 				<p><b>Prebivalište: </b>{{ $employee->prebivaliste_adresa . ', ' . $employee->prebivaliste_grad }}</p>

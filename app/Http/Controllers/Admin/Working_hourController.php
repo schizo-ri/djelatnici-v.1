@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Working_hour;
 use App\Models\Registration;
+use App\Models\VacationRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests\Working_hourRequest;
 use App\Http\Controllers\Controller;
@@ -48,10 +49,9 @@ class Working_hourController extends Controller
      */
     public function create(Request $request)
     {
-      $input = $request->except(['_token']);
-	  $working_hours = Working_hour::get();
-		$djelatnici = Registration::join('employees','employee_id','employees.id')->select('registrations.*','employees.first_name', 'employees.last_name')->orderBy('employees.last_name','ASC')->get();
-		
+		$input = $request->except(['_token']);
+
+		$djelatnici = Registration::join('employees','registrations.employee_id','employees.id')->select('registrations.*','employees.first_name', 'employees.last_name')->orderBy('employees.last_name','ASC')->get();
 		
 		$list = array();
 			$mjesec= strstr( $input['mjesec'],'-',true);
@@ -64,8 +64,11 @@ class Working_hourController extends Controller
 						$list[]=date('Y/m/d/D', $time);
 				}
 			}
-
-	  return view('admin.workingHours.create')->with('working_hours',$working_hours)->with('djelatnici', $djelatnici)->with('mjesec', $mjesec)->with('godina', $godina)->with('list', $list);
+		$vacations = VacationRequest::get();
+		
+		//dd($vacations);
+		
+		return view('admin.workingHours.create')->with('djelatnici', $djelatnici)->with('mjesec', $mjesec)->with('godina', $godina)->with('list', $list)->with('vacations', $vacations);
     }
 
     /**

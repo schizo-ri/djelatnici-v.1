@@ -27,9 +27,9 @@ class RegistrationRequest extends FormRequest
             'employee_id'  =>'required',
 			'radnoMjesto_id'  =>'required',
 			'datum_prijave'  =>'required',
-			'probni_rok'  =>'required',
+			'probni_rok'  =>'required|numeric',
 			'lijecn_pregled'  =>'required',
-			'ZNR'  =>'required'		
+			'ZNR' =>'required'		
         ];
     }
 	
@@ -45,6 +45,7 @@ class RegistrationRequest extends FormRequest
 			'radnoMjesto_id.required'  => 'Unos radnog mjesta je obavezan',
 			'datum_prijave.required'  => 'Unos datuma prijave je obavezan',
 			'probni_rok.required'  => 'Unos probnog roka je obavezan',
+			'probni_rok.numeric'  => 'Dozvoljen je upis samo broja',
 			'lijecn_pregled.required'  => 'Unos datuma liječničkog pregleda je obavezan',
 			'ZNR.required'  => 'Unos datuma obuke o zaštiti na radu je obavezan'
 		];

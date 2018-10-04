@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Post;
+use App\Models\Registration;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
 use App\Http\Controllers\Controller;
@@ -31,8 +33,8 @@ class PostController extends Controller
         if(Sentinel::inRole('administrator')) {
 			$posts = Post::orderBy('created_at','DESC')->paginate(10);
 		} else {
-			$user_id= sentinel::getUser()->id;
-			$posts = Post::where('user_id', $user_id)->orderBy('created_at','DESC')->paginate(10);
+			$user_id= Sentinel::getUser()->id;
+			$posts = Post::where('employee_id', $user_id)->orderBy('created_at','DESC')->paginate(10);
 		}
 
 	return view('admin.posts.index',['posts'=>$posts]);
@@ -45,7 +47,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create');
+       $registrations = Registration::join('employees','registrations.employee_id', '=', 'employees.id')->select('registrations.*','employees.first_name','employees.last_name')->orderBy('employees.last_name','ASC')->get();
+		
+		return view('admin.posts.create')->with('registrations', $registrations);
     }
 
     /**
@@ -57,12 +61,15 @@ class PostController extends Controller
     public function store(PostRequest $request)
     {
         $user_id = Sentinel::getUser()->id;
-		$input = $request->except(['_token']);
 
+		$input = $request->except(['_token']);
+		//dd($input);
+		
 		$data = array(
-			'user_id'  => $user_id,
-			'title'    => trim($input['title']),
-			'content'  => $input['content']
+			'employee_id'  	  => $user_id,
+			'to_employee_id'  => $input['to_employee_id'],
+			'title'    		  => trim($input['title']),
+			'content'  		  => $input['content']
 		);
 		
 		$post = new Post();
@@ -83,8 +90,7 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::find($id);
-		
-		
+
 		return view('admin.posts.show', ['post' => $post]);
     }
 
@@ -97,8 +103,9 @@ class PostController extends Controller
     public function edit($id)
     {
        $post = Post::find($id);
+	   $registrations = Registration::get();
 		
-		return view('admin.posts.edit', ['post' => $post]);
+		return view('admin.posts.edit', ['post' => $post])->with('registrations', $registrations);
     }
 
     /**
@@ -120,7 +127,7 @@ class PostController extends Controller
 		
 		$post->updatePost($data);
 		
-		$message = session()->flash('success', 'You have successfully update a post with ID'.$id.'.');
+		$message = session()->flash('success', 'Poruka je promijenjena');
 		
 		return redirect()->route('admin.posts.index')->withFlashMessage($message);
     }

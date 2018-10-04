@@ -3,7 +3,7 @@
 @section('title', 'Users')
 
 @section('content')
-    <div class="page-header" style="margin-top:80px">
+    <div class="page-header" >
         <div class='btn-toolbar pull-right'>
             <a class="btn btn-primary btn-lg" href="{{ route('users.create') }}" id="stil1">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -15,7 +15,7 @@
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             @foreach ($users as $user)
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
                     <div class="panel panel-default">
                         <div class="panel-body text-center">
                             <img src="//www.gravatar.com/avatar/{{ md5($user->email) }}?d=mm" alt="{{ $user->email }}" class="img-circle">
@@ -36,13 +36,13 @@
                             </li>
                         </ul>
                         <div class="panel-footer">
-                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-default">
+                            <a href="{{ route('users.edit', $user->id) }}" >
                                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                Edit
+                               
                             </a>
-                            <a href="{{ route('users.destroy', $user->id) }}" class="btn btn-danger action_confirm" data-method="delete" data-token="{{ csrf_token() }}">
-                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                Delete
+                            <a href="{{ route('users.destroy', $user->id) }}" class="action_confirm" data-method="delete" data-token="{{ csrf_token() }}">
+                                <i class="far fa-trash-alt"></i>
+                                
                             </a>
                         </div>
                     </div>

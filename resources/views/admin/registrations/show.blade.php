@@ -31,7 +31,9 @@ body {
 				<p><b>Datum rođenja: </b>{{ date('d.m.Y', strtotime($registration->employee['datum_rodjenja'])) }}</p>
 				<p><b>Mjesto rođenja: </b>{{ $registration->employee['mjesto_rodjenja']  }}</p>
 				<p><b>Mobitel: </b>{{ $registration->employee['mobitel'] }}</p>
+				<p><b>Privatan mobitel: </b>{{ $registration->employee['priv_mobitel']}}</p>
 				<p><b>E-mail: </b>{{ $registration->employee['email'] }}</p>
+				<p><b>Privatan e-mail: </b>{{ $registration->employee['priv_email'] }}</p>
 				</br>
 				<p><b>Prebivalište: </b>{{ $registration->employee['prebivaliste_adresa']  . ', ' . $registration->employee['prebivaliste_grad']  }}</p>
 				@if( $registration->employee['boravište_adresa']  )

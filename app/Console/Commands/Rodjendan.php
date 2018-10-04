@@ -48,7 +48,7 @@ class Rodjendan extends Command
 		$dan = date_format($datum,'d');
 		$mjesec = date_format($datum,'m');
   		
-		$djelatnici = Registration::join('employees','registrations.employee_id', '=', 'employees.id')->select('registrations.*', 'employees.first_name','employees.last_name', 'employees.datum_rodjenja')->whereMonth('employees.datum_rodjenja', '=', $mjesec)->whereDay('employees.datum_rodjenja', '=', $dan)->get();
+		$djelatnici = Registration::join('employees','registrations.employee_id', '=', 'employees.id')->select('registrations.*', 'employees.first_name','employees.last_name', 'employees.datum_rodjenja','employees.email')->whereMonth('employees.datum_rodjenja', '=', $mjesec)->whereDay('employees.datum_rodjenja', '=', $dan)->get();
 		
 		foreach($djelatnici as $djelatnik) {
 			$otkaz = EmployeeTermination::where('employee_terminations.employee_id','=',$djelatnik->employee_id)->first();
@@ -63,6 +63,12 @@ class Rodjendan extends Command
 						->from('info@duplico.hr', 'Duplico')
 						->subject('Rođendan ' . ' djelatnika ' . $djelatnik->first_name . ' '. $djelatnik->last_name);
 				});
+				/*Mail::queue('email.Cestitka', ['datum_rodjenja' => $datum_rodjenja,'djelatnik' => $djelatnik,'ime' => $ime, 'prezime' => $prezime], function ($mail) use ($djelatnik) {
+					$mail->to($djelatnik->email)
+						->cc('jelena.juras@duplico.hr')
+						->from('info@duplico.hr', 'Duplico')
+						->subject('Čestitka!');
+				});*/
 			}
 		}
 		

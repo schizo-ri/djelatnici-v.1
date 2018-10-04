@@ -3,12 +3,12 @@
 @section('title', 'Edit Role')
 
 @section('content')
-<div class="row" style="margin-top:80px">
+<div class="page-header">
+  <h2>Ispravi dozvolu</h2>
+</div> 
+<div class="">
     <div class="col-md-6 col-md-offset-3">
         <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Ispravi dozvole</h3>
-            </div>
             <div class="panel-body">
                 <form accept-charset="UTF-8" role="form" method="post" action="{{ route('roles.update', $role->id) }}">
                 <fieldset>
@@ -279,7 +279,7 @@
 
                     <input name="_token" value="{{ csrf_token() }}" type="hidden">
                     <input name="_method" value="PUT" type="hidden">
-                    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Update">
+                    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Update" id="stil1">
                 </fieldset>
                 </form>
 			</div>

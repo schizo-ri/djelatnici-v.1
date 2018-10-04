@@ -42,12 +42,15 @@ class Godisnjica extends Command
     public function handle()
     {
 		$datum = new DateTime('now');
+		$dan_danas = date_format($datum,'d');
+		$mjesec_danas = date_format($datum,'m');
+		
 		$datum->modify('+5 days');
 		$dan = date_format($datum,'d');
 		$mjesec = date_format($datum,'m');
-		$godina = date_format($datum,'Y');
 		
 		$djelatnici = Registration::join('employees','registrations.employee_id', '=', 'employees.id')->select('registrations.*','employees.first_name','employees.last_name')->whereMonth('registrations.datum_prijave', '=', $mjesec)->whereDay('registrations.datum_prijave', '=', $dan)->get();
+		$djelatnici_danas = Registration::join('employees','registrations.employee_id', '=', 'employees.id')->select('registrations.*','employees.first_name','employees.last_name')->whereMonth('registrations.datum_prijave', '=', $mjesec_danas)->whereDay('registrations.datum_prijave', '=', $dan_danas)->get();
 		
 		foreach($djelatnici as $djelatnik) {
 			$otkaz = EmployeeTermination::where('employee_terminations.employee_id','=',$djelatnik->employee_id)->first();
@@ -64,6 +67,28 @@ class Godisnjica extends Command
 			if(!$otkaz){
 			//	if($years == 5 || $years == 10 || $years == 15 || $years == 20) {
 					Mail::queue('email.Godisnjica', ['djelatnik' => $djelatnik, 'years' => $years, 'dana' => $dana], function ($mail) use ($djelatnik) {
+						$mail->to('uprava@duplico.hr')
+							->cc('jelena.juras@duplico.hr')
+							->cc('andrea.glivarec@duplico.hr')
+							->cc('matija.barberic@duplico.hr')
+							->from('info@duplico.hr', 'Duplico')
+							->subject('Godišnjica ' . ' rada - ' . $djelatnik->first_name . ' '. $djelatnik->last_name);
+					});
+				//}
+			}
+		}
+		
+		foreach($djelatnici_danas as $djelatnik) {
+			$otkaz = EmployeeTermination::where('employee_terminations.employee_id','=',$djelatnik->employee_id)->first();
+			
+			$date1 = new DateTime($djelatnik->datum_prijave); 
+			$date2 = new DateTime('now'); 
+			$interval = $date1->diff($date2); 
+			$years = $interval->format('%y'); 
+			
+			if(!$otkaz){
+			//	if($years == 5 || $years == 10 || $years == 15 || $years == 20) {
+					Mail::queue('email.Godisnjica1', ['djelatnik' => $djelatnik, 'years' => $years], function ($mail) use ($djelatnik) {
 						$mail->to('uprava@duplico.hr')
 							->cc('jelena.juras@duplico.hr')
 							->cc('andrea.glivarec@duplico.hr')

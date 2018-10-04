@@ -35,7 +35,9 @@ class EmployeeRequest extends FormRequest
 			'zvanje'  =>'required',
 			'sprema'  =>'required',
 			'lijecn_pregled'  =>'required',
-			'ZNR'  =>'required'
+			'ZNR'  =>'required',
+			'radnoMjesto_id'  =>'required',
+			'bracno_stanje'  =>'required',
         ];
     }
 	
@@ -59,6 +61,8 @@ class EmployeeRequest extends FormRequest
 			'sprema.required'  => 'Unos stručne spreme je obavezan',
 			'lijecn_pregled.required'  => 'Unos datuma je obavezan',
 			'ZNR.required'  => 'Unos datuma je obavezan',
+			'radnoMjesto_id.required'  => 'Unos radnog mjesta je obavezan',
+			'bracno_stanje.required'  => 'Unos bračnog stanja je obavezan',
 		];
 	}
 }

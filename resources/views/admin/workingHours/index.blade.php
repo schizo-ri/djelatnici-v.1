@@ -25,7 +25,7 @@
 	</form>
 	
 	</div>
-	
+	<!--
 	<table class="lista">
 			<tr>
 				<th class="ime">Prezime i ime</th>
@@ -47,7 +47,7 @@
 		
 
 	</table>
-
+	-->
 </div>
 
 @stop

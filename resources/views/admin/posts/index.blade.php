@@ -1,55 +1,55 @@
 @extends('layouts.admin')
 
-@section('title', 'Posts')
-
+@section('title', 'Poruke')
+<link rel="stylesheet" href="{{ URL::asset('css/vacations.css') }}" type="text/css" >
 @section('content')
-<div class="container" style="margin-top:50px">
+<div class="" >
     <div class="page-header">
         <div class='btn-toolbar pull-right'>
-            <a class="btn btn-primary btn-lg" href="{{ route('admin.posts.create') }}">
+            <a class="btn btn-primary btn-lg" href="{{ route('admin.posts.create') }}" id="stil1">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                Create Post
+                Pošalji poruku
             </a>
         </div>
-        <h1>Posts</h1>
+        <h1>Poruke</h1>
     </div>
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="table-responsive">
-			@if(count($posts) > 0)
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>User</th>
-                            <th>Options</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($posts as $post)
-                            <tr>
-                                <td>
-									<a href="{{ route('admin.posts.show', $post->id) }}">
-										{{ $post->title }}
-									</a>
-								</td>
-                                <td>{{ $post->user->email }}</td>
-                                  <td>
-                                    <a href="{{ route('admin.posts.edit', $post->id) }}" class="btn btn-default {{ Sentinel::getUser()->id != $post->user_id ? 'disabled' : '' }}">
-                                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                        Edit
-                                    </a>
-                                    <a href="{{ route('admin.posts.destroy', $post->id) }}" class="btn btn-danger action_confirm" data-method="delete" data-token="{{ csrf_token() }}">
-                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                        Delete
-                                    </a>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+				@if(count($posts) > 0)
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>Title</th>
+								<th>Šalje</th>
+								<th>Prima</th>
+								<th class="not-export-column">Options</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach ($posts as $post)
+								<tr>
+									<td>
+										<a href="{{ route('admin.posts.show', $post->id) }}">
+											{{ $post->title }}
+										</a>
+									</td>
+									<td>{{ $post->user->first_name . ' ' . $post->user->last_name}}</td>
+									<td>{{ $post->to_employee->first_name . ' ' . $post->to_employee->last_name }}</td>
+									  <td>
+										<a href="{{ route('admin.posts.edit', $post->id) }}" class="{{ Sentinel::getUser()->id != $post->employee_id ? 'disabled' : '' }}">
+											<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+										</a>
+										<a href="{{ route('admin.posts.destroy', $post->id) }}" class="action_confirm  {{ Sentinel::getUser()->id != $post->employee_id ? 'disabled' : '' }}" data-method="delete" data-token="{{ csrf_token() }}">
+											<i class="far fa-trash-alt"></i>
+										</a>
+									</td>
+								</tr>
+							@endforeach
+						</tbody>
+					</table>
 				@else
-					{{'No Posts!'}}
+					{{'Nema poruka!'}}
 				@endif
             </div>
 			{!! $posts->render() !!}
@@ -57,10 +57,6 @@
     </div>
 </div>
 
-<button class="btn" data-toggle="collapse" data-target="#demo">Collapsible</button>
 
-<div id="demo" class="collapse">
-Some text..
-</div> 
 
 @stop

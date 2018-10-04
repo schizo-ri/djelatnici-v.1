@@ -11,13 +11,10 @@
 }
 </style>
 @section('content')
-</br>
-</br>
-</br>
-<div class="row">
-  <h1>Prijava radnika</h1>
+<div class="page-header">
+  <h2>Prijava radnika</h2>
 </div> 
-<div class="container">
+<div class="">
 <?php 
 $employee_id = substr(URL::full(),strpos(URL::full(),'?')+1);
 $employee = $employees->where('id', $employee_id)->first();
@@ -53,7 +50,7 @@ $employee = $employees->where('id', $employee_id)->first();
 					</div>
 						{!! ($errors->has('probni_rok') ? $errors->first('probni_rok', '<p class="text-danger">:message</p>') : '') !!}
 					<div class="form-group {{ ($errors->has('staz'))  ? 'has-error' : '' }}">
-						<span><b>Staž kod prošlog poslodavca (broj godina-mjeseci-dana):</b></span><br>
+						<span><b>Staž kod prošlog poslodavca (godina-mjeseci-dana):</b></span><br>
 						<input name="stazY" type="text" class="staž" value="{{ old('stazY')}}">-
 						<input name="stazM" type="text" class="staž" value="{{ old('stazM')}}">-
 						<input name="stazD" type="text" class="staž" value="{{ old('stazD')}}">

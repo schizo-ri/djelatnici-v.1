@@ -27,11 +27,13 @@ class IndexController extends Controller
      */
     public function index()
     {
-		return view('index');
+		$posts = Post::orderBy('created_at', 'DESC')->paginate(12);
+		return view('index')->with('posts', $posts); //drugi parametar - drugi način slanja
     }
 	public function show($slug)
 	{
 		//$post = Post::where('slug',$slug)->first();
+		
 		//return view('post.show')->with('post', $post);
 	}
 	
@@ -58,4 +60,5 @@ class IndexController extends Controller
 		return redirect()->back()->withFlashMessage($message);
 		//return redirect()->route('admin.posts.index')->withFlashMessage($message);
 	}
+	
 }

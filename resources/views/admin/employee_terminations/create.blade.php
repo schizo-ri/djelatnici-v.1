@@ -3,16 +3,11 @@
 @section('title', 'Odjava')
 
 @section('content')
-
-<div class="row">
-</br>
-</br>
-</br>
-</br>
-  <h1>Odjava radnika</h1>
+<div class="page-header">
+  <h2>Odjava radnika</h2>
 </div> 
-<div class="container">
-	<div class="col-md-8 col-md-offset-2">
+<div class="">
+	<div class="col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<form accept-charset="UTF-8" role="form" method="post" action="{{ route('admin.employee_terminations.store' ) }}">

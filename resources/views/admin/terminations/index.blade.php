@@ -20,10 +20,9 @@ table, td, th, tr {
 </style>
 
 @section('content')
-</br>
-</br>
-<div class="container">
-    <div class="page-header">
+
+<div class="">
+    <div class="">
         <div class='btn-toolbar pull-right' >
             <a class="btn btn-primary btn-lg" href="{{ route('admin.terminations.create') }}" id="stil1" >
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -49,13 +48,11 @@ table, td, th, tr {
                             <tr>
                                 <td>{{ $termination->naziv }}</td>
                                 <td>
-                                    <a href="{{ route('admin.terminations.edit', $termination->id) }}" class="btn btn-default">
+                                    <a href="{{ route('admin.terminations.edit', $termination->id) }}">
                                         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                        Ispravi
                                     </a>
-                                    <a href="{{ route('admin.terminations.destroy', $termination->id) }}" class="btn btn-danger action_confirm" data-method="delete" data-token="{{ csrf_token() }}">
-                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                        Obriši
+                                    <a href="{{ route('admin.terminations.destroy', $termination->id) }}" class="action_confirm" data-method="delete" data-token="{{ csrf_token() }}">
+                                       <i class="far fa-trash-alt"></i> 
                                     </a>
                                 </td>
 							 </tr>

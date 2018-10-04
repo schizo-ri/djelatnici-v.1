@@ -21,25 +21,16 @@ table, td, th, tr {
 </style>
 
 @section('content')
-</br>
-</br>
-<div class="container">
+
+<div class="">
     <div class="page-header">
-        <div class='btn-toolbar pull-right' >
-            <!--<a class="btn btn-primary btn-lg" href="{{ route('admin.employee_equipments.create') }}"  id="stil1" >
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                Zaduži opremu
-            </a>-->
-        </div>
-		</br>
         <h1>Popis zadužene radne opreme</h1>
-		<input class="form-control" id="myInput" type="text" placeholder="Traži..">
     </div>
     <div class="row">
         <div class="col-lg-12">
-            <div class="table-responsive">
+              <div class="table-responsive" id="tblData">
 			@if(count($employeeEquipments) > 0)
-                <table class="table table-hover">
+                <table id="table_id" class="display" style="width: 100%;">
                     <thead>
                         <tr>
                             <th >Zaduženi djelatnik</th>
@@ -48,7 +39,7 @@ table, td, th, tr {
 							<th>Datum zaduženja</th>
 							<th >Datum razduženja</th>
 							<th >Napomena</th>
-                            <th >Opcije</th>
+                            <th class="not-export-column">Opcije</th>
                         </tr>
                     </thead>
                     <tbody id="myTable">
@@ -67,14 +58,12 @@ table, td, th, tr {
 								</td>
 								<td>{{ $employeeEquipment->napomena }}</td>
 								<td>
-                                    <a href="{{ route('admin.employee_equipments.destroy', $employeeEquipment->id) }}" class="btn btn-danger btn-block action_confirm {{  $employeeEquipment->datum_povrata ? 'disabled' : '' }}" data-method="delete" data-token="{{ csrf_token() }}" >
-										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-											Obriši
-									</a>
-									<a href="{{ route('admin.employee_equipments.edit', $employeeEquipment->id) }}" class="btn btn-default btn-block {{  $employeeEquipment->datum_povrata ? 'disabled' : '' }}" id="btn">
+                                    <a href="{{ route('admin.employee_equipments.edit', $employeeEquipment->id) }}" class="{{  $employeeEquipment->datum_povrata ? 'disabled' : '' }}">
 											Razduži
                                     </a>
-
+									<a href="{{ route('admin.employee_equipments.destroy', $employeeEquipment->id) }}" class="btn-block action_confirm {{  $employeeEquipment->datum_povrata ? 'disabled' : '' }}" data-method="delete" data-token="{{ csrf_token() }}" >
+										<i class="far fa-trash-alt"></i>
+									</a>
                                 </td>
 
                             </tr>

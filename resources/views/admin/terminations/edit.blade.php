@@ -3,16 +3,10 @@
 @section('title', 'Ispravak otkaza')
 
 @section('content')
-
-
-<div class="row">
-</br>
-</br>
-</br>
-</br>
-  <h1>Ispravak podataka otkaza</h1>
+<div class="page-header">
+  <h2>Upis nove vrste otkaza</h2>
 </div> 
-<div class="container">
+
 	<div class="col-md-6 col-md-offset-3">
 		<div class="panel panel-default">
 			<div class="panel-body">
@@ -32,6 +26,6 @@
 			</div>
 		</div>
 	</div>
-</div>
+
 
 @stop

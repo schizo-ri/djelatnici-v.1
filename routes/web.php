@@ -146,6 +146,78 @@ Route::group(['prefix' => 'admin'], function () {
   'update'		=> 'admin.workingHours.update', 
   'destroy'		=> 'admin.workingHours.destroy'
   ]]);
+  Route::resource('afterHours', 'Admin\AfterHoursController', ['names' => [
+  'index' 		=> 'admin.afterHours.index', 
+  'create' 		=> 'admin.afterHours.create', 
+  'store' 		=> 'admin.afterHours.store', 
+  'show' 		=> 'admin.afterHours.show', 
+  'edit' 		=> 'admin.afterHours.edit', 
+  'update'		=> 'admin.afterHours.update', 
+  'destroy'		=> 'admin.afterHours.destroy'
+  ]]);
+  Route::resource('vacation_requests', 'Admin\VacationRequestController', ['names' => [
+  'index' 		=> 'admin.vacation_requests.index', 
+  'create' 		=> 'admin.vacation_requests.create', 
+  'store' 		=> 'admin.vacation_requests.store', 
+  'show' 		=> 'admin.vacation_requests.show', 
+  'edit' 		=> 'admin.vacation_requests.edit', 
+  'update'		=> 'admin.vacation_requests.update', 
+  'destroy'		=> 'admin.vacation_requests.destroy'
+  ]]);
+  Route::resource('notices', 'Admin\NoticeController', ['names' => [
+  'index' 		=> 'admin.notices.index', 
+  'create' 		=> 'admin.notices.create', 
+  'store' 		=> 'admin.notices.store', 
+  'show' 		=> 'admin.notices.show', 
+  'edit' 		=> 'admin.notices.edit', 
+  'update'		=> 'admin.notices.update', 
+  'destroy'		=> 'admin.notices.destroy'
+  ]]);
+  Route::resource('documents', 'DocumentController', ['names' => [
+  'index' 		=> 'admin.documents.index', 
+  'create' 		=> 'admin.documents.create', 
+  'store' 		=> 'admin.documents.store', 
+  'show' 		=> 'admin.documents.show', 
+  'edit' 		=> 'admin.documents.edit', 
+  'update'		=> 'admin.documents.update', 
+  'destroy'		=> 'admin.documents.destroy'
+  ]]);
+  Route::resource('customers', 'Admin\CustomerController', ['names' => [
+  'index' 		=> 'admin.customers.index', 
+  'create' 		=> 'admin.customers.create', 
+  'store' 		=> 'admin.customers.store', 
+  'show' 		=> 'admin.customers.show', 
+  'edit' 		=> 'admin.customers.edit', 
+  'update'		=> 'admin.customers.update', 
+  'destroy'		=> 'admin.customers.destroy'
+  ]]);
+  Route::resource('projects', 'Admin\ProjectController', ['names' => [
+  'index' 		=> 'admin.projects.index', 
+  'create' 		=> 'admin.projects.create', 
+  'store' 		=> 'admin.projects.store', 
+  'show' 		=> 'admin.projects.show', 
+  'edit' 		=> 'admin.projects.edit', 
+  'update'		=> 'admin.projects.update', 
+  'destroy'		=> 'admin.projects.destroy'
+  ]]);
+  Route::resource('cars', 'Admin\CarController', ['names' => [
+  'index' 		=> 'admin.cars.index', 
+  'create' 		=> 'admin.cars.create', 
+  'store' 		=> 'admin.cars.store', 
+  'show' 		=> 'admin.cars.show', 
+  'edit' 		=> 'admin.cars.edit', 
+  'update'		=> 'admin.cars.update', 
+  'destroy'		=> 'admin.cars.destroy'
+  ]]);
+  Route::resource('shedulers', 'Admin\ShedulerController', ['names' => [
+  'index' 		=> 'admin.shedulers.index', 
+  'create' 		=> 'admin.shedulers.create', 
+  'store' 		=> 'admin.shedulers.store', 
+  'show' 		=> 'admin.shedulers.show', 
+  'edit' 		=> 'admin.shedulers.edit', 
+  'update'		=> 'admin.shedulers.update', 
+  'destroy'		=> 'admin.shedulers.destroy'
+  ]]);
 });
 
 // Post page
@@ -164,3 +236,6 @@ Route::get('/lijecnicki/{employee_id}','Admin\EmployeeController@lijecnicki');
 Route::get('/zaduzenje_pdf/{employee_id}','Admin\EmployeeEquipmentController@zaduzenje_pdf');
 //pdf_Prijava
 Route::get('/prijava_pdf/{employee_id}','Admin\EmployeeController@prijava_pdf');
+
+Route::get('admin/confirmation', ['as' => 'admin.confirmation', 'uses' => 'Admin\VacationRequestController@storeConf']);
+Route::get('admin/confirmationAfter', ['as' => 'admin.confirmationAfter', 'uses' => 'Admin\AfterHoursController@storeConf']);

@@ -2,29 +2,18 @@
 
 @section('title', 'Create New User')
 
-<style>
-#border1 {
-
-    outline-style: solid;
-    outline-color: red;
-    outline-width: thin;
-}
-</style>
-
 @section('content')
-<div class="row" style="margin-top:80px">
-    <h4 class="panel-title"><b>Upiši novog korisnika</b></h4>
-	</br>
-	<div class="col-md-4 col-md-offset-4">
-	
+<div class="page-header">
+  <h2>Upiši novog korisnika</h2>
+</div> 
+<div class="" >
+	 <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
         <div class="panel panel-default">
-            
-
-            <div class="panel-body">
+             <div class="panel-body">
                 <form accept-charset="UTF-8" role="form" method="post" action="{{ route('users.store') }}">
                 <fieldset>
                     <div class="form-group {{ ($errors->has('first_name')) ? 'has-error' : '' }}">
-                        <input class="form-control" placeholder="First Name" name="first_name" type="text" value="{{ old('first_name') }}" />
+                        <input class="form-control" placeholder="First Name" name="first_name" type="text" value="{{ old('first_name') }}" autofocus/>
                         {!! ($errors->has('first_name') ? $errors->first('first_name', '<p class="text-danger">:message</p>') : '') !!}
                     </div>
                     <div class="form-group {{ ($errors->has('last_name')) ? 'has-error' : '' }}">
