@@ -20,6 +20,7 @@ class CreateKidsTable extends Migration
 			$table->string('employee_id');
 			$table->timestamp('datum_rodjenja')->nullable();
             $table->timestamps();
+			$table->foreign('employee_id')->references('id')->on('employees');
         });
     }
 

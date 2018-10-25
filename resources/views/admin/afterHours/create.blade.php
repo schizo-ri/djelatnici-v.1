@@ -2,7 +2,6 @@
 
 @section('title', 'Zahtjev')
 <link rel="stylesheet" href="{{ URL::asset('css/create.css') }}"/>
-
 @section('content')
 	<div class="forma col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-6 col-lg-offset-3">
 		<h2>Evidencija prekovremenog rada</h2>

@@ -3,7 +3,6 @@
 @section('title', 'Duplico djelatnici')
 
 @section('content')
-
 <div class="">
     <div class="page-header">
         <h1>Godišnji odmori i izostanci - {{ $employee->first_name . ' ' . $employee->last_name }}</h1>
@@ -93,5 +92,6 @@
     </div>
 	
 </div>
-
+<script src="{{ asset('js/datatable.js') }}"></script>
+<script src="{{ asset('js/collaps.js') }}"></script>
 @stop

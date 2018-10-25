@@ -3,6 +3,11 @@
 @section('title', 'Zahtjevi')
 <link rel="stylesheet" href="{{ URL::asset('css/vacations.css') }}" type="text/css" >
 @section('content')
+<a class="btn btn-md pull-left" href="{{ url()->previous() }}">
+	<i class="fas fa-angle-double-left"></i>
+	Natrag
+</a>
+
 <div class="">
      <div class="page-header">
         <div class='btn-toolbar pull-right' >
@@ -13,7 +18,6 @@
         </div>
         <h2>Godišnji odmori i izostanci</h2>
     </div>
-	
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 		<?php 
@@ -23,7 +27,7 @@
 		?>
             <div class="table-responsive" id="tblData">
 			@if(count($registrations) > 0)
-				<p>Prikaz kolona</p>
+			<!--	<p>Prikaz kolona</p>
 				<div class="prikaz">
 					<a class="toggle-vis" data-column="0">Ime i prezime</a>
 					<a class="toggle-vis" data-column="1">Staž Duplico</a>
@@ -34,7 +38,7 @@
 					<a class="toggle-vis" data-column="6">Iskorišteni dani {{ $ova_godina}}</a>
 					<a class="toggle-vis" data-column="7">Neiskorišteno dana {{ $ova_godina}}</a>
 					<a class="toggle-vis" data-column="8">Slobodni dani</a>
-				</div>
+				</div>-->
                 <table id="table_id" class="display" style="width: 100%;">
                     <thead>
                         <tr>
@@ -236,17 +240,6 @@
 							@endif
 						 @endforeach
                     </tbody>
-					<script>
-						$(document).ready(function(){
-						  $("#myInput").on("keyup", function() {
-							var value = $(this).val().toLowerCase();
-							$("#myTable tr").filter(function() {
-							  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-							});
-						  });
-						});
-					</script>
-					
                 </table>
 				@else
 					{{'Nema podataka!'}}
@@ -255,5 +248,4 @@
         </div>
     </div>
 </div>
-
 @stop

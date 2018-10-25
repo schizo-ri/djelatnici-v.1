@@ -20,12 +20,16 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		
 		<link rel="stylesheet" href="{{ URL::asset('css/admin.css') }}" type="text/css" >
-		@stack('stylesheet')
+		<link rel="stylesheet" href="{{ URL::asset('css/dashboard.css') }}"/>
+
+		<!-- jQuery Timepicker --> 
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
 		
+		@stack('stylesheet')
     </head>
     <body>
 		<header>
-			<h1><img src="{{ asset('img/Duplico_logo_white.png') }}" /> administracija</h1>
+			<h1><img src="{{ asset('img/Duplico_logo_white.png') }}" /> portal za zaposlenike</h1>
 			<ul class="">
 				@if(Sentinel::check())
 					<a href="{{ route('auth.logout') }}">Odjava</a></li>
@@ -35,63 +39,79 @@
 				@endif
 			</ul>
 		</header>
-		<section>
+		<section class="Body_section">
+			<input type="hidden" id="rola" {!! Sentinel::inRole('basic') ? 'value="basic"' : '' !!} style="display:block;width:100%;" />
+			
 			<nav class="topnav col-xs-12 col-sm-2 col-md-2 col-lg-2" id="myTopnav">
 				@if(Sentinel::check() && Sentinel::inRole('administrator') || Sentinel::inRole('basic'))
-					<a href="{{ route('admin.dashboard') }}"  class="active">Naslovnica</a>
+					<a href="{{ route('home') }}" class="active naslov">Naslovnica</a>
 					@if(Sentinel::inRole('administrator'))
-						<a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('users.index') }}">Korisnici</a>
+						<a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('users.index') }}">Korisnici</a></li>
 						<a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('roles.index') }}">Uloge</a>
 						<a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('admin.works.index') }}">Radna mjesta</a>
 						<a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('admin.terminations.index') }}">Otkazi</a>
-						<a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('admin.equipments.index') }}">Radna oprema</a>
+						<a class="padding20 {{ Request::is('admin') ? 'active' : '' }}" href="{{ route('admin.equipments.index') }}" >Radna oprema</a>
+
+						<a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('admin.job_interviews.index') }}">Razgovori za posao</a>
 						<a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('admin.employees.index') }}">Kandidati za posao</a>
 						<a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('admin.registrations.index') }}">Prijavljeni radnici</a>
 						<a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('admin.employee_equipments.index') }}">Zadužena oprema</a>
 						<a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('admin.kids.index') }}">Djeca zaposlenika</a>
-						<a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('admin.employee_terminations.index') }}">Odjavljeni radnici</a>
+						<a class="padding20 {{ Request::is('admin') ? 'active' : '' }}" href="{{ route('admin.employee_terminations.index') }}">Odjavljeni radnici</a>
+
 						<a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('admin.vacation_requests.index') }}">Zahtjevi za godišnji odmor</a>
 						<a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('admin.afterHours.index') }}">Prekovremeni rad</a>
+						<a class="padding20" href="{{ route('admin.shedulers.index') }}">Raspored izostanaka</a>	
+
+						<a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('admin.customers.index') }}">Klijenti</a>
+						<a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('admin.projects.index') }}">Projekti</a>
+						<a class="padding20 {{ Request::is('admin') ? 'active' : '' }}" href="{{ route('admin.cars.index') }}">Vozila</a>	
+
 						<a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('admin.documents.index') }}">Dokumenti</a>
 						<a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('admin.notices.index') }}">Obavijesti</a>
+						<!--<a class="" href="{{ route('admin.meeting_rooms.index') }}">Sobe za sastanke</a>
+						<a class="" href="{{ route('admin.meetings.index') }}">Sastanci</a>-->
+						<a class="" href="{{ route('admin.showKalendar') }}">Kalendar sastanaka</a>
 					@endif
-					<a href="javascript:void(0);" class="icon" onclick="myFunction()">
-						<i class="fa fa-bars"></i>
-					</a>
-					@foreach(DB::table('notices')->take(5)->get() as $notice)
-						<div class="notice">
-							<a href="{{ route('admin.notices.show', $notice->id ) }}">{{ $notice->subject }}</a>
+					@if(Sentinel::inRole('uprava'))
+						<a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{ route('admin.effective_hours.index') }}">ECH</a>
+					@endif
+					<button class="poruke" data-toggle="collapse" data-target="#poruke1">Obavijesti uprave</button>
+						<div class="collapse " id="poruke1">
+							@foreach(DB::table('notices')->take(5)->get() as $notice)
+								<a href="{{ route('admin.notices.show', $notice->id ) }}">{{ $notice->subject }}</a>
+							@endforeach
 						</div>
-					@endforeach
-					
+					<button class="poruke" data-toggle="collapse" data-target="#poruke2">Poruke zaposlenika</button>
+						<div class="collapse " id="poruke2">
+							@foreach(DB::table('posts')->where('to_employee_id','784')->take(5)->get() as $post_Svima)
+								<a href="{{ route('admin.posts.show', $post_Svima->id ) }}">{{ $post_Svima->title }}</a>
+							@endforeach
+						</div>
+					@if(Sentinel::inRole('uprava'))
+					<button class="poruke" data-toggle="collapse" data-target="#poruke3">Prijedlozi upravi</button>
+						<div class="collapse " id="poruke3">
+							@foreach(DB::table('posts')->where('to_employee_id','877282')->take(5)->get() as $prijedlozi)
+								<a href="{{ route('admin.posts.show', $prijedlozi->id ) }}">{{ $prijedlozi->title }}</a>
+							@endforeach
+						</div>
+					@endif
 				@endif
+				
 			</nav>
-			<article class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+			<article class="col-xs-12 col-sm-10 col-md-10 col-lg-10" style="text-align:center;">
 					@include('notifications')
 					@yield('content')
 			</article>
-			<article class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
-				<!--<div class="">
-					<a class="{{ Sentinel::check() ? 'active' : '' }}" href="{{ route('admin.posts.index') }}">Poruke</a>
-				</div>-->
-				<div class="projekti">
-					<a href="{{ route('admin.customers.index') }}">Klijenti</a>
-					<a href="{{ route('admin.projects.index') }}">Projekti</a>
-					<a href="{{ route('admin.cars.index') }}">Vozila</a>
-					<a href="{{ route('admin.shedulers.index') }}">Raspored</a>
-				</div>
-				
-			</article>
-		</section>
 		
-
+		</section>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         <!-- Restfulizer.js - A tool for simulating put,patch and delete requests -->
         <script src="{{ asset('js/restfulizer.js') }}"></script>
-		
+
 		<!-- DataTables -->
 		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
   
@@ -102,59 +122,8 @@
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
 		<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.16/b-1.5.1/b-flash-1.5.1/b-html5-1.5.1/b-print-1.5.1/datatables.min.js"></script>
 		
-		<script>
-			$(document).ready(function() {
-				var table = $('#table_id').DataTable( {
-					"paging": true,
-					language: {
-						paginate: {
-							previous: 'Prethodna',
-							next:     'Slijedeća',
-						},
-						"info": "Prikaz _START_ do _END_ od _TOTAL_ zapisa",
-						"search": "Filtriraj:",
-						"lengthMenu": "Prikaži _MENU_ zapisa"
-					},
-					 "lengthMenu": [ 25, 50, 75, 100 ],
-					 "pageLength": 50,
-					 dom: 'Bfrtip',
-						buttons: [
-							'copy', 'pdf', 'print',
-						/*{
-							extend: 'pdfHtml5',
-							text: 'Izradi PDF',
-							exportOptions: {
-								columns: ":not(.not-export-column)"
-								}
-							},*/
-							{
-						extend: 'excelHtml5',
-						text: 'Izradi XLS',
-						exportOptions: {
-							columns: ":not(.not-export-column)"
-						}
-						},
-						],
-				} );
-				$('a.toggle-vis').on( 'click', function (e) {
-					e.preventDefault();
-			 
-					// Get the column API object
-					var column = table.column( $(this).attr('data-column') );
-			 
-					// Toggle the visibility
-					column.visible( ! column.visible() );
-				} );
-			} );
-		</script>
-		<script>
-			function openNav() {
-				document.getElementById("mySidenav").style.width = "250px";
-			}
-			function closeNav() {
-				document.getElementById("mySidenav").style.width = "0";
-			}
-		</script>
+		<script src="{{ asset('js/datatable.js') }}"></script>
+		<script src="{{ asset('js/collaps.js') }}"></script>
 		<script>
 		function myFunction() {
 			var x = document.getElementById("myTopnav");
@@ -165,6 +134,10 @@
 			}
 		}
 		</script>
+				
+		<!-- jQuery Timepicker --> 
+		<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+		
 		@stack('script')
     </body>
 </html>

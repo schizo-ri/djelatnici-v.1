@@ -23,6 +23,8 @@ class CreateVacationRequestTable extends Migration
 			$table->integer('odobrio_id');
 			$table->date('datum_odobrenja')->nullable();
             $table->timestamps();
+			$table->foreign('employee_id')->references('id')->on('employees');
+			$table->foreign('odobrio_id')->references('id')->on('employees');
         });
     }
 

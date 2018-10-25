@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Sheduler;
 use App\Models\Registration;
-
+use App\Models\VacationRequest;
 
 class ShedulerController extends Controller
 {
@@ -27,10 +27,15 @@ class ShedulerController extends Controller
      */
     public function index()
     {
-        $shedulers = Sheduler::get();
+        $requests = VacationRequest::join('employees','vacation_requests.employee_id','employees.id')->select('vacation_requests.*', 'employees.first_name', 'employees.last_name')->orderBy('employees.last_name','ASC')->get();
+		
+		return view('admin.shedulers.index')->with('requests',$requests);
+		
+		
+		/*$shedulers = Sheduler::get();
 		$employees = Registration::join('employees','registrations.employee_id','employees.id')->select('registrations.*','employees.first_name', 'employees.last_name')->orderBy('last_name','ASC')->get();
 		
-		return view('admin.shedulers.index')->with('shedulers',$shedulers)->with('employees',$employees);
+		return view('admin.shedulers.index')->with('shedulers',$shedulers)->with('employees',$employees);*/
     }
 
     /**
@@ -40,12 +45,14 @@ class ShedulerController extends Controller
      */
     public function create(Request $request)
     {
-		$input = $request->except(['_token']);
-		
+		$input = $request;
+
 		$employees = Registration::join('employees','registrations.employee_id','employees.id')->select('registrations.*','employees.first_name', 'employees.last_name')->orderBy('employees.last_name','ASC')->get();
 		
+		$requests = VacationRequest::join('employees','vacation_requests.employee_id','employees.id')->select('vacation_requests.*', 'employees.first_name', 'employees.last_name')->orderBy('employees.last_name','ASC')->get();
+		
 		$list = array();
-			$mjesec= strstr( $input['mjesec'],'-',true);
+			$mjesec = strstr( $input['mjesec'],'-',true);
 			$godina = substr( $input['mjesec'],'-4');
 
 			for($d=1; $d<=31; $d++)
@@ -55,8 +62,8 @@ class ShedulerController extends Controller
 						$list[]=date('Y/m/d/D', $time);
 				}
 			}
-			
-		return view('admin.shedulers.create')->with('employees',$employees)->with('mjesec', $mjesec)->with('godina', $godina)->with('list', $list);
+
+		return view('admin.shedulers.create')->with('employees',$employees)->with('mjesec', $mjesec)->with('godina', $godina)->with('list', $list)->with('requests', $requests);
     
     }
 
@@ -77,9 +84,11 @@ class ShedulerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+		$requests = VacationRequest::join('employees','vacation_requests.employee_id','employees.id')->select('vacation_requests.*', 'employees.first_name', 'employees.last_name')->orderBy('employees.last_name','ASC')->get();
+		
+		return view('admin.shedulers.index')->with('requests',$requests);
     }
 
     /**

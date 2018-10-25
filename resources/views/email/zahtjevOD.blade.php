@@ -41,5 +41,6 @@ body {
 		<br/> 
 		<div><b>{{ $odobrenje }}</b></div>
 		<div><b>{{ $razlog }}</b></div>
+		<div><b>{{ 'Odobrio: ' . $odobrio }}</b></div>
 	</body>
 </html>

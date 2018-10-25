@@ -21,6 +21,8 @@ class CreateEmployeeTerminationsTable extends Migration
 			$table->date('datum_odjave');
 			$table->string('napomena')->nullable($value = true);
             $table->timestamps();
+			$table->foreign('employee_id')->references('id')->on('employees');
+			$table->foreign('otkaz_id')->references('id')->on('terminations');
         });
     }
 

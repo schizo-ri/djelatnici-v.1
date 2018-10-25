@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title', 'Kandidat - ispravak')
-
+<link rel="stylesheet" href="{{ URL::asset('css/create.css') }}"/>
 @section('content')
 <div class="page-header">
   <h2>Ispravi podatke kandidata</h2>

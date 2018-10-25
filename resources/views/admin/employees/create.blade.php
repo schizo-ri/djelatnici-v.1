@@ -1,11 +1,17 @@
 @extends('layouts.admin')
 
 @section('title', 'Novi kandidat')
-
+<link rel="stylesheet" href="{{ URL::asset('css/create.css') }}"/>
 @section('content')
 <div class="page-header">
   <h2>Upis novog kandidata</h2>
 </div> 
+<?php 
+	$job_interview_id = substr(URL::full(),strpos(URL::full(),'?')+1);
+	if($job_interview_id != ''){
+		$job_interview = $job_interviews->where('id', $job_interview_id)->first();
+	}
+?>
 <div class="">
 	<div class="col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
 		<div class="panel panel-default">
@@ -13,12 +19,13 @@
 				 <form accept-charset="UTF-8" role="form" method="post" action="{{ route('admin.employees.store') }}">
 					<div class="form-group {{ ($errors->has('first_name')) ? 'has-error' : '' }}">
 						<label>Ime:</label>
-						<input name="first_name" type="text" class="form-control" value="{{ old('first_name') }}" autofocus>
+						<input name="first_name" type="text" class="form-control" value="{!! $job_interview_id ? $job_interview['first_name'] : old('first_name') !!}"
+						autofocus>
 						{!! ($errors->has('first_name') ? $errors->first('first_name', '<p class="text-danger">:message</p>') : '') !!}
 					</div>
 					<div class="form-group {{ ($errors->has('last_name')) ? 'has-error' : '' }}">
 						<label>Prezime:</label>
-						<input name="last_name" type="text" class="form-control" value="{{ old('last_name') }}">
+						<input name="last_name" type="text" class="form-control" value="{!! $job_interview_id ? $job_interview['last_name'] : '' !!}"">
 						{!! ($errors->has('last_name') ? $errors->first('last_name', '<p class="text-danger">:message</p>') : '') !!}
 					</div>
 					<div class="form-group">
@@ -31,7 +38,7 @@
 					</div>
 					<div class="form-group {{ ($errors->has('oib')) ? 'has-error' : '' }}">
 						<label>OIB: </label>
-						<input name="oib" type="text" class="form-control" value="{{ old('oib') }}">
+						<input name="oib" type="text" class="form-control" value="{!! $job_interview_id ? $job_interview['oib'] : old('oib') !!}"">
 						{!! ($errors->has('oib') ? $errors->first('oib', '<p class="text-danger">:message</p>') : '') !!}
 					</div>
 					
@@ -60,7 +67,7 @@
 					</div>
 					<div class="form-group">
 						<label>Privatni mobitel: </label>
-						<input name="priv_mobitel" type="text" class="form-control" value="{{ old('priv_mobitel') }}">
+						<input name="priv_mobitel" type="text" class="form-control" value="{!! $job_interview_id ? $job_interview['telefon'] : old('priv_mobitel') !!}">
 					</div>
 					<div class="form-group">
 						<label>E-mail: </label>
@@ -68,7 +75,7 @@
 					</div>
 					<div class="form-group">
 						<label>Privatni e-mail: </label>
-						<input name="priv_email" type="text" class="form-control" value="{{ old('priv_email') }}">
+						<input name="priv_email" type="text" class="form-control" value="{!! $job_interview_id ? $job_interview['email'] : old('priv_email') !!}">
 					</div>
 					<div class="form-group {{ ($errors->has('prebivaliste_adresa')) ? 'has-error' : '' }}">
 						<label>Prebivalište - adresa:</label>
@@ -98,13 +105,13 @@
 
 					<div class="form-group {{ ($errors->has('zvanje')) ? 'has-error' : '' }}">
 						<label>Zvanje:</label>
-						<input name="zvanje" type="text" class="form-control" value="{{ old('zvanje') }}">
+						<input name="zvanje" type="text" class="form-control" value="{!! $job_interview_id ? $job_interview['zvanje'] : old('zvanje') !!}">
 						{!! ($errors->has('zvanje') ? $errors->first('zvanje', '<p class="text-danger">:message</p>') : '') !!}
 					</div>
 					
 					<div class="form-group {{ ($errors->has('sprema')) ? 'has-error' : '' }}">
 						<label>Stručna sprema:</label>
-						<input name="sprema" type="text" class="form-control" value="{{ old('sprema') }}">
+						<input name="sprema" type="text" class="form-control" value="{!! $job_interview_id ? $job_interview['sprema'] : old('sprema') !!}">
 						{!! ($errors->has('sprema') ? $errors->first('sprema', '<p class="text-danger">:message</p>') : '') !!}
 					</div>
 					<div class="form-group  {{ ($errors->has('bracno_stanje'))  ? 'has-error' : '' }}">
@@ -123,7 +130,6 @@
 							<option selected="selected" value=""></option>@foreach(DB::table('works')->orderBy('odjel','ASC')->orderBy('naziv','ASC')->get() as $work)
 								<option name="radnoMjesto_id" value="{{ $work->id }}">{{ $work->odjel . ' - '. $work->naziv }}</option>
 							@endforeach	
-							
 						</select>
 						{!! ($errors->has('radnoMjesto_id') ? $errors->first('radnoMjesto_id', '<p class="text-danger">:message</p>') : '') !!}
                     </div>

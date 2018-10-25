@@ -67,31 +67,16 @@ table, td, th, tr {
 									<a href="{{ route('admin.employee_terminations.destroy', $employee_termination->id) }}" class="action_confirm" data-method="delete" data-token="{{ csrf_token() }}" >
 										<i class="far fa-trash-alt"></i>
 									</a>
-									
-
                                 </td>
-
                             </tr>
                         @endforeach
-						<script>
-						$(document).ready(function(){
-						  $("#myInput").on("keyup", function() {
-							var value = $(this).val().toLowerCase();
-							$("#myTable tr").filter(function() {
-							  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-							});
-						  });
-						});
-						</script>
                     </tbody>
                 </table>
 				@else
 					{{'Nema podataka!'}}
 				@endif
             </div>
-			{!! $employee_terminations->render() !!}
         </div>
     </div>
 </div>
-
 @stop

@@ -30,13 +30,14 @@ class PostController extends Controller
      */
     public function index()
     {
-        if(Sentinel::inRole('administrator')) {
-			$posts = Post::orderBy('created_at','DESC')->paginate(10);
+        
+		if(Sentinel::inRole('administrator')) {
+			$posts = Post::orderBy('created_at','DESC')->get();
 		} else {
 			$user_id= Sentinel::getUser()->id;
-			$posts = Post::where('employee_id', $user_id)->orderBy('created_at','DESC')->paginate(10);
+			$posts = Post::where('employee_id', $user_id)->orderBy('created_at','DESC')->get();
 		}
-
+		
 	return view('admin.posts.index',['posts'=>$posts]);
     }
 
@@ -47,9 +48,9 @@ class PostController extends Controller
      */
     public function create()
     {
-       $registrations = Registration::join('employees','registrations.employee_id', '=', 'employees.id')->select('registrations.*','employees.first_name','employees.last_name')->orderBy('employees.last_name','ASC')->get();
+        $registrations = Registration::join('employees','registrations.employee_id', '=', 'employees.id')->select('registrations.*','employees.first_name','employees.last_name','employees.email')->orderBy('employees.last_name','ASC')->get();
 		
-		return view('admin.posts.create')->with('registrations', $registrations);
+		return view('admin.posts.create',['registrations'=> $registrations]);
     }
 
     /**
@@ -61,23 +62,32 @@ class PostController extends Controller
     public function store(PostRequest $request)
     {
         $user_id = Sentinel::getUser()->id;
-
 		$input = $request->except(['_token']);
-		//dd($input);
 		
+		$registrations = Registration::join('employees','registrations.employee_id', '=', 'employees.id')->select('registrations.*','employees.first_name','employees.last_name','employees.email')->orderBy('employees.last_name','ASC')->get();
+		$uprava = array();
+		$svi = array();
+		
+		if($input['to_employee_id'] == 'uprava'){
+			$to_employee_id = '877282';
+		} elseif($input['to_employee_id'] == 'svi'){
+			$to_employee_id = '784';
+		} else {
+			$to_employee_id = $input['to_employee_id'];
+		}
 		$data = array(
 			'employee_id'  	  => $user_id,
-			'to_employee_id'  => $input['to_employee_id'],
+			'to_employee_id'  => $to_employee_id,
 			'title'    		  => trim($input['title']),
 			'content'  		  => $input['content']
 		);
 		
 		$post = new Post();
 		$post->savePost($data);
+			
+		$message = session()->flash('success', 'Poruka je poslana');
 		
-		$message = session()->flash('success', 'You have successfully addad a new post.');
-		
-		//return redirect()->back()->withFlashMessage($messange);
+		//return redirect()->back()->withFlashMessage($message);
 		return redirect()->route('admin.posts.index')->withFlashMessage($message);
     }
 

@@ -3,6 +3,10 @@
 @section('title', 'Poruke')
 <link rel="stylesheet" href="{{ URL::asset('css/vacations.css') }}" type="text/css" >
 @section('content')
+<a class="btn btn-md pull-left" href="{{ url()->previous() }}">
+		<i class="fas fa-angle-double-left"></i>
+		Natrag
+</a>
 <div class="" >
     <div class="page-header">
         <div class='btn-toolbar pull-right'>
@@ -17,7 +21,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="table-responsive">
 				@if(count($posts) > 0)
-					<table class="table table-hover">
+					<table id="table_id" class="display" style="width: 100%;">
 						<thead>
 							<tr>
 								<th>Title</th>
@@ -26,7 +30,7 @@
 								<th class="not-export-column">Options</th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody id="myTable">
 							@foreach ($posts as $post)
 								<tr>
 									<td>
@@ -34,8 +38,8 @@
 											{{ $post->title }}
 										</a>
 									</td>
-									<td>{{ $post->user->first_name . ' ' . $post->user->last_name}}</td>
-									<td>{{ $post->to_employee->first_name . ' ' . $post->to_employee->last_name }}</td>
+									<td>{{ $post->user['first_name'] . ' ' . $post->user['last_name']}}</td>
+									<td>{!! $post->to_employee['first_name'] == '' ? 'Uprava' : $post->to_employee['first_name'] . ' ' . $post->to_employee['last_name'] !!}</td>
 									  <td>
 										<a href="{{ route('admin.posts.edit', $post->id) }}" class="{{ Sentinel::getUser()->id != $post->employee_id ? 'disabled' : '' }}">
 											<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
@@ -52,11 +56,8 @@
 					{{'Nema poruka!'}}
 				@endif
             </div>
-			{!! $posts->render() !!}
+			
         </div>
     </div>
 </div>
-
-
-
 @stop

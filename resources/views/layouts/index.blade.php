@@ -9,57 +9,35 @@
 
 	<!-- Bootstrap - Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
 		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
+	
+	<!-- Awesome icon -->
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="{{ URL::asset('css/admin.css') }}" type="text/css" >
 </head>
-
-<style>
-	#font_nar {
-		color: #f48b09;
-	}
-	#stil1 {
-		color: #f48b09;
-		background-color: #111;
-	}
-</style>
-
 <body>
-	<nav class="navbar navbar-inverse">
-		<div class="container-fluid">
-			<div class="navbar-header">
-			  <a class="navbar-brand" href="{{ route('admin.dashboard') }}" id="font_nar">Duplico</a>
-			</div>
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<!--<ul class="nav navbar-nav">
-					<li class="{{ Request::is('/') ? 'active' : '' }}"><a href="{{ route('index') }}" id="font_nar">Naslovnica</a></li>				  
-				</ul>-->
-                <ul class="nav navbar-nav navbar-right">
-                    @if (Sentinel::check()) 
-                        <li>
-                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="user"></span> {{ Sentinel::getUser()->email }} <span class="caret"></span></a>
-                          <ul class="dropdown-menu">
-                            <li><a href="{{ route('auth.logout') }}">Odjava</a></li>
-                          </ul>
-                        </li>
-                    @else
-                        <li><a href="{{ route('auth.login.form') }}" id="font_nar">Prijava</a></li>
-                        <li><a href="{{ route('auth.register.form') }}" id="font_nar">Registracija</a></li>
-                    @endif
-                </ul>
-			</div>	
-		</div>
-	</nav>
-
-	<div class="container">
+	<header>
+			<h1><img src="{{ asset('img/Duplico_logo_white.png') }}" /> portal za zaposlenike</h1>
+			<ul class="">
+				@if(Sentinel::check())
+					<a href="{{ route('auth.logout') }}">Odjava</a></li>
+				@else
+					<li><a href="{{ route('auth.login.form') }}">Login</a></li>
+					<li><a href="{{ route('auth.register.form') }}">Register</a></li>
+				@endif
+			</ul>
+	</header>
+	<div class="container" style="width:100%;padding: 20px 30px;">
 				@include('notifications')
 				@yield('content')
 	</div>
-
+		
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <!-- Latest compiled and minified JavaScript -->
@@ -67,5 +45,14 @@
         <!-- Restfulizer.js - A tool for simulating put,patch and delete requests -->
         <script src="{{ asset('js/restfulizer.js') }}"></script>
 		
+		<!-- DataTables -->
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+  
+		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.16/b-1.5.1/b-flash-1.5.1/b-html5-1.5.1/b-print-1.5.1/datatables.min.css"/>
+		 
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.16/b-1.5.1/b-flash-1.5.1/b-html5-1.5.1/b-print-1.5.1/datatables.min.js"></script>
 </body>
 </html> 

@@ -9,9 +9,9 @@
 		<div class="panel-body">
 			 <form accept-charset="UTF-8" name="myForm" role="form" method="post" action="{{ route('admin.vacation_requests.store') }}"  onsubmit="return validateForm()">
 				@if (Sentinel::inRole('administrator'))
-					<div class="form-group {{ ($errors->has('title')) ? 'has-error' : '' }}">
+					<div class="form-group {{ ($errors->has('employee_id')) ? 'has-error' : '' }}">
 						<label class="padd_10">Djelatnik</label>
-						<select name="employee_id" value="{{ old('employee_id') }}" id="sel1" value="{{ old('employee_id') }}" autofocus>
+						<select name="employee_id" value="{{ old('employee_id') }}" id="sel1" autofocus>
 							<option selected="selected" value=""></option>
 							@foreach ($registrations as $djelatnik)
 								@if(!DB::table('employee_terminations')->where('employee_id',$djelatnik->employee_id)->first() )

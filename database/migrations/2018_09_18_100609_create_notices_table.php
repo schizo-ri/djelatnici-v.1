@@ -19,6 +19,7 @@ class CreateNoticesTable extends Migration
 			$table->text('subject');
             $table->text('notice');
             $table->timestamps();
+			$table->foreign('employee_id')->references('id')->on('employees');
         });
     }
 

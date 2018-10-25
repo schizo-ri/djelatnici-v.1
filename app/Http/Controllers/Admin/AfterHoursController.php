@@ -43,7 +43,7 @@ class AfterHoursController extends GodisnjiController
 			return view('admin.afterHours.index',['afterHours'=>$afterHours])->with('employee', $employee)->with('slobodni_dani', $slobodni_dani)->with('koristeni_slobodni_dani', $koristeni_slobodni_dani);
 		} else {
 			$employee = Employee::where('employees.last_name',$user->last_name)->where('employees.first_name',$user->first_name)->first();
-			$afterHours = AfterHour::where('employee_id',$employee->id)->orderBy('created_at','DESC')->get();
+			$afterHours = AfterHour::where('employee_id',$employee->id)->where('odobreno','')->orderBy('created_at','DESC')->get();
 			$slobodni_dani = $this->slobodni_dani($employee); /* računa broj slobodnih dana prema prekovremenim satima */
 			$koristeni_slobodni_dani =  $this->koristeni_slobodni_dani($employee);/* računa iskorištene slobodne dane */
 				

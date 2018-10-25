@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 
 @section('title', 'Posts')
-
+<link rel="stylesheet" href="{{ URL::asset('css/create.css') }}"/>
 @section('content')
-    <div class="" >
+    <div class="post" >
         <div class='btn-toolbar'>
             <a class="btn btn-primary btn-lg" href="{{ url()->previous() }}"  id="stil1">
                 <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -23,7 +23,7 @@
 			</div>			
         </div>
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-10">
-			<h4>Komentiraj!</h4>
+			<h5>Komentiraj!</h5>
 			<form accept-charset="UTF-8" role="form" method="post" action="{{ route('comment.store', $post->id) }}">
 				<div class="form-group {{ ($errors->has('content')) ? 'has-error' : '' }}">
 				   <textarea class="form-control" name="content" id="post-content" style="height:200px"></textarea>

@@ -11,6 +11,7 @@ use Session;
 use PDF;
 use App\Models\Equipment;
 use App\Models\Users;
+use App\Models\JobInterview;
 use Mail;
 
 class EmployeeController extends Controller
@@ -44,7 +45,9 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        return view('admin.employees.create');
+        $job_interviews = JobInterview::get();
+		
+		return view('admin.employees.create',['job_interviews'=>$job_interviews]);
     }
 
     /**

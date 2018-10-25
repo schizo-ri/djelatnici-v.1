@@ -50,5 +50,5 @@
             @endforeach
         </div>
     </div>
-    {!! $users->render() !!}
+	 {!! $users->render() !!}
 @stop

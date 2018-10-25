@@ -218,6 +218,42 @@ Route::group(['prefix' => 'admin'], function () {
   'update'		=> 'admin.shedulers.update', 
   'destroy'		=> 'admin.shedulers.destroy'
   ]]);
+  Route::resource('job_interviews', 'Admin\JobInterviewController', ['names' => [
+  'index' 		=> 'admin.job_interviews.index', 
+  'create' 		=> 'admin.job_interviews.create', 
+  'store' 		=> 'admin.job_interviews.store', 
+  'show' 		=> 'admin.job_interviews.show', 
+  'edit' 		=> 'admin.job_interviews.edit', 
+  'update'		=> 'admin.job_interviews.update', 
+  'destroy'		=> 'admin.job_interviews.destroy'
+  ]]);
+  Route::resource('meetings', 'Admin\MeetingController', ['names' => [
+  'index' 		=> 'admin.meetings.index', 
+  'create' 		=> 'admin.meetings.create', 
+  'store' 		=> 'admin.meetings.store', 
+  'show' 		=> 'admin.meetings.show', 
+  'edit' 		=> 'admin.meetings.edit', 
+  'update'		=> 'admin.meetings.update', 
+  'destroy'		=> 'admin.meetings.destroy'
+  ]]);
+  Route::resource('meeting_rooms', 'Admin\MeetingRoomController', ['names' => [
+  'index' 		=> 'admin.meeting_rooms.index', 
+  'create' 		=> 'admin.meeting_rooms.create', 
+  'store' 		=> 'admin.meeting_rooms.store', 
+  'show' 		=> 'admin.meeting_rooms.show', 
+  'edit' 		=> 'admin.meeting_rooms.edit', 
+  'update'		=> 'admin.meeting_rooms.update', 
+  'destroy'		=> 'admin.meeting_rooms.destroy'
+  ]]);
+  Route::resource('effective_hours', 'Admin\EffectiveHourController', ['names' => [
+  'index' 		=> 'admin.effective_hours.index', 
+  'create' 		=> 'admin.effective_hours.create', 
+  'store' 		=> 'admin.effective_hours.store', 
+  'show' 		=> 'admin.effective_hours.show', 
+  'edit' 		=> 'admin.effective_hours.edit', 
+  'update'		=> 'admin.effective_hours.update', 
+  'destroy'		=> 'admin.effective_hours.destroy'
+  ]]);
 });
 
 // Post page
@@ -239,3 +275,5 @@ Route::get('/prijava_pdf/{employee_id}','Admin\EmployeeController@prijava_pdf');
 
 Route::get('admin/confirmation', ['as' => 'admin.confirmation', 'uses' => 'Admin\VacationRequestController@storeConf']);
 Route::get('admin/confirmationAfter', ['as' => 'admin.confirmationAfter', 'uses' => 'Admin\AfterHoursController@storeConf']);
+
+Route::get('admin/showKalendar', ['as' => 'admin.showKalendar', 'uses' => 'Admin\MeetingController@showKalendar']);

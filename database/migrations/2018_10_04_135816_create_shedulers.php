@@ -22,6 +22,8 @@ class CreateShedulers extends Migration
 			$table->string('napomena')->nullable($value = true);
 			$table->string('mjesto_rada')->nullable($value = true);
 			$table->timestamps();
+			$table->foreign('employee_id')->references('id')->on('employees');
+			$table->foreign('project_id')->references('id')->on('projects');
 		});
 			
     }

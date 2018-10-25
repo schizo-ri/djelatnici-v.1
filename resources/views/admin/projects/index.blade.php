@@ -50,24 +50,12 @@
                         @endforeach
                     </tbody>
                 </table>
-				<script>
-					$(document).ready(function(){
-					  $("#myInput").on("keyup", function() {
-						var value = $(this).val().toLowerCase();
-						$("#table_id tr").filter(function() {
-						  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-						});
-					  });
-					});
-				</script>
 				</body>
 				@else
 					{{'Nema unesenih projekata!'}}
 				@endif
             </div>
-			
         </div>
     </div>
 </div>
-
 @stop

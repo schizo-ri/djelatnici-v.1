@@ -63,12 +63,12 @@ class Rodjendan extends Command
 						->from('info@duplico.hr', 'Duplico')
 						->subject('Rođendan ' . ' djelatnika ' . $djelatnik->first_name . ' '. $djelatnik->last_name);
 				});
-				/*Mail::queue('email.Cestitka', ['datum_rodjenja' => $datum_rodjenja,'djelatnik' => $djelatnik,'ime' => $ime, 'prezime' => $prezime], function ($mail) use ($djelatnik) {
+				Mail::queue('email.Cestitka', ['datum_rodjenja' => $datum_rodjenja,'djelatnik' => $djelatnik,'ime' => $ime, 'prezime' => $prezime], function ($mail) use ($djelatnik) {
 					$mail->to($djelatnik->email)
 						->cc('jelena.juras@duplico.hr')
 						->from('info@duplico.hr', 'Duplico')
 						->subject('Čestitka!');
-				});*/
+				});
 			}
 		}
 		

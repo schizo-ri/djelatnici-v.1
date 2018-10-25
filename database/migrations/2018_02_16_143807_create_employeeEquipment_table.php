@@ -22,6 +22,8 @@ class CreateEmployeeEquipmentTable extends Migration
 			$table->date('datum_povrata')->nullable();
 			$table->string('napomena')->nullable($value = true);
             $table->timestamps();
+			$table->foreign('employee_id')->references('id')->on('employees');
+			$table->foreign('equipment_id')->references('id')->on('equipment');
         });
     }
 

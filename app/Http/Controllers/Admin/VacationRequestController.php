@@ -151,25 +151,35 @@ class VacationRequestController extends GodisnjiController
 			}
 			
 			$proba = array('jelena.juras@duplico.hr');
+			$uprava = 'uprava@duplico.hr';
 			
 			$nadređene_osobe =array();
 			array_push($nadređene_osobe, $nadređeni);
 			if($prvi_nadređeni){
 				array_push($nadređene_osobe, $prvi_nadređeni, 'jelena.juras@duplico.hr');
 			}
+
+			Mail::queue(
+				'email.zahtjevGO',
+				['employee' => $employee,'vacationRequest' => $vacationRequest,'nadređene_osobe' => $nadređene_osobe,'dani_GO' => $dani_GO ,'napomena' => $input['napomena'],'nadređeni1' => $nadređeni1,'zahtjev2' => $zahtjev2,'vrijeme' => $vrijeme, 'dani_zahtjev' => $dani_zahtjev, 'GOzavršetak' => $input['GOzavršetak'], 'slobodni_dani' => $slobodni_dani],
+				function ($message) use ($proba, $employee) {
+					$message->to($proba)
+						->from('info@duplico.hr', 'Duplico')
+						->subject('Zahtjev - ' .  $employee->first_name . ' ' .  $employee->last_name);
+				}
+			);
 			
-			if($proba){
-				Mail::queue(
+			Mail::queue(
 					'email.zahtjevGO',
-					['employee' => $employee,'vacationRequest' => $vacationRequest,'nadređene_osobe' => $nadređene_osobe,'dani_GO' => $dani_GO ,'napomena' => $input['napomena'],'nadređeni1' => $nadređeni1,'zahtjev2' => $zahtjev2,'vrijeme' => $vrijeme, 'dani_zahtjev' => $dani_zahtjev, 'GOzavršetak' => $input['GOzavršetak'], 'slobodni_dani' => $slobodni_dani],
-					function ($message) use ($proba, $employee) {
-						$message->to($proba)
+					['employee' => $employee,'vacationRequest' => $vacationRequest,'nadređene_osobe' => $nadređene_osobe,'nadređeni1' => $nadređeni1,'napomena' => $input['napomena'],'zahtjev2' => $zahtjev2,'vrijeme' => $vrijeme,'dani_GO' => $dani_GO,'dani_zahtjev' => $dani_zahtjev, 'GOzavršetak' => $input['GOzavršetak'], 'slobodni_dani' => $slobodni_dani ],
+					function ($message) use ($uprava, $employee) {
+						$message->to($uprava)
 							->from('info@duplico.hr', 'Duplico')
 							->subject('Zahtjev - ' .  $employee->first_name . ' ' .  $employee->last_name);
 					}
-				);
-			}
-			if($prvi_nadređeni){
+			);
+				
+			/*if($prvi_nadređeni){
 				Mail::queue(
 					'email.ObavijestGO',
 					['employee' => $employee,'vacationRequest' => $vacationRequest,'nadređene_osobe' => $nadređene_osobe,'nadređeni1' => $nadređeni1,'napomena' => $input['napomena'],'zahtjev2' => $zahtjev2,'vrijeme' => $vrijeme,'dani_GO' => $dani_GO,'dani_zahtjev' => $dani_zahtjev, 'GOzavršetak' => $input['GOzavršetak'], 'slobodni_dani' => $slobodni_dani ],
@@ -190,7 +200,7 @@ class VacationRequestController extends GodisnjiController
 							->subject('Zahtjev - ' .  $employee->first_name . ' ' .  $employee->last_name);
 					}
 				);
-			}
+			}*/
 			
 			/*foreach($nadređene_osobe as $key => $nadređena_osoba){
 				Mail::queue(
@@ -297,6 +307,7 @@ class VacationRequestController extends GodisnjiController
 			$nadređeni1 = $registration->user_id;
 			
 			$proba = array('jelena.juras@duplico.hr');
+			$uprava = 'uprava@duplico.hr';
 			
 			$nadređene_osobe =array();
 			array_push($nadređene_osobe, $nadređeni);
@@ -315,7 +326,7 @@ class VacationRequestController extends GodisnjiController
 				$vrijeme="";
 			}
 			
-			if($nadređeni){
+			/*if($nadređeni){
 				Mail::queue(
 					'email.zahtjevGO',
 					['employee' => $employee,'vacationRequest' => $vacationRequest,'nadređene_osobe' => $nadređene_osobe,'nadređeni1' => $nadređeni1,'napomena' => $input['napomena'],'zahtjev2' => $zahtjev2,'vrijeme' => $vrijeme,'dani_zahtjev' => $dani_zahtjev, 'dani_GO' => $dani_GO],
@@ -336,7 +347,7 @@ class VacationRequestController extends GodisnjiController
 							->subject('Ispravak zahtjeva - ' .  $employee->first_name . ' ' .  $employee->last_name);
 					}
 				);
-			}
+			}*/
 			
 			Mail::queue(
 				'email.zahtjevGO',
@@ -347,7 +358,16 @@ class VacationRequestController extends GodisnjiController
 						->subject('Ispravak zahtjeva - ' .  $employee->first_name . ' ' .  $employee->last_name);
 				}
 			);
-				
+			Mail::queue(
+				'email.zahtjevGO',
+				['employee' => $employee,'vacationRequest' => $vacationRequest,'nadređene_osobe' => $nadređene_osobe,'nadređeni1' => $nadređeni1,'napomena' => $input['napomena'],'zahtjev2' => $zahtjev2,'vrijeme' => $vrijeme,'dani_zahtjev' => $dani_zahtjev, 'dani_GO' => $dani_GO  ],
+				function ($message) use ($uprava, $employee) {
+					$message->to($uprava)
+						->from('info@duplico.hr', 'Duplico')
+						->subject('Ispravak zahtjeva - ' .  $employee->first_name . ' ' .  $employee->last_name);
+				}
+			);
+			
 			/*foreach($nadređene_osobe as $key => $nadređena_osoba){
 				Mail::queue(
 				'email.zahtjevGO',
@@ -360,9 +380,9 @@ class VacationRequestController extends GodisnjiController
 			);*/
 		}
 			
-			$message = session()->flash('success', 'Podaci su ispravljeni');
-			
-			return redirect()->route('admin.dashboard')->withFlashMessage($message);
+		$message = session()->flash('success', 'Podaci su ispravljeni');
+		
+		return redirect()->route('admin.dashboard')->withFlashMessage($message);
 		
     }
 
@@ -401,6 +421,8 @@ class VacationRequestController extends GodisnjiController
 		$employee = Employee::where('employees.id', $employee_id)->first();
 		$mail = $employee->email;
 		
+		$uprava = 'uprava@duplico.hr';
+		
 		$data = array(
 			'odobreno'  		=>  $_GET['odobreno'],
 			'odobrio_id'    	=> $_GET['user_id'],
@@ -426,11 +448,37 @@ class VacationRequestController extends GodisnjiController
 			$zahtjev2 = 'slobodan dan';
 		}
 		
+		$user = Sentinel::getUser();
+		$odobrio = $user->first_name . ' ' . $user->last_name ;
+		$ime = $employee->first_name . ' ' . $employee->last_name;
+		
 		Mail::queue(
 			'email.zahtjevOD',
-			['employee' => $employee,'vacationRequest' => $vacationRequest,'mail' => $mail, 'odobrenje' => $odobrenje, 'zahtjev2' => $zahtjev2, 'razlog'=> $_GET['razlog']],
+			['employee' => $employee,'vacationRequest' => $vacationRequest,'mail' => $mail, 'odobrenje' => $odobrenje, 'zahtjev2' => $zahtjev2, 'razlog'=> $_GET['razlog'], 'odobrio' => $odobrio, 'ime' => $ime],
 			function ($message) use ($mail, $employee) {
 				$message->to($mail)
+					->from('info@duplico.hr', 'Duplico')
+					->subject('Odobrenje zahtjeva');
+			}
+		);
+		
+		Mail::queue(
+			'email.zahtjevOD2',
+			['employee' => $employee,'vacationRequest' => $vacationRequest,'mail' => $mail, 'odobrenje' => $odobrenje, 'zahtjev2' => $zahtjev2, 'razlog'=> $_GET['razlog'], 'odobrio' => $odobrio, 'ime' => $ime],
+			function ($message) use ($uprava, $employee) {
+				$message->to($uprava)
+					->from('info@duplico.hr', 'Duplico')
+					->subject('Odobrenje zahtjeva');
+			}
+		);
+		
+		$proba = array('jelena.juras@duplico.hr');
+		
+		Mail::queue(
+			'email.zahtjevOD2',
+			['employee' => $employee,'vacationRequest' => $vacationRequest,'mail' => $mail, 'odobrenje' => $odobrenje, 'zahtjev2' => $zahtjev2, 'razlog'=> $_GET['razlog'], 'odobrio' => $odobrio, 'ime' => $ime],
+			function ($message) use ($proba, $employee) {
+				$message->to($proba)
 					->from('info@duplico.hr', 'Duplico')
 					->subject('Odobrenje zahtjeva');
 			}

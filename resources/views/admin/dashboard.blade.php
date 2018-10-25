@@ -14,13 +14,13 @@
 			<a class="" href="{{ route('admin.vacation_requests.index') }}"  ><span>Godišnji odmor i izostanci</span></a>
 		</div>
 		<div class="dashboard_box2">
-			<a class="" href="{{ route('admin.afterHours.index') }}"  ><span>Prekovremeni rad</span></a>
+			<a class="" href="{{ route('admin.afterHours.index') }}"><span>Prekovremeni rad</span></a>
 		</div>
 		<div class="dashboard_box2">
 			<a class="" href="{{ route('admin.posts.index') }}"  ><span>Poruke</span></a>
 		</div>
 <!-- Zahtjevi GO -->		
-		<div class="zahtjUnos" >
+		<div class="zahtjUnos">
 			<a class="" href="{{ route('admin.vacation_requests.create') }}"  >
 				Unesi novi zahtjev </a>
 		</div>
@@ -94,7 +94,6 @@
 						<thead>
 							<tr>
 								<th>Ime i prezime</th>
-								<th class="disp_none">Datum zahtjeva</th>
 								<th>Od - Do</th>
 								<th>Zahtjev</th>
 								<th>Napomena</th>
@@ -104,9 +103,8 @@
 						</thead>
 						@foreach($zahtjeviD as $zahtjevD)
 							<tbody>
-								@if($zahtjevD->zahtjev == 'GO' & date('Y', strtotime( $zahtjevD->GOzavršetak)) == $ova_godina)
+								@if(date('Y', strtotime( $zahtjevD->GOzavršetak)) == $ova_godina)
 								<tr><td>{{ $zahtjevD->employee['first_name'] . ' ' . $zahtjevD->employee['last_name'] }}</td>
-									<td class="disp_none">{{ date('d.m.Y.', strtotime( $zahtjevD->created_at)) }}</td>
 									<td>{{ date('d.m.Y.', strtotime( $zahtjevD->GOpocetak)) }}<br>
 									@if($zahtjevD->GOzavršetak != $zahtjevD->GOpocetak ){{ date('d.m.Y.', strtotime( $zahtjevD->GOzavršetak)) }}
 									@elseif( $zahtjevD->zahtjev != 'GO')

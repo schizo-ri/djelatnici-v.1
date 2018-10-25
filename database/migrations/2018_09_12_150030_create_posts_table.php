@@ -20,6 +20,8 @@ class CreatePostsTable extends Migration
 			$table->string('title');
 			$table->text('content');
 			$table->timestamps();
+			$table->foreign('employee_id')->references('id')->on('employees');
+			$table->foreign('to_employee_id')->references('id')->on('employees');
         });
     }
 

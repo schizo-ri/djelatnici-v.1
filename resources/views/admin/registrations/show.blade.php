@@ -1,24 +1,12 @@
-<!DOCTYPE html>
-<html lang="hr">
-	<head>
-		<meta charset="utf-8">
-	</head>
-<style>
-#padding {
-    padding-left: 1cm;
+@extends('layouts.admin')
 
-}
-body { 
-	font-family: DejaVu Sans, sans-serif;
-	font-size: 14px;
-}
-
-</style>
-
-<body id="padding">
-</br>
-</br>
-</br>
+@section('title', 'Zahtjev')
+<link rel="stylesheet" href="{{ URL::asset('css/create.css') }}"/>
+@section('content')
+<a class="btn btn-md pull-left" href="{{ url()->previous() }}">
+	<i class="fas fa-angle-double-left"></i>
+	Natrag
+</a>
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-10">
             <div class="panel-heading">
@@ -57,6 +45,8 @@ body {
 				@endif
 				</br>
 				<p><b>Radno mjesto: </b>{{  $registration->work['odjel'] . ' - '. $registration->work['naziv'] }}</p>
+				<p><b>Efektivna cijena sata: </b>{{  number_format($registration->ech['effective_cost'],2,",",".") . ' kn' }}</p>
+				<p><b>Brutto godišnja plaća: </b>{{  number_format($registration->ech['brutto'],2,",",".") . ' kn'  }}</p>
 				<p><b>Liječnički pregled: </b>{{ date('d.m.Y', strtotime($registration->employee['lijecn_pregled'] ))  }}</p>
 				<p><b>Zaštita na radu: </b>{{ date('d.m.Y', strtotime($registration->employee['ZNR'] ))  }}</p>
 				</br>
@@ -77,3 +67,4 @@ body {
 	
 	</body>
 </html>
+@stop

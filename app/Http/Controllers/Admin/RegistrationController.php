@@ -45,7 +45,7 @@ class RegistrationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
 		$employees = Employee::get();
 		return view('admin.registrations.create')->with('employees', $employees);
@@ -86,9 +86,9 @@ class RegistrationController extends Controller
 		$prezime = $djelatnik->last_name;
 		$work = Work::leftjoin('users','users.id','works.user_id')->where('works.id',$djelatnik->radnoMjesto_id)->first();
 		
-		//$zaduzene_osobe = array('andrea.glivarec@duplico.hr','petrapaola.bockor@duplico.hr','jelena.juras@duplico.hr','uprava@duplico.hr','matija.barberic@duplico.hr');
+		$zaduzene_osobe = array('andrea.glivarec@duplico.hr','marica.posaric@duplico.hr','jelena.juras@duplico.hr','uprava@duplico.hr','matija.barberic@duplico.hr');
 		
-		$zaduzene_osobe = array('jelena.juras@duplico.hr','jelena.juras@duplico.hr');
+		//$zaduzene_osobe = array('jelena.juras@duplico.hr','jelena.juras@duplico.hr');
 		
 		foreach($zaduzene_osobe as $key => $zaduzena_osoba){
 			Mail::queue(
@@ -101,7 +101,7 @@ class RegistrationController extends Controller
 			);
 		}	
 		
-	/*	$zaduzen = ('tomislav.novosel@duplico.hr');
+		$zaduzen = ('tomislav.novosel@duplico.hr');
 		$ime1 = $work->first_name;
 		$prezime1 = $work->last_name;
 		
@@ -112,7 +112,7 @@ class RegistrationController extends Controller
 			$message->to($zaduzen)
 				->subject('Novi djelatnik - prijava');
 		}
-		);*/
+		);
 
 		$message = session()->flash('success', 'Novi djelatnik je prijavljen');
 		

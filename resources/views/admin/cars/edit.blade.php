@@ -33,21 +33,13 @@
 				<input class="date form-control" placeholder="Prva registracija" type="text" name="prva_registracija" value="{{ $vozilo->prva_registracija }}">
 				{!! ($errors->has('prva_registracija') ? $errors->first('prva_registracija', '<p class="text-danger">:message</p>') : '') !!}
 			</div>
-			<script type="text/javascript">
-				$('.date').datepicker({  
-				   format: 'yyyy-mm-dd'
-				 });  
-			</script>  
+			
 			<div class="form-group">
 				<label>Zadnja registracija</label>
 				<input class="date form-control" placeholder="Zadnja registracija" type="text" name="zadnja_registracija" value="{{ $vozilo->zadnja_registracija }}">
 				{!! ($errors->has('zadnja_registracija') ? $errors->first('zadnja_registracija', '<p class="text-danger">:message</p>') : '') !!}
 			</div>
-			<script type="text/javascript">
-				$('.date').datepicker({  
-				   format: 'yyyy-mm-dd'
-				 });  
-			</script> 
+			
 			<div class="form-group">
 				<label>Zadnji servis</label>
 				<input class="date form-control" placeholder="Zadnji servis" type="text" name="zadnji_servis" value="{{ $vozilo->zadnji_servis }}">
@@ -57,10 +49,7 @@
 				<label>Trenutni kilometri</label>
 				<input class="form-control" placeholder="Trenutni kilometri" name="trenutni_kilometri" type="text" value="{{ $vozilo->trenutni_kilometri }}" />
 			</div>
-			<div class="form-group">
-				<label>Zadnji servis</label>
-				<input class="date form-control" type="date" placeholder="Zadnji servis" name="zadnji_servis" value="{{ $vozilo->zadnji_servis }}" />
-			</div>
+		
 			<script type="text/javascript">
 				$('.date').datepicker({  
 				   format: 'yyyy-mm-dd'
@@ -76,7 +65,7 @@
 					@endif
 						<option value="0"></option>
 					@foreach ($employees as $employee)
-						<option name="user_id" value="{{ $employee->id }}" {!! ($vozilo->user == $employee->id ? 'selected ': '') !!}>{{ $employee->first_name . " " . $employee->last_name }}</option>
+						<option name="user_id" value="{{ $employee->id }}" {!! ($vozilo->user_id == $employee->id ? 'selected ': '') !!}>{{ $employee->first_name . " " . $employee->last_name }}</option>
 					@endforeach
 				</select>
 			</div>

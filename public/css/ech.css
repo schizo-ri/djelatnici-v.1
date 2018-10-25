@@ -1,0 +1,26 @@
+.ech input {
+	padding:5px;
+	border-radius: 5px;
+	text-align:right;
+}
+
+.ech form span{
+	display: inline-block;
+    width: 25%;
+}
+
+.ech input:not[type=submit]{
+	width: 25%;
+}
+
+.ech form {
+	width:100%;
+	margin:5px;;
+}
+
+.ech input[type=submit]{
+	background-color:inherit;
+	border:none;
+	color:green;
+	font-size:14px;
+}

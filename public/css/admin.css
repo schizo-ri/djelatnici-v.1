@@ -1,15 +1,22 @@
 /* CSS admin */
 html {
 	font-size:14px;
+	min-height: 100vh;
 }
 body {
     font-family: "Arial", sans-serif;
-	background: #ddd;
+	background: #fff;
+	min-height: 100vh;
+}
+
+body .Body_section {
+	height: 100%;
 }
 
 .page-header{
 	margin: 20px 0;
 }
+
 .sidenav {
     height: 100%;
     width: 0;
@@ -87,6 +94,7 @@ header {
     font-size: 35px;
     color: white;
 	position:relative;
+	height: 100px;
 }
 
 header ul {
@@ -111,6 +119,7 @@ nav {
 .topnav {
 	position:relative;
 	padding: 10px 20px;
+	height: 100%;
 }
 .topnav a{
 	color: black;
@@ -132,7 +141,7 @@ nav {
 
 article {
     padding: 20px;
-    background: #ddd;
+    background: #fff;
 }
 
 article:nth-child(2){
@@ -140,7 +149,6 @@ article:nth-child(2){
 	height:auto;
 	background: white;
 	min-height: 900px;
-	text-align:center;
 }
 /* Clear floats after the columns */
 section:after {
@@ -165,14 +173,16 @@ footer {
 }
 
 @media screen and (max-width: 766px) {
-  .topnav a:not(:first-child) {display: none;}
-  .topnav a.icon {
-    float: right;
-    display: block;
-  }
-  .topnav a:first-child{
-	display: inline-block;
-  }
+    .topnav a:not(:first-child) {
+	  display: none;
+	}
+    .topnav a.icon {
+		float: right;
+		display: block;
+    }
+	.topnav a:first-child{
+		display: inline-block;
+	}
 }
 
 @media screen and (max-width: 766px) {
@@ -182,6 +192,9 @@ footer {
     right: 20px;
     top: 10px;
   }
+  body .Body_section {
+		height:auto;
+	}
   .topnav.responsive a {
     float: none;
     display: block;
@@ -194,6 +207,9 @@ footer {
 		height:auto;
 		min-height:550px;
 		padding:10px;
+	}
+	body .Body_section {
+		height:auto;
 	}
 	.forma{
 		margin:0;
@@ -222,14 +238,10 @@ footer {
 
 } 
 
-.notice { 
-	margin: 20px 0;
-    background-color: #f5f5f5;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #aaa;
-    box-shadow: 5px 5px 5px #aaa;
+.adminContent a{
+	color:#336781;
 }
+
 .notices {
 	margin-top:20px;
 	color:#337ab7;
@@ -256,4 +268,44 @@ a span, a i {
 
 .projekti a:hover {
 	color:#555;
+}
+
+.panel {
+	border:1px solid #bbb; 
+	box-shadow: 5px 5px 5px #ccc;
+}
+
+header ul {
+	list-style:none;
+}
+
+header ul li {
+	display:inline-block;
+	padding:0 10px;
+}
+
+.topnav .collapsible {
+	text-align:left;
+	padding-left:5px;
+}
+
+.adminContent {
+	padding-left: 20px;
+    padding-bottom: 20px;
+}
+.padding20 {
+	margin-bottom:20px;
+}
+.naslov {
+	font-weight:bold;
+}
+
+.poruke {
+	background-color:#eee;
+	border:1px solid #ccc;
+	box-shadow: 5px 5px 5px #ccc;
+	border-radius:5px;
+	padding:5px;
+	display: block;
+    margin: 10px 0;
 }

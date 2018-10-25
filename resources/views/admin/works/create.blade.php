@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title', 'Novo radno mjesto')
-
+<link rel="stylesheet" href="{{ URL::asset('css/create.css') }}"/>
 @section('content')
 
 <div class="page-header">

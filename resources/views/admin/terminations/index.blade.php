@@ -63,9 +63,7 @@ table, td, th, tr {
 					{{'Nema podataka!'}}
 				@endif
             </div>
-			{!! $terminations->render() !!}
         </div>
     </div>
 </div>
-
 @stop

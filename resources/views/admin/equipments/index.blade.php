@@ -65,25 +65,13 @@ table, td, th, tr {
                                 </td>
                             </tr>
                         @endforeach
-						<script>
-						$(document).ready(function(){
-						  $("#myInput").on("keyup", function() {
-							var value = $(this).val().toLowerCase();
-							$("#myTable tr").filter(function() {
-							  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-							});
-						  });
-						});
-						</script>
                     </tbody>
                 </table>
 				@else
 					{{'Nema podataka!'}}
 				@endif
             </div>
-			{!! $equipments->render() !!}
         </div>
     </div>
 </div>
-
 @stop

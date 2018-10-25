@@ -3,6 +3,10 @@
 @section('title', 'Prekorad')
 <link rel="stylesheet" href="{{ URL::asset('css/vacations.css') }}" type="text/css" >
 @section('content')
+<a class="btn btn-md pull-left" href="{{ url()->previous() }}">
+		<i class="fas fa-angle-double-left"></i>
+		Natrag
+</a>
 
 <div class="">
     <div class="page-header">
@@ -55,46 +59,17 @@
 									</td>
 								</tr>
 							@endforeach
-							
-							<script>
-							$(document).ready(function(){
-							  $("#myInput").on("keyup", function() {
-								var value = $(this).val().toLowerCase();
-								$("#myTable tr").filter(function() {
-								  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-								});
-							  });
-							});
-							</script>
 						</tbody>
 					</table>
-
-						<p class="SLD">Ukupan broj slobodnih dana  {{  $slobodni_dani }}</p>
-						<p class="SLD">Iskorišteno slobodnih dana  {{  $koristeni_slobodni_dani }}</p>
-						<p class="SLD">Preostali slobodni dani  {{  $slobodni_dani - $koristeni_slobodni_dani }}</p>
-					
 				@else
-					{{'Nema podataka!'}}
+					{{'Nema neodobrenih evidencija!'}}
 				@endif
+				<p class="SLD">Ukupan broj slobodnih dana  {{  $slobodni_dani }}</p>
+				<p class="SLD">Iskorišteno slobodnih dana  {{  $koristeni_slobodni_dani }}</p>
+				<p class="SLD">Preostali slobodni dani  {{  $slobodni_dani - $koristeni_slobodni_dani }}</p>
             </div>
-			
         </div>
     </div>
 </div>
-<script>
-var coll = document.getElementsByClassName("collapsible");
-var i;
 
-for (i = 0; i < coll.length; i++) {
-  coll[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var content = this.nextElementSibling;
-    if (content.style.display === "block") {
-      content.style.display = "none";
-    } else {
-      content.style.display = "block";
-    }
-  });
-}
-</script>
 @stop

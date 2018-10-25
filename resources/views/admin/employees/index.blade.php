@@ -92,8 +92,8 @@ table, td, th, tr {
 											Ispravi
 										</a>
 										<a href="{{ route('admin.registrations.create', $employee->id) }}" class="btn  btn-md btn-block">
-                                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                        Prijavi radnika
+											<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+											Prijavi radnika
 										</a>
 										<a href="{{ route('admin.employees.destroy', $employee->id) }}" class="btn btn-danger btn-md btn-block action_confirm" data-method="delete" data-token="{{ csrf_token() }}">
 											<i class="far fa-trash-alt"></i>
@@ -105,17 +105,7 @@ table, td, th, tr {
 							<?php $i++ ?>
 							@endif
                         @endforeach
-						<script>
-						$(document).ready(function(){
-						  $("#myInput").on("keyup", function() {
-							var value = $(this).val().toLowerCase();
-							$("#myTable tr").filter(function() {
-							  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-							});
-						  });
-						});
-						</script>
-                    </tbody>
+					</tbody>
                 </table>
 				@else
 					{{'Nema podataka!'}}
@@ -125,5 +115,4 @@ table, td, th, tr {
         </div>
     </div>
 </div>
-
 @stop

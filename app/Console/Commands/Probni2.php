@@ -57,7 +57,7 @@ class Probni2 extends Command
 				Mail::queue('email.Probni', ['djelatnik' => $djelatnik, 'ime' => $ime, 'prezime' => $prezime], function ($mail) use ($djelatnik ) {
 					$mail->to('uprava@duplico.hr')
 						->cc('andrea.glivarec@duplico.hr')
-						->cc('petrapaola.bockor@duplico.hr')
+						->cc('matija.barberic@duplico.hr')
 						->cc('jelena.juras@duplico.hr')
 						->from('info@duplico.hr', 'Duplico')
 						->subject('Probni ' . ' ' . ' rok' . $djelatnik->first_name . ' ' . $djelatnik->last_name);

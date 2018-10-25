@@ -24,6 +24,8 @@ class CreateRegistrationsTable extends Migration
 			$table->date('ZNR')->nullable();
 			$table->string('napomena')->nullable($value = true);
             $table->timestamps();
+			$table->foreign('employee_id')->references('id')->on('employees');
+			$table->foreign('radnoMjesto_id')->references('id')->on('works');
         });
     }
 

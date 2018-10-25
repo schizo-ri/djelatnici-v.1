@@ -15,16 +15,23 @@
                     <div class="form-group {{ ($errors->has('title')) ? 'has-error' : '' }}">
 						<select class="form-control" name="to_employee_id" id="sel1" value="{{ old('to_employee_id') }}">
 							<option selected="selected" value="">Prima...</option>
+							<option name="uprava" value="uprava">Uprava</option>
+							<option name="svi" value="svi">Svi zaposlenici</option>
 							@foreach ($registrations as $djelatnik)
 								@if(!DB::table('employee_terminations')->where('employee_id',$djelatnik->employee_id)->first() )
-									<option name="employee_id" value="{{ $djelatnik->employee_id }}">{{ $djelatnik->employee['last_name'] . ' ' . $djelatnik->employee['first_name'] }}</option>
+									<option name="to_employee_id" value="{{ $djelatnik->employee_id }}">{{ $djelatnik->employee['last_name'] . ' ' . $djelatnik->employee['first_name'] }}</option>
 								@endif
 							@endforeach	
-						
 						</select>
 					</div>
 					<div class="form-group {{ ($errors->has('title')) ? 'has-error' : '' }}">
-                        <input class="form-control" placeholder="Post title" name="title" type="text" value="{{ old('title') }}" />
+                        <input class="form-control" name="title" list="post">
+							<datalist id="post">
+								<option value="Poruka zaposleniku">
+								<option value="Prijedlog upravi">
+								<option value="Poruka svima">
+							</datalist>
+						<!--<input class="form-control" placeholder="Post title" name="title" type="text" value="{{ old('title') }}" />-->
                         {!! ($errors->has('title') ? $errors->first('title', '<p class="text-danger">:message</p>') : '') !!}
                     </div>
                     <div class="form-group {{ ($errors->has('content')) ? 'has-error' : '' }}">
