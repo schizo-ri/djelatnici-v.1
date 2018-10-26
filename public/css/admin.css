@@ -3,14 +3,15 @@ html {
 	font-size:14px;
 	min-height: 100vh;
 }
+
 body {
     font-family: "Arial", sans-serif;
 	background: #fff;
 	min-height: 100vh;
 }
 
-body .Body_section {
-	height: 100%;
+.Body_section {
+	height: 100vh;
 }
 
 .page-header{
@@ -94,7 +95,6 @@ header {
     font-size: 35px;
     color: white;
 	position:relative;
-	height: 100px;
 }
 
 header ul {
@@ -121,6 +121,7 @@ nav {
 	padding: 10px 20px;
 	height: 100%;
 }
+
 .topnav a{
 	color: black;
 	padding: 5px 0;
@@ -183,23 +184,24 @@ footer {
 	.topnav a:first-child{
 		display: inline-block;
 	}
-}
-
-@media screen and (max-width: 766px) {
-  .topnav.responsive {position: relative;}
-  .topnav.responsive .icon {
-    position: absolute;
-    right: 20px;
-    top: 10px;
-  }
-  body .Body_section {
+	.topnav.responsive {position: relative;}
+	.topnav.responsive .icon {
+		position: absolute;
+		right: 20px;
+		top: 10px;
+	}
+	body .Body_section {
 		height:auto;
 	}
-  .topnav.responsive a {
-    float: none;
-    display: block;
-    text-align: left;
-  }
+	.topnav.responsive a {
+		float: none;
+		display: block;
+		text-align: left;
+	}
+	.topnav {
+		height:auto;
+	}
+	
 }
 
 @media screen and (max-width: 420px){
@@ -301,11 +303,31 @@ header ul li {
 }
 
 .poruke {
-	background-color:#eee;
+	background:#eee;
 	border:1px solid #ccc;
 	box-shadow: 5px 5px 5px #ccc;
 	border-radius:5px;
 	padding:5px;
 	display: block;
     margin: 10px 0;
+	width:100%;
+	text-align:left;
+	padding: 5px;
+	position:relative;
+	transition: 0.5s;
+}
+
+.poruke:hover {
+	background:#d9d9d9;
+}
+
+.poruke i {
+	padding-left:15px;
+	padding-top:3px;
+	position:absolute;
+	right: 10px;
+}
+
+.collapse a {
+	padding-left:10px;
 }

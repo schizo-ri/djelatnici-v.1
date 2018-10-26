@@ -25,7 +25,7 @@
 						</tr>
 					</thead>
 					@foreach($vacationRequests as $vacationRequest)
-						<tbody>
+						<tbody id="myTable">
 							<tr>
 								<td>
 									<a href="{{ route('admin.vacation_requests.edit', $vacationRequest->id) }}" class="">
@@ -92,6 +92,4 @@
     </div>
 	
 </div>
-<script src="{{ asset('js/datatable.js') }}"></script>
-<script src="{{ asset('js/collaps.js') }}"></script>
 @stop

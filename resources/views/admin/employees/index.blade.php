@@ -91,7 +91,7 @@ table, td, th, tr {
 											<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
 											Ispravi
 										</a>
-										<a href="{{ route('admin.registrations.create', $employee->id) }}" class="btn  btn-md btn-block">
+										<a href="{{ route('admin.registrations.create', ['id' => $employee->id ]) }}" class="btn  btn-md btn-block">
 											<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
 											Prijavi radnika
 										</a>

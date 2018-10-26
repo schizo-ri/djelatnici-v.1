@@ -45,10 +45,11 @@ class RegistrationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create(Request $request)
     {
-		$employees = Employee::get();
-		return view('admin.registrations.create')->with('employees', $employees);
+		$employee = Employee::where('id', $request->id)->first();
+		
+		return view('admin.registrations.create',['employee' => $employee]);
     }
 
     /**
@@ -60,15 +61,19 @@ class RegistrationController extends Controller
     public function store(RegistrationRequest $request)
     {
         $input = $request->except(['_token']);
-		//dd($input);
 		
-		
+		if($input['stazY'].'-'.$input['stazM'].'-'.$input['stazD'] == '--'){
+			$staz = '0-0-0';
+		}else {
+			$staz = $input['stazY'].'-'.$input['stazM'].'-'.$input['stazD'];
+		}
+	
 		$data = array(
 			'employee_id'  		=> $input['employee_id'],
 			'radnoMjesto_id'    => $input['radnoMjesto_id'],
 			'datum_prijave'		=> date("Y-m-d", strtotime($input['datum_prijave'])),
 			'probni_rok'  		=> $input['probni_rok'],
-			'staz'   			=> $input['stazY'].'-'.$input['stazM'].'-'.$input['stazD'],
+			'staz'   			=> $staz,
 			'lijecn_pregled'    => date("Y-m-d", strtotime($input['lijecn_pregled'])),
 			'ZNR'      			=> date("Y-m-d", strtotime($input['ZNR'])),
 			'napomena'  	    => $input['napomena']
@@ -113,7 +118,11 @@ class RegistrationController extends Controller
 				->subject('Novi djelatnik - prijava');
 		}
 		);
-
+		
+		// Create directory
+		$path = 'storage/' . $prezime . '_' . $ime;
+		mkdir($path);
+	
 		$message = session()->flash('success', 'Novi djelatnik je prijavljen');
 		
 		//return redirect()->back()->withFlashMessage($messange);
@@ -225,6 +234,5 @@ class RegistrationController extends Controller
 	$registration = Registration::find($id);
 	$pdf = PDF::loadView('admin.registrations.show', compact('registration'));
 	return $pdf->download('djelatnik_'. $registration->id .'.pdf');
-
 	}
 }

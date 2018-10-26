@@ -1,0 +1,36 @@
+.dokumenti {
+	padding:30px;
+}
+input[type="file"]{
+	margin: 10px 0;
+	display:block;
+}
+input[type="submit"] {
+	padding:5px;
+	border-radius: 5px;
+	background-color:#eee;
+}
+
+.documents {
+	text-align:left;
+}
+
+.documents h3 {
+	text-align:center;
+}
+
+.document h4 {
+	font-weight:bold;
+	color:#0c6c9b;
+	border-bottom:1px solid #ccc;
+
+}
+.documents img {
+	max-width:100%;
+}
+
+.djelatnik {
+	width:50%;
+	border-radius:5px;
+	padding: 5px;
+}

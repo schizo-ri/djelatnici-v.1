@@ -16,3 +16,13 @@ use Illuminate\Http\Request;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
+
+Route::get('/data', 'GanttController@get');
+
+Route::get('/data', 'GanttController@get');
+Route::resource('task', 'TaskController');
+
+Route::get('/data', 'GanttController@get');
+Route::resource('task', 'TaskController');
+Route::resource('link', 'LinkController');
+

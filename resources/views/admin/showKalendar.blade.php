@@ -7,7 +7,6 @@
 	 <div class='btn-toolbar'>
 		<a class="btn btn-md" href="{{ route('home') }}">
 			<i class="fas fa-home"></i>
-			
 		</a>
 		<a class="btn btn-md" href="{{ url()->previous() }}">
 			<i class="fas fa-angle-double-left"></i>
@@ -35,7 +34,6 @@
 								@foreach($list as $value)
 								<?php 
 								$dan1 = date('D', strtotime($value));
-								
 								switch ($dan1) {
 									 case 'Mon':
 										$dan = 'P';
@@ -93,7 +91,6 @@
 													@endif
 											@endforeach
 										@endfor
-
 										</td>
 									@endforeach
 								</tr>

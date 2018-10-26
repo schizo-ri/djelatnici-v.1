@@ -75,6 +75,6 @@ class SessionController extends Controller
         $result = $this->authManager->logout(null, null);
 
         // Return the appropriate response
-        return $result->dispatch(route('index'));
+        return $result->dispatch(route('auth.login.form'));
     }
 }

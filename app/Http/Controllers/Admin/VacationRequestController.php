@@ -217,7 +217,7 @@ class VacationRequestController extends GodisnjiController
 			$message = session()->flash('success', 'Zahtjev je poslan');
 			
 			//return redirect()->back()->withFlashMessage($messange);
-			return redirect()->route('admin.dashboard')->withFlashMessage($message);
+			return redirect()->route('home')->withFlashMessage($message);
 		}
 
     }

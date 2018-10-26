@@ -15,11 +15,6 @@
   <h2>Prijava radnika</h2>
 </div> 
 <div class="">
-<?php 
-$employee_id = substr(URL::full(),strpos(URL::full(),'?')+1);
-$employee = $employees->where('id', $employee_id)->first();
-?>
-
 	<div class="col-md-6 col-md-offset-3">
 		<div class="panel panel-default">
 			<div class="panel-body">
@@ -27,7 +22,7 @@ $employee = $employees->where('id', $employee_id)->first();
 					<div class="form-group">
 						<span><b>Ime i prezime:</b></span>
 						<span>{{ $employee->first_name . ' ' . $employee->last_name }}</span>
-						<input type="hidden" name="employee_id" type="text" class="form-control" value="{{ $employee_id }}">
+						<input type="hidden" name="employee_id" type="text" class="form-control" value="{{ $employee->id }}">
 					</div>
 					<div class="form-group {{ ($errors->has('radnoMjesto_id'))  ? 'has-error' : '' }}">
 						<span><b>Radno mjesto:</b></span>

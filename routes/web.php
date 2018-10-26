@@ -273,7 +273,13 @@ Route::get('/zaduzenje_pdf/{employee_id}','Admin\EmployeeEquipmentController@zad
 //pdf_Prijava
 Route::get('/prijava_pdf/{employee_id}','Admin\EmployeeController@prijava_pdf');
 
+Route::get('/{id}','DocumentController@generate_pdf');
+
 Route::get('admin/confirmation', ['as' => 'admin.confirmation', 'uses' => 'Admin\VacationRequestController@storeConf']);
 Route::get('admin/confirmationAfter', ['as' => 'admin.confirmationAfter', 'uses' => 'Admin\AfterHoursController@storeConf']);
 
 Route::get('admin/showKalendar', ['as' => 'admin.showKalendar', 'uses' => 'Admin\MeetingController@showKalendar']);
+
+Route::get('/', function () {
+    return view('gantt');
+});
