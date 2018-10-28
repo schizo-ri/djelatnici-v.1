@@ -15,8 +15,8 @@ class CreateEmployeeEquipmentTable extends Migration
     {
 		Schema::create('employee_equipments', function (Blueprint $table) {
             $table->increments('id');
-			$table->integer('employee_id');
-			$table->integer('equipment_id');
+			$table->integer('employee_id')->unsigned();
+			$table->integer('equipment_id')->unsigned();
 			$table->integer('kolicina');
 			$table->date('datum_zaduzenja')->nullable();
 			$table->date('datum_povrata')->nullable();

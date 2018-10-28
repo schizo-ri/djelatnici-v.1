@@ -16,7 +16,7 @@ class CreateJobInterviews extends Migration
         Schema::create('job_interviews', function (Blueprint $table) {
 			$table->increments('id');
 			$table->date('datum')->nullable($value = true);
-			$table->integer('employee_id')->nullable($value = true);
+			$table->integer('employee_id')->unsigned()->nullable($value = true);
 			$table->string('oib')->nullable($value = true);
 			$table->string('email')->nullable($value = true);
 			$table->string('telefon')->nullable($value = true);

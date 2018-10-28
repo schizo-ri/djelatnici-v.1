@@ -15,8 +15,8 @@ class CreateEmployeeTerminationsTable extends Migration
     {
 		Schema::create('employee_terminations', function (Blueprint $table) {
             $table->increments('id');
-			$table->integer('employee_id');
-			$table->integer('otkaz_id');
+			$table->integer('employee_id')->unsigned();
+			$table->integer('otkaz_id')->unsigned();
 			$table->string('otkazni_rok');
 			$table->date('datum_odjave');
 			$table->string('napomena')->nullable($value = true);

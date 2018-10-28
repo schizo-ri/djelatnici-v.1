@@ -12,5 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(SentinelDatabaseSeeder::class);
+        $this->call(TasksTableSeeder::class);
+        $this->call(LinksTableSeeder::class);
     }
 }

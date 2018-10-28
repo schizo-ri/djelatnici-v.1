@@ -25,16 +25,17 @@ class ShedulerRequest extends FormRequest
     {
         return [
             'datum'   => 'required',
-			'employee_id'   => 'required',
-			'project_id'   => 'required'
+            'employee_id'   => 'required',
+            'project_id'   => 'required'
         ];
     }
-	
-	public function messages()
-	{
-		return [
-			'datum.required'   => 'Unos datuma je obavezan!',
-			'employee_id.required'  => 'Unos zaposlenika je obavezan!',
-			'project_id.required' => 'Unos projekta je obavezan!'
-		];
-	}
+    
+    public function messages()
+    {
+        return [
+            'datum.required'   => 'Unos datuma je obavezan!',
+            'employee_id.required'  => 'Unos zaposlenika je obavezan!',
+            'project_id.required' => 'Unos projekta je obavezan!'
+        ];
+    }
+}

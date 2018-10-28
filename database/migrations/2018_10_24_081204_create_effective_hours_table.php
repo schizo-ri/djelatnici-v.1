@@ -13,13 +13,13 @@ class CreateEffectiveHoursTable extends Migration
      */
     public function up()
     {
-         Schema::create('effective_hours', function (Blueprint $table) {
-			$table->increments('id');
-			$table->integer('employee_id')->nullable($value = true);
-			$table->double('effective_cost', 8, 2);
-			$table->double('brutto', 8, 2);
-			$table->timestamps();
-		});
+        Schema::create('effective_hours', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('employee_id')->unsigned()->nullable($value = true);
+            $table->double('effective_cost', 8, 2);
+            $table->double('brutto', 8, 2);
+            $table->timestamps();
+        });
     }
 
     /**

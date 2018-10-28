@@ -15,17 +15,17 @@ class CreateRegistrationsTable extends Migration
     {
         Schema::create('registrations', function (Blueprint $table) {
             $table->increments('id');
-			$table->integer('employee_id');
-			$table->integer('radnoMjesto_id');
-			$table->date('datum_prijave');
-			$table->integer('probni_rok')->nullable($value = true);
-			$table->string('staz')->nullable($value = true);
-			$table->date('lijecn_pregled')->nullable();
-			$table->date('ZNR')->nullable();
-			$table->string('napomena')->nullable($value = true);
+            $table->integer('employee_id')->unsigned();
+            $table->integer('radnoMjesto_id')->unsigned();
+            $table->date('datum_prijave');
+            $table->integer('probni_rok')->nullable($value = true);
+            $table->string('staz')->nullable($value = true);
+            $table->date('lijecn_pregled')->nullable();
+            $table->date('ZNR')->nullable();
+            $table->string('napomena')->nullable($value = true);
             $table->timestamps();
-			$table->foreign('employee_id')->references('id')->on('employees');
-			$table->foreign('radnoMjesto_id')->references('id')->on('works');
+            $table->foreign('employee_id')->references('id')->on('employees');
+            $table->foreign('radnoMjesto_id')->references('id')->on('works');
         });
     }
 
@@ -36,6 +36,6 @@ class CreateRegistrationsTable extends Migration
      */
     public function down()
     {
-         Schema::drop('registrations');
+        Schema::dropIfExists('registrations');
     }
 }

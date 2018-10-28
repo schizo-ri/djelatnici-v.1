@@ -25,22 +25,22 @@ class WorkRequest extends FormRequest
     {
         return [
             'odjel'  =>'required',
-			'naziv'  =>'required'
-			'user_id'  =>'required'
+            'naziv'  =>'required',
+            'user_id'  =>'required',
         ];
     }
-	
-	/**
-	 * Get the error messages for the defined validation rules.
-	 *
-	 * @return array
-	 */
-	public function messages()
-	{
-		return [
-			'odjel.required' => 'Unos odjela je obavezan',
-			'naziv.required'  => 'Unos naziva radnog mjesta je obavezan'
-			'user_id.required'  => 'Unos nadređene osobe je obavezan'
-		];
-	}
+    
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'odjel.required' => 'Unos odjela je obavezan',
+            'naziv.required'  => 'Unos naziva radnog mjesta je obavezan',
+            'user_id.required'  => 'Unos nadređene osobe je obavezan',
+        ];
+    }
 }

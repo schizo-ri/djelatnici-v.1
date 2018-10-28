@@ -14,18 +14,17 @@ class CreateShedulers extends Migration
     public function up()
     {
         Schema::create('shedulers', function (Blueprint $table) {
-			$table->increments('id');
-			$table->date('datum')->nullable($value = true);
-			$table->integer('employee_id')->nullable($value = true);
-			$table->integer('project_id')->nullable($value = true);
-			$table->integer('car_id')->nullable($value = true);
-			$table->string('napomena')->nullable($value = true);
-			$table->string('mjesto_rada')->nullable($value = true);
-			$table->timestamps();
-			$table->foreign('employee_id')->references('id')->on('employees');
-			$table->foreign('project_id')->references('id')->on('projects');
-		});
-			
+            $table->increments('id');
+            $table->date('datum')->nullable($value = true);
+            $table->integer('employee_id')->unsigned()->nullable($value = true);
+            $table->integer('project_id')->unsigned()->nullable($value = true);
+            $table->integer('car_id')->unsigned()->nullable($value = true);
+            $table->string('napomena')->nullable($value = true);
+            $table->string('mjesto_rada')->nullable($value = true);
+            $table->timestamps();
+            $table->foreign('employee_id')->references('id')->on('employees');
+            // $table->foreign('project_id')->references('id')->on('projects');
+        });
     }
 
     /**

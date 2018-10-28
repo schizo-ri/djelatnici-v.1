@@ -17,12 +17,12 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
 
-Route::get('/data', 'GanttController@get');
+// Route::get('/data', 'Admin\GanttController@get');
 
-Route::get('/data', 'GanttController@get');
-Route::resource('task', 'TaskController');
+// Route::get('/data', 'Admin\GanttController@get');
+// Route::resource('task', 'Admin\TaskController');
 
-Route::get('/data', 'GanttController@get');
-Route::resource('task', 'TaskController');
-Route::resource('link', 'LinkController');
+Route::get('/data', 'Admin\GanttController@get');
+Route::resource('task', 'Admin\TaskController');
+Route::resource('link', 'Admin\LinkController');
 
